@@ -1,24 +1,116 @@
+
 import { createApp } from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
-// import store from './store'
-
-import defaultSettings from './settings'
 import Promobot from '@pb/api'
+import defaultSettings from './settings'
+// import { GetPromobotInstance } from './robot'
 
-// Vue.use(Vuex)
-// Vue.config.productionTip = false
+import { PromobotLogger, EventInitiatorTypes, EventTypes } from 'promobot-logger' // ActionHandlerTypes, ActionTypes
+import storeSettings from './store/index.js'
+
+// import defaultSettings from './settings'
+// import Promobot from '@pb/api'
 
 // создаем константу с настройками
-const settings = Object.assign(defaultSettings, (typeof global.settings !== 'undefined') ? global.settings : {})
+// const settings = Object.assign(defaultSettings, (typeof global.settings !== 'undefined') ? global.settings : {})
 
-// эмулятор
+// createApp(App).use(Vuex).mount('#app')
+/*
+VueElement.use(Vuex)
+VueElement.config.productionTip = false
+*/
+
+const settings = Object.assign(defaultSettings, (typeof global.settings !== 'undefined') ? global.settings : {})
+const urlParams = new URLSearchParams(window.location.search)
+settings.emulator.room = urlParams.get('room')
 const environment = (typeof QWebChannel !== 'undefined') ? 'production' : 'development'
-const robotInstance = (environment === 'development') ? Promobot.getEmulateInstance(settings.emulator) : Promobot.getInstance()
-robotInstance.then(promobot => {
-  promobot.dialogService.sayText('Привет мир')
-  createApp(App).use(Vuex).mount('#app')
+const robotInstance = (environment === 'development')
+  ? Promobot.getEmulateInstance(settings.emulator)
+  : Promobot.getInstance()
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  robotInstance.then(api => {
+    global.robot = api
+    // global.meetService = new MeetService(api)
+    global.logger = PromobotLogger.getInstance()
+    const logger = global.logger
+    let store = null
+    let eventId = null
+
+    api.environmentService.get().then(env => {
+      console.log(env)
+      store = new Vuex.Store(storeSettings(logger, api))
+      // logger
+      logger.setRobotUuid(env.uuid_owner) // id робота
+      logger.setRobotAppId(settings.applicationId) // id приложения
+      logger.setRobotAppVer(settings.applicationVersion) // версия приложения
+      logger.setRobotAppLang(settings.applicationLanguage) // id языка приложения (570 - русский)
+      if (environment === 'development') {
+        logger.addConnection({
+          url: settings.emulator.url,
+          reconnection: settings.emulator.reconnection,
+          secure: settings.emulator.secure,
+          room: settings.emulator.room
+        })
+      }
+      if (environment === 'production') {
+        logger.addConnection({ url: settings.statistic.url, reconnection: settings.statistic.reconnection, secure: settings.statistic.secure })
+      }
+      // event
+      logger.createInteractionSession()
+      logger.createCaseSession()
+      eventId = logger.logEvent(EventInitiatorTypes.ROBOT, EventTypes.ROBOT_LOAD_ENVIRONMENT, env)
+      store.dispatch('robot/setEnvironment', {
+        meta: { eventId: eventId },
+        data: env
+      })
+    }).then(() => {
+      // Vue.createApp(App).mount('#app')
+      /*
+      window.vm = new VueElement({
+        store,
+        render: h => h(App)
+      }).mount('#app')
+      */
+      createApp(App).use(Vuex).use(store).mount('#app')
+    })
+
+    /*
+    const text = 'Hello World!'
+    api.dialogService.sayText(text)
+    // logger.logAction(eventId, ActionHandlerTypes.API, ActionTypes.ROBOT_SAY_TEXT, text)
+
+    const textStart = 'Робот начал говорить'
+    const textFinish = 'Робот закончил говорить'
+    api.dialogService.onRobotReplicStart(() => {
+      console.log(textStart)
+      // logger.logEvent(EventInitiatorTypes.ROBOT, EventTypes.ROBOT_REPLIC_START, textStart)
+    })
+    api.dialogService.onRobotReplicFinish(() => {
+      console.log(textFinish)
+      // logger.logEvent(EventInitiatorTypes.ROBOT, EventTypes.ROBOT_REPLIC_FINISH, textFinish)
+    })
+    */
+
+    // Run
+    // TODO: Спроекттировать архитектуру и взаимосвязи кейса. Чтобы понимать как должен работать проект
+    /*
+    store.dispatch('engine/handlerMoveToState', {
+      meta: { eventId },
+      data: 'INITIAL'
+    })
+
+    global['toggleDebug'] = () => {
+      store.dispatch('engine/setEngineDebug', {
+      // eslint-disable-next-line
+      data: !vm.$store.getters['engine/getEngineDebug']
+      })
+    }
+    */
+  })
 })
+
 // const environment = (typeof QWebChannel !== 'undefined') ? 'production' : 'development'
 // const urlParams = new URLSearchParams(window.location.search)
 // settings.emulator.room = urlParams.get('room')

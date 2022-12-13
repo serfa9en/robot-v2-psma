@@ -1,0 +1,43 @@
+.main-div {
+    position: relative;
+    width: 1280px;
+    height: 800px;
+    border: #3E0E14 1px solid;
+}
+
+/* текст белый */
+.text-white {
+    color: white;
+}
+
+/* основной текст */
+.text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    color: #3E0E14;
+}
+
+/* логотип header */
+
+
+/* цвет footer */
+.footer {
+    background: #EAE8E8;
+}
+
+/* цвет кружка за микрофоном у футера */
+.mic-background {
+    background: #B1A7A6;
+}
+
+/* кнопки */
+.btn-next {
+    background: linear-gradient(180deg, #691B26 0%, #3E0E14 100%);
+    border: 3px solid #3E0E14;
+    border-radius: 10px;
+}
+
+.btn-next:hover {
+    background: linear-gradient(180deg, #85212F 0%, #3E0E14 100%);
+    cursor: pointer;
+}

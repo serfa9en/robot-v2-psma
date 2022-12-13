@@ -1,6 +1,15 @@
-import { createStore } from 'vuex'
+import robotModule from './robot'
+// import { PromobotLogger, EventInitiatorTypes, EventTypes } from 'promobot-logger'
 
-export default createStore({
+export default (logger, api) => ({
+  strict: true,
+  modules: {
+    robot: robotModule
+  },
+  plugins: [
+  ]
+
+  /*
   state: {
   },
   getters: {
@@ -11,4 +20,5 @@ export default createStore({
   },
   modules: {
   }
+  */
 })
