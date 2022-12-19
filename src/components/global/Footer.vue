@@ -1,18 +1,34 @@
 <template>
-    <div class="settings">
+    <div class="settings" v-show= true>
         <div class="settings-subtitles__wrapper footer">
             <div class="settings-subtitles__text">
                 <SubtitlesController />
             </div>
             <div class="settings-subtitles__abort-talk">
                 <span class="microphone mic-background">
-                    <img src='../../assets/img/global/mic.png'/>
+                    <img src='../../assets/img/global/mic.png' class="icon">
                 </span>
                 <span class="right-text text">Прервать</span>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  name: 'footer-component',
+  computed: {
+    ...mapGetters('app', [
+      'getStep'
+    ]),
+    ...mapGetters('ui', [
+      'getFooterEnabled'
+    ])
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .settings {
@@ -71,9 +87,9 @@
             width: 32px;
             border-radius: 100px;
             margin-right: 8px;
-            img {
-                border: #3e3e3e solid 1px;
-            }
+        }
+        .icon {
+          border: 2px solid gray;
         }
         .right-text {
             display: inline-block;

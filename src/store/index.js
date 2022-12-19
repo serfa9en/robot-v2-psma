@@ -1,24 +1,32 @@
-import robotModule from './robot'
-// import { PromobotLogger, EventInitiatorTypes, EventTypes } from 'promobot-logger'
+import robotModule from './modules/robot'
+import applicationModule from './modules/app'
+import engineModule from './modules/engine'
+import uiModule from './modules/ui'
+import handlersModule from './modules/handlers'
 
-export default (logger, api) => ({
+// FEATURES-FACES
+import facesModule from '@/features/faces/module'
+import facesPlugin from '@/features/faces/plugin'
+import facesLogic from '@/features/faces/logic'
+
+import facesController from './controllers/facesController'
+import greetingController from './controllers/greetingController'
+
+export default (logger, promobot) => ({
   strict: true,
   modules: {
-    robot: robotModule
+    robot: robotModule,
+    engine: engineModule,
+    app: applicationModule,
+    ui: uiModule,
+    handlers: handlersModule,
+    face: facesModule
   },
   plugins: [
-  ]
+    facesPlugin(logger),
+    facesLogic(logger),
 
-  /*
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-  */
+    facesController(logger),
+    greetingController(logger)
+  ]
 })

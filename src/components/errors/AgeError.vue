@@ -1,0 +1,10 @@
+<template>
+    <div>
+        <div>
+            <p>Текст</p>
+        </div>
+        <div>
+            <button>NEXT</button>
+        </div>
+    </div>
+</template>

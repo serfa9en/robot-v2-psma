@@ -1,17 +1,29 @@
 <template>
-    <div v-show=true class="settings">
-        <div>
+    <div v-show="showComponent" class="settings">
+        <div class="settings__center">
            <p class="text">Пожалуйста, введите Ваш возраст!</p>
           <input placeholder="Введите возраст..." id="userAge">
         </div>
-        <button v-on:click="next" class="btn-next text-white">Далее</button>
+        <button v-on:click="next" class="btn-dark-grad text-white">Далее</button>
+        <div class="comment text">
+          <p>Необходимо вводить возраст целым числом!</p>
+        </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
+
 export default {
   name: 'age_view',
   computed: {
+    ...mapGetters('app', [
+      'getStep'
+    ]),
+    ...mapGetters('ui', [
+      'setUserAge'
+    ]),
     showComponent () {
       return this.getStep === 'age_view'
     }
@@ -19,36 +31,53 @@ export default {
   methods: {
     next: function () {
       console.warn('AGE!')
-      const age = document.getElementById('userAge').value
+      let age = document.getElementById('userAge').value
       console.log(age)
 
       // проверка, что поле не пустое
-      // проверка на число
-      // проверка, что целое
-      // меньше 10 - Вы уверены?
       if (age === '') {
-        // пусто
         console.log('ПУСТО')
-      } else
-      if (!isNaN(age)) {
-        // Число
-        console.log('Число')
-        console.log(Number.isInteger(15))
-        console.log(Number.isInteger(age))
-        if ((age ^ 0) === age) {
-          // Целое
-          console.log('ЦЕЛОЕ')
+      } else {
+        // проверка, что целое число
+        age = Number(age)
+        if (Number.isInteger(age)) {
+          console.log('INTEGER')
+          let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+          // запоминаем возраст
+          this.$store.dispatch('ui/setUserAge', {
+            meta: { eventId },
+            data: age
+          })
+
+          // переход на след страницу
+          this.$store.dispatch('engine/handlerClickMoveToState', {
+            meta: { eventId },
+            data: 'MAIN_VIEW'
+          })
+        } else {
+          // строка, дробь и то, что нам не подходит
         }
       }
+
+      // очистка поля
+      document.getElementById('userAge').value = ''
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .settings {
   width: 100%;
+  height: 550px;
+  position: absolute;
+  bottom: 0;
   text-align: center;
+  // border: #3E0E14 solid 2px;
+  &__center {
+    height: 200px;
+    // border: #3E0E14 solid 2px;
+  }
 }
 .text {
   font-size: 30px;
@@ -64,6 +93,7 @@ input {
   font-size: 32px;
   padding-left: 27px;
   color: #3E0E14;
+  margin: 30px;
 }
 
 input::placeholder {
@@ -73,8 +103,15 @@ input::placeholder {
 button {
   width: 235px;
   height: 70px;
-  margin: 50px;
+  margin: 0;
   font-size: 26px;
+}
+
+.comment {
+  height: 100px;
+  // border: #3E0E14 solid 2px;
+  font-size: 24px;
+  margin-top: 100px;
 }
 
 </style>

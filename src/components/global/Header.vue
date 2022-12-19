@@ -1,10 +1,10 @@
 <template>
-    <div class="settings">
+    <div class="settings" v-show="getHeaderEnabled === true">
         <div class="headerData">
             <div>
                 <!--<div class="headerPhoto" v-show="getHeaderBtnLeftPhoto === true" :style="[{ 'background-image': `url(${ getFaceRecognizeGeneralFrame })` }]"></div>
                 <p class="userName" v-if="getHeaderBtnLeftPhoto === true && getUserGet !== null && getUserGet.name">{{ getUserGet.name }}</p>-->
-                <button class="btn">Выход</button>
+                <button class="btn" v-text="getHeaderBtnLeftText" @click="bntAction"></button>
             </div>
             <div>
                 <div class="logo">
@@ -14,6 +14,39 @@
         </div>
     </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+import { PromobotLogger, EventInitiatorTypes, EventTypes } from 'promobot-logger'
+
+export default {
+  name: 'header-component',
+  computed: {
+    ...mapGetters('app', [
+      'getStep'
+    ]),
+    ...mapGetters('ui', [
+      'getHeaderEnabled',
+      'getHeaderBtnLeftText',
+      'getHeaderBtnLeftAction',
+      'getHeaderBtnLeftEnabled',
+      'getHeaderBtnLeftPhoto'
+    ])
+  },
+  methods: {
+    bntAction: function () {
+      let logger = PromobotLogger.getInstance()
+      let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      for (let key in this.$store.getters['ui/getHeaderBtnLeftAction']) {
+        this.$store.dispatch(key, {
+          meta: { eventId },
+          data: this.getHeaderBtnLeftAction[key]
+        })
+      }
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .settings {
@@ -28,7 +61,7 @@
     background-color: #ffffff;
     border-bottom: 1px solid #ccc;
     .headerData {
-        height: 100px;
+        height: 100%;
         display: flex;
         flex-flow: wrap row;
         justify-content: center;

@@ -1,0 +1,61 @@
+export default [
+  {
+    name: 'WAIT_PROMO',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'wait_promo'
+      }
+    ]
+  },
+  {
+    name: 'INITIAL',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'initial'
+      }]
+  },
+  {
+    name: 'MEET_FACE',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'meet_face'
+      }]
+  },
+  {
+    name: 'AGE',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'age_view'
+      }]
+  },
+  {
+    name: 'MAIN_VIEW',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'main_view'
+      }]
+  },
+  {
+    name: 'WAIT',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'wait'
+      }
+    ]
+  },
+  {
+    name: 'DIAGNOSTIC_START',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'diagnostic_start'
+      }
+    ]
+  }
+]

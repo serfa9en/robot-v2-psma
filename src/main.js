@@ -7,7 +7,9 @@ import defaultSettings from './settings'
 // import { GetPromobotInstance } from './robot'
 
 import { PromobotLogger, EventInitiatorTypes, EventTypes } from 'promobot-logger' // ActionHandlerTypes, ActionTypes
-import storeSettings from './store/index.js'
+import storeSettings from './store/index'
+
+import { MeetService } from '@pb/services'
 
 // import defaultSettings from './settings'
 // import Promobot from '@pb/api'
@@ -16,10 +18,10 @@ import storeSettings from './store/index.js'
 // const settings = Object.assign(defaultSettings, (typeof global.settings !== 'undefined') ? global.settings : {})
 
 // createApp(App).use(Vuex).mount('#app')
-/*
-VueElement.use(Vuex)
-VueElement.config.productionTip = false
-*/
+// VueElement.config.productionTip = false
+
+const app = createApp(App)
+app.use(Vuex)
 
 const settings = Object.assign(defaultSettings, (typeof global.settings !== 'undefined') ? global.settings : {})
 const urlParams = new URLSearchParams(window.location.search)
@@ -32,7 +34,7 @@ const robotInstance = (environment === 'development')
 document.addEventListener('DOMContentLoaded', function (event) {
   robotInstance.then(api => {
     global.robot = api
-    // global.meetService = new MeetService(api)
+    global.meetService = new MeetService(api)
     global.logger = PromobotLogger.getInstance()
     const logger = global.logger
     let store = null
@@ -73,7 +75,14 @@ document.addEventListener('DOMContentLoaded', function (event) {
         render: h => h(App)
       }).mount('#app')
       */
-      createApp(App).use(Vuex).use(store).mount('#app')
+      app.use(store).mount('#app')
+
+      // Run
+      // TODO: Спроекттировать архитектуру и взаимосвязи кейса. Чтобы понимать как должен работать проект
+      store.dispatch('engine/handlerMoveToState', {
+        meta: { eventId },
+        data: 'INITIAL'
+      })
     })
 
     /*
@@ -93,14 +102,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     })
     */
 
-    // Run
-    // TODO: Спроекттировать архитектуру и взаимосвязи кейса. Чтобы понимать как должен работать проект
     /*
-    store.dispatch('engine/handlerMoveToState', {
-      meta: { eventId },
-      data: 'INITIAL'
-    })
-
     global['toggleDebug'] = () => {
       store.dispatch('engine/setEngineDebug', {
       // eslint-disable-next-line
