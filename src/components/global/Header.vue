@@ -8,7 +8,7 @@
             </div>
             <div>
                 <div class="logo">
-                    <img src="../../assets/img/logo/logo_right.png" alt="logo">
+                    <img src="../../../public/dialog-images/logo/logo_right.png" alt="logo">
                 </div>
             </div>
         </div>

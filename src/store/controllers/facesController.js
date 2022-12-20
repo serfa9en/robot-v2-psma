@@ -23,8 +23,8 @@ export default function (logger) {
         case 'faces/HOOK_START':
         case 'faces/HOOK_ONE':
         case 'faces/HOOK_MANY':
-          if (store.getters['robot/getFaceRecognizeAutotracking'] && store.getters['robot/getFaceRecognizeInfo'].length > 0 && ['WAIT_PROMO'].includes(getter['engine/getCurrentStateName'])) {
-            let action = 'MEET_FACE'
+          if (store.getters['robot/getFaceRecognizeAutotracking'] && store.getters['robot/getFaceRecognizeInfo'].length > 0 && ['PROMO'].includes(getter['engine/getCurrentStateName'])) {
+            let action = 'SELECT_GENERAL'
             dispatch('engine/handlerMoveToState', {
               meta: payload.meta,
               data: action
@@ -35,17 +35,17 @@ export default function (logger) {
           if (['WAIT'].includes(getter['engine/getCurrentStateName'])) {
             dispatch('engine/handlerMoveToState', {
               meta: payload.meta,
-              data: 'WAIT_PROMO'
+              data: 'PROMO'
             })
           }
           break
         case 'faces/HOOK_CLEAN':
           break
         case 'faces/HOOK_TIMER_END':
-          if (['MEET_FACE', 'AGE_VIEW', 'WAIT_PROMO', 'MAIN_VIEW'].includes(getter['engine/getCurrentStateName']) === false) {
+          if (['SELECT_GENERAL', 'START_NEW', 'PROMO', 'START-NEW1'].includes(getter['engine/getCurrentStateName']) === false) {
             dispatch('engine/handlerMoveToState', {
               meta: payload.meta,
-              data: 'WAIT_PROMO'
+              data: 'PROMO'
             })
           }
           break
@@ -53,16 +53,14 @@ export default function (logger) {
           // console.log('name', payload.data.name)
           break
         case 'faces/HOOK_LOST':
-          if (['MEET_FACE', 'AGE_VIEW', 'WAIT_PROMO', 'MAIN_VIEW'].includes(getter['engine/getCurrentStateName']) === false) {
+          if (['SELECT_GENERAL', 'START-NEW', 'PROMO', 'START-NEW1'].includes(getter['engine/getCurrentStateName']) === false) {
             dispatch('robot/keyboardHideRequest', {
               meta: payload.meta
             })
-            /*
             dispatch('app/setMeetingTalk', {
               meta: payload.meta,
               data: false
             })
-            */
             dispatch('robot/sayReplicByName', {
               meta: payload.meta,
               data: {

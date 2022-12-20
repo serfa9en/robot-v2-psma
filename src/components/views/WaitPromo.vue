@@ -1,6 +1,6 @@
 <template>
     <div class="promo__container" v-show="showComponent" @click="promoClick()">
-        <img class="promo__img" src="../../assets/img/logo/logo_main.png"/>
+        <img class="promo__img" src="../../../public/dialog-images/logo/logo_main.png"/>
     </div>
 </template>
 

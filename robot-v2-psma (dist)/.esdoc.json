@@ -1,5 +1,0 @@
-{
-  "source": "./src/promobot",
-  "destination": "./docs",
-  "plugins": [{"name": "esdoc-standard-plugin"}]
-}

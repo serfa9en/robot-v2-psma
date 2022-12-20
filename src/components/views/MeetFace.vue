@@ -6,8 +6,8 @@
         <Videostream/>
       </div>
     </div>
-    <div class="button_block">
-      <button class="btn-dark-grad text-white" @click="toStartPage()">Далее</button>
+    <div class="button_block" v-if="getLoadAppSettings">
+      <button class="btn-dark-grad text-white" @click="toStartPage()" :disabled="!isGeneralEnabled">Далее</button>
     </div>
   </div>
 </template>
@@ -54,10 +54,12 @@ export default {
       'getStep',
       'getLoadAppSettings'
     ]),
+    /*
     ...mapGetters('faces', [
       'getUserGeneral',
       'getStateCount'
     ]),
+    */
     ...mapGetters('ui', [
       'getUserMet',
       'getIsExaminationStarted'
@@ -74,6 +76,9 @@ export default {
     }
   },
   methods: {
+    next: function () {
+      console.log(this.getLoadAppSettings)
+    },
     ...mapActions('handlers', [
       'faceRecognizeAddFaceRequest'
     ]),
