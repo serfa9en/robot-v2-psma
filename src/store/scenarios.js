@@ -13,7 +13,8 @@ export default {
       name: 'engine/handlerMoveToState',
       options: 'WAIT_PROMO',
       timeout: 1000
-    }
+    },
+    { name: 'app/clearState', options: null }
   ],
   // экран распознавания лица
   meet_face: [
@@ -25,24 +26,6 @@ export default {
     {
       name: 'ui/setHeaderEnabled',
       options: false,
-      timeout: 0
-    },
-    {
-      name: 'robot/faceRecognizeGeneralFrameRequest',
-      options: true
-    },
-    {
-      name: 'ui/setVideoStreamEnabled',
-      options: true,
-      timeout: 100
-    },
-    {
-      name: 'robot/faceRecognizeAutotrackingRequest',
-      options: false
-    },
-    {
-      name: 'robot/faceRecognizeBordersEnabledRequest',
-      options: true,
       timeout: 0
     }
   ],
@@ -101,6 +84,54 @@ export default {
     {
       name: 'app/setStep',
       options: 'diagnostic_start',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftText',
+      options: 'Выход',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftAction',
+      options: {
+        'engine/handlerClickMoveToState': 'MEET_FACE'
+      },
+      timeout: 0
+    }
+  ],
+  specialist: [
+    {
+      name: 'app/setStep',
+      options: 'specialist',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftText',
+      options: 'Выход',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftAction',
+      options: {
+        'engine/handlerClickMoveToState': 'MEET_FACE'
+      },
+      timeout: 0
+    }
+  ],
+  specialist_quest: [
+    {
+      name: 'app/setStep',
+      options: 'specialist_quest',
       timeout: 0
     },
     {

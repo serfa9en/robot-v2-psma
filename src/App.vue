@@ -12,6 +12,8 @@
       <Age/>
       <MainView/>
       <DiagnosticStart/>
+      <SpecialistStart/>
+      <SpecialistQuest/>
     </Content>
     <Footer/>
   </div>
@@ -28,6 +30,8 @@ import MeetFace from '@/components/views/MeetFace'
 import Age from '@/components/views/Age'
 import MainView from '@/components/views/MainView'
 import DiagnosticStart from '@/components/views/Diagnostic_Start'
+import SpecialistStart from '@/components/views/Specialist/Specialist_Start'
+import SpecialistQuest from '@/components/views/Specialist/Specialist_Quest'
 
 import { mapGetters } from 'vuex'
 
@@ -43,7 +47,9 @@ export default {
     MeetFace,
     Age,
     MainView,
-    DiagnosticStart
+    DiagnosticStart,
+    SpecialistStart,
+    SpecialistQuest
   },
   data () {
     return {

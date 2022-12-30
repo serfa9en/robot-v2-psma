@@ -11,5 +11,12 @@ export default {
     url: 'http://localhost:8089',
     reconnection: false,
     secure: false
+  },
+
+  // параметры для прода
+  statistic: {
+    url: 'http://localhost:8084',
+    reconnection: false,
+    secure: false
   }
 }

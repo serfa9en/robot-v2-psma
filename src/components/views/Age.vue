@@ -34,6 +34,7 @@ export default {
       let age = document.getElementById('userAge').value
       console.log(age)
 
+      /*
       // проверка, что поле не пустое
       if (age === '') {
         console.log('ПУСТО')
@@ -58,7 +59,14 @@ export default {
           // строка, дробь и то, что нам не подходит
         }
       }
+      */
 
+      // переход на след страницу
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'MAIN_VIEW'
+      })
       // очистка поля
       document.getElementById('userAge').value = ''
     }

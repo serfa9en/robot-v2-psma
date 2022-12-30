@@ -1,6 +1,6 @@
 <template>
     <div v-show="showComponent" class="settings">
-        <button class="btn-dark-main text-white" disabled>
+        <button class="btn-dark-main text-white" v-on:click="toSpecialist">
             <img src="../../assets/img/main/specialist.png">
             <p>Пройти консультацию<br>узкого специалиста</p>
         </button>
@@ -40,6 +40,14 @@ export default {
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'DIAGNOSTIC_START'
+      })
+    },
+    toSpecialist: function () {
+      // переход на ветку специалистов
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'SPECIALIST_START'
       })
     }
   }

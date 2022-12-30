@@ -2,14 +2,15 @@
 import { createApp } from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
+
+// import { MeetService } from '@pb/services'
+
 import Promobot from '@pb/api'
 import defaultSettings from './settings'
 // import { GetPromobotInstance } from './robot'
 
 import { PromobotLogger, EventInitiatorTypes, EventTypes } from 'promobot-logger' // ActionHandlerTypes, ActionTypes
 import storeSettings from './store/index'
-
-import { MeetService } from '@pb/services'
 
 // import defaultSettings from './settings'
 // import Promobot from '@pb/api'
@@ -22,11 +23,13 @@ import { MeetService } from '@pb/services'
 
 const app = createApp(App)
 app.use(Vuex)
+app.config.productionTip = false
 
 const settings = Object.assign(defaultSettings, (typeof global.settings !== 'undefined') ? global.settings : {})
+const environment = (typeof QWebChannel !== 'undefined') ? 'production' : 'development'
 const urlParams = new URLSearchParams(window.location.search)
 settings.emulator.room = urlParams.get('room')
-const environment = (typeof QWebChannel !== 'undefined') ? 'production' : 'development'
+console.log(urlParams.get('room'))
 const robotInstance = (environment === 'development')
   ? Promobot.getEmulateInstance(settings.emulator)
   : Promobot.getInstance()
@@ -34,7 +37,7 @@ const robotInstance = (environment === 'development')
 document.addEventListener('DOMContentLoaded', function (event) {
   robotInstance.then(api => {
     global.robot = api
-    global.meetService = new MeetService(api)
+    // global.meetService = new MeetService(api)
     global.logger = PromobotLogger.getInstance()
     const logger = global.logger
     let store = null
@@ -57,7 +60,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
         })
       }
       if (environment === 'production') {
-        logger.addConnection({ url: settings.statistic.url, reconnection: settings.statistic.reconnection, secure: settings.statistic.secure })
+        logger.addConnection({
+          url: settings.statistic.url,
+          reconnection: settings.statistic.reconnection,
+          secure: settings.statistic.secure
+        })
       }
       // event
       logger.createInteractionSession()
@@ -75,7 +82,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
         render: h => h(App)
       }).mount('#app')
       */
-      app.use(store).mount('#app')
+
+      window.vm = app.use(store).mount('#app')
 
       // Run
       // TODO: Спроекттировать архитектуру и взаимосвязи кейса. Чтобы понимать как должен работать проект

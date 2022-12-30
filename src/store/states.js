@@ -57,5 +57,23 @@ export default [
         options: 'diagnostic_start'
       }
     ]
+  },
+  {
+    name: 'SPECIALIST_START',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'specialist'
+      }
+    ]
+  },
+  {
+    name: 'SPECIALIST_QUEST',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'specialist_quest'
+      }
+    ]
   }
 ]

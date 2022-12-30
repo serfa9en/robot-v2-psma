@@ -1,9 +1,11 @@
+/*
 module.exports = {
   presets: [
     '@vue/cli-plugin-babel/preset'
   ]
 }
-/*
+*/
+
 module.exports = {
   presets: [
     '@vue/app'
@@ -13,4 +15,3 @@ module.exports = {
     "@babel/plugin-proposal-nullish-coalescing-operator"
   ]
 }
-*/

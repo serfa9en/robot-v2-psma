@@ -1,39 +1,30 @@
 <template>
-  <div class="container-generalselector text" v-show="showComponent">
+  <div class="container text" v-show="showComponent">
+    <!--
     <div class="content_block">
       <h1 class="title">С кем я взаимодействую? Выберите себя на экране</h1>
       <div class="videostream">
         <Videostream/>
       </div>
     </div>
-    <div class="button_block" v-if="getLoadAppSettings">
-      <button class="btn-dark-grad text-white" @click="toStartPage()" :disabled="!isGeneralEnabled">Далее</button>
+  -->
+    <div class="button_block">
+      <button class="btn-dark-grad text-white" @click="next()">Далее</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import Videostream from '@/components/Videostream.vue'
+import { mapGetters } from 'vuex'
+// import Videostream from '@/components/Videostream.vue'
 import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
 
 export default {
   name: 'meet_face',
   components: {
-    Videostream
-  },
-  data () {
-    return {
-      userAwaitTimer: null
-    }
+    // Videostream
   },
   watch: {
-    isGeneralEnabled: function (val) {
-      // если перед роботом один человек и робот его видит главным то из промо прокидываем его на главный
-      if (val && this.getStateCount === 'ONE') {
-        this.toStartPage()
-      }
-    },
     getStep: function (val) {
       if (val === 'meet_face') {
         clearTimeout(this.userAwaitTimer)
@@ -51,38 +42,14 @@ export default {
   },
   computed: {
     ...mapGetters('app', [
-      'getStep',
-      'getLoadAppSettings'
-    ]),
-    /*
-    ...mapGetters('faces', [
-      'getUserGeneral',
-      'getStateCount'
-    ]),
-    */
-    ...mapGetters('ui', [
-      'getUserMet',
-      'getIsExaminationStarted'
-    ]),
-    ...mapGetters('robot', [
-      'getFaceRecognizeGeneralId',
-      'getFaceRecognizeGeneralSetted'
+      'getStep'
     ]),
     showComponent () {
       return this.getStep === 'meet_face'
-    },
-    isGeneralEnabled () {
-      return typeof this.getUserGeneral?.id_track !== 'undefined' && this.getFaceRecognizeGeneralSetted !== -1 && this.getFaceRecognizeGeneralId !== -2
     }
   },
   methods: {
     next: function () {
-      console.log(this.getLoadAppSettings)
-    },
-    ...mapActions('handlers', [
-      'faceRecognizeAddFaceRequest'
-    ]),
-    toStartPage: function () {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('engine/handlerMoveToState', {
         meta: { eventId },
@@ -94,7 +61,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container-generalselector {
+.container {
   position: relative;
   top: 0;
   left: 0;
