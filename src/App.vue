@@ -3,7 +3,7 @@
   <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
   -->
-  <div id="app" class="main-div">
+  <div class="main-div">
 
     <WaitPromo/>
     <Header/>

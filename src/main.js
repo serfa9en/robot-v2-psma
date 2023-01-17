@@ -1,4 +1,6 @@
-
+/* eslint-disable no-undef */
+/* eslint-disable camelcase */
+/* eslint-disable no-unused-vars */
 import { createApp } from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'

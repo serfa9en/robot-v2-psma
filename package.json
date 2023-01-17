@@ -5,17 +5,25 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "docs": "./node_modules/.bin/esdoc"
   },
   "dependencies": {
-    "core-js": "^3.8.3",
+    "deep-extend": "^0.6.0",
+    "esdoc": "^1.1.0",
+    "moment": "^2.24.0",
+    "node-sass": "^4.14.1",
     "socket.io-client": "2.3.0",
-    "vue": "^3.2.13",
-    "vuex": "^4.0.0",
-    "@pb/api": "git+https://git.promo-bot.ru/ds/promobot-api#semver:1.3.1"
+    "uuid": "^3.3.2",
+    "vue": "^2.6.10",
+    "vuex": "^3.1.2",
+    "vue-styled-components": "^1.4.14"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
+    "@pb/api": "git+https://git.promo-bot.ru/ds/promobot-api#semver:1.3.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.9.0",
+    "@babel/plugin-transform-spread": "~7.20.7",
     "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
@@ -28,30 +36,10 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-vue": "^5.0.0",
     "sass": "^1.32.7",
-    "sass-loader": "^12.0.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "@vue/standard"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {
-      "vue/multi-word-component-names": "off",
-      "prefer-const": "off",
-      "sub": 0
-    }
+    "sass-loader": "^12.0.0",
+    "vue-template-compiler": "^2.6.10"
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead",
-    "not ie 11"
+    "chrome 56"
   ]
 }
