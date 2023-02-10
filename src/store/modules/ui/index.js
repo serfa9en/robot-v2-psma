@@ -24,6 +24,14 @@ export default {
     },
     spinner: {
       enabled: null
+    },
+    session: {
+      user: {
+        lost: null
+      }
+    },
+    acquaintance: {
+      status: null
     }
   },
   actions: {
@@ -43,7 +51,11 @@ export default {
     setVideoStreamEnabled: ({ commit }, payload) => commit('SET_VIDEO_STREAM_ENABLED', payload),
 
     // spinner
-    setSpinnerEnabled: ({ commit, getters }, payload) => commit('SET_SPINNER_ENABLED', payload)
+    setSpinnerEnabled: ({ commit, getters }, payload) => commit('SET_SPINNER_ENABLED', payload),
+    // SESSION
+    setSessionUserLost: ({ commit }, payload) => commit('SET_SESSION_USER_LOST', payload),
+    // ACQUAINTANCE
+    setAcquaintanceStatus: ({ commit }, payload) => commit('SET_ACQUAINTANCE_STATUS', payload)
   },
   mutations: {
     ...mutationsUserMeasurement,
@@ -62,7 +74,11 @@ export default {
     SET_VIDEO_STREAM_ENABLED: (state, payload) => { state.videoStream.enabled = payload.data },
 
     // spinner
-    SET_SPINNER_ENABLED: (state, payload) => { state.spinner.enabled = payload.data }
+    SET_SPINNER_ENABLED: (state, payload) => { state.spinner.enabled = payload.data },
+    // SESSION
+    SET_SESSION_USER_LOST: (state, payload) => { state.session.user.lost = payload.data },
+    // ACQUAINTANCE
+    SET_ACQUAINTANCE_STATUS: (status, payload) => { status.acquaintance.status = payload.data }
   },
   getters: {
     ...gettersUserMeasurement,
@@ -81,6 +97,10 @@ export default {
     getVideoStreamEnabled: state => state.videoStream.enabled,
 
     // spinner
-    getSpinnerEnabled: state => state.spinner.enabled
+    getSpinnerEnabled: state => state.spinner.enabled,
+    // SESSION
+    getSessionUserLost: state => state.session.user.lost,
+    // ACQUAINTANCE
+    getAcquaintanceStatus: state => state.acquaintance.status
   }
 }

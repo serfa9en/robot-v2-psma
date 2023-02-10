@@ -2,7 +2,6 @@
     <div class="settings" v-show= true>
         <div class="settings-subtitles__wrapper footer">
             <div class="settings-subtitles__text">
-                <SubtitlesController />
             </div>
             <div class="settings-subtitles__abort-talk">
                 <span class="microphone mic-background">
@@ -35,8 +34,9 @@ export default {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 105px;
     z-index: 2000;
+    height: 96px;
+    max-height: 105px;
     border-top: 1px solid #ccc;
     box-sizing: border-box;
     display: flex;
@@ -89,7 +89,7 @@ export default {
             margin-right: 8px;
         }
         .icon {
-          border: 2px solid gray;
+          margin-top: 5px;
         }
         .right-text {
             display: inline-block;

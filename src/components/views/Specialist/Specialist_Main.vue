@@ -30,14 +30,27 @@ export default {
     ...mapGetters('app', [
       'getStep'
     ]),
+    ...mapGetters('app', [
+      'setStep'
+    ]),
     ...mapGetters('ui', [
       'setSpecialistNumber'
     ]),
     showComponent () {
+      if (this.getStep === 'specialist') {
+        this.loggingCurrentStateName()
+      }
       return this.getStep === 'specialist'
     }
   },
   methods: {
+    loggingCurrentStateName: function () {
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/setPreStateName', {
+        meta: { eventId },
+        data: 'SPECIALIST_START'
+      })
+    },
     getSpecName: function (val) {
       return getName(val)
     },
@@ -63,11 +76,15 @@ export default {
 <style scoped>
 .settings {
     width: 100%;
-    height: 650px;
+    height: 100%;
     box-sizing: border-box;
     position: absolute;
     text-align: center;
     bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 button {

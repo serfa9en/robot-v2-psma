@@ -38,7 +38,13 @@ export default [
       {
         name: 'engine/handlerCallScenario',
         options: 'main_view'
-      }]
+      },
+      {
+        name: 'ui/setSpinnerEnabled',
+        options: true,
+        timeout: 0
+      }
+    ]
   },
   {
     name: 'WAIT',
@@ -73,6 +79,42 @@ export default [
       {
         name: 'engine/handlerCallScenario',
         options: 'specialist_quest'
+      }
+    ]
+  },
+  {
+    name: 'SPECIALIST_RESULT',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'specialist_result'
+      }
+    ]
+  },
+  {
+    name: 'DISEASE_MAIN',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'disease_main'
+      }
+    ]
+  },
+  {
+    name: 'DISEASE_QUEST',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'disease_quest'
+      }
+    ]
+  },
+  {
+    name: 'EXIT',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'exit_view'
       }
     ]
   }

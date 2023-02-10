@@ -6,6 +6,7 @@
   <div class="main-div">
 
     <WaitPromo/>
+    <Spinner/>
     <Header/>
     <Content>
       <MeetFace/>
@@ -14,6 +15,9 @@
       <DiagnosticStart/>
       <SpecialistStart/>
       <SpecialistQuest/>
+      <DiseaseMain/>
+      <DiseaseQuest/>
+      <ExitView/>
     </Content>
     <Footer/>
   </div>
@@ -22,6 +26,7 @@
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import WaitPromo from '@/components/views/WaitPromo'
+import Spinner from '@/components/views/Spinner'
 import Header from '@/components/global/Header'
 import Content from '@/components/global/Content'
 import Footer from '@/components/global/Footer'
@@ -29,17 +34,22 @@ import Footer from '@/components/global/Footer'
 import MeetFace from '@/components/views/MeetFace'
 import Age from '@/components/views/Age'
 import MainView from '@/components/views/MainView'
-import DiagnosticStart from '@/components/views/Diagnostic_Start'
-import SpecialistStart from '@/components/views/Specialist/Specialist_Start'
+import DiagnosticStart from '@/components/views/Measurement/Diagnostic_Start'
+import SpecialistStart from '@/components/views/Specialist/Specialist_Main'
 import SpecialistQuest from '@/components/views/Specialist/Specialist_Quest'
+import DiseaseMain from '@/components/views/Disease/Disease_Main'
+import DiseaseQuest from '@/components/views/Disease/Disease_Quest'
 
-import { mapGetters } from 'vuex'
+import ExitView from '@/components/views/Exit'
+
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
   components: {
     // HelloWorld
     WaitPromo,
+    Spinner,
     Header,
     Content,
     Footer,
@@ -49,7 +59,11 @@ export default {
     MainView,
     DiagnosticStart,
     SpecialistStart,
-    SpecialistQuest
+    SpecialistQuest,
+    DiseaseMain,
+    DiseaseQuest,
+
+    ExitView
   },
   data () {
     return {
@@ -64,12 +78,28 @@ export default {
   computed: {
     ...mapGetters('app', [
       'getStep'
+    ]),
+    ...mapGetters('faces', [
+      'getGeneralUser'
+    ]),
+    ...mapGetters('ui', [
+      'getAcquaintanceStatus'
+    ])
+  },
+  methods: {
+    ...mapActions('engine', [
+      'handlerClickMoveToState'
+    ]),
+    ...mapActions('robot', [
+      'sendFaceRecognizeDelFace',
+      'sendDeleteUser'
     ])
   }
 }
 </script>
 
 <style lang="scss" >
+@import './assets/style/styles.scss';
 @import './main.css';
 
 </style>

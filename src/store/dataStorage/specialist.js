@@ -38,6 +38,20 @@ export function getDescription (number) {
   }
 }
 
+export function getResultGood (number) {
+  switch (number) {
+    case 0: return 'кардиологу'
+    case 1: return 'неврологу'
+    case 2: return 'гастроэнтерологу'
+    case 3: return 'гинекологу'
+    case 4: return 'урологу'
+    case 5: return 'колопроктологу'
+    case 6: return 'офтальмологу'
+    case 7: return 'оториноларингологу'
+    case 8: return 'эндокринологу'
+  }
+}
+
 export function getLength (number) {
   switch (number) {
     case 0: return 7

@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
-import { createApp } from 'vue'
+import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
 
-// import { MeetService } from '@pb/services'
+import { MeetService } from '@pb/services'
 
 import Promobot from '@pb/api'
 import defaultSettings from './settings'
@@ -23,9 +23,9 @@ import storeSettings from './store/index'
 // createApp(App).use(Vuex).mount('#app')
 // VueElement.config.productionTip = false
 
-const app = createApp(App)
-app.use(Vuex)
-app.config.productionTip = false
+// const app = createApp(App)
+Vue.use(Vuex)
+Vue.config.productionTip = false
 
 const settings = Object.assign(defaultSettings, (typeof global.settings !== 'undefined') ? global.settings : {})
 const environment = (typeof QWebChannel !== 'undefined') ? 'production' : 'development'
@@ -39,7 +39,7 @@ const robotInstance = (environment === 'development')
 document.addEventListener('DOMContentLoaded', function (event) {
   robotInstance.then(api => {
     global.robot = api
-    // global.meetService = new MeetService(api)
+    global.meetService = new MeetService(api)
     global.logger = PromobotLogger.getInstance()
     const logger = global.logger
     let store = null
@@ -78,17 +78,16 @@ document.addEventListener('DOMContentLoaded', function (event) {
       })
     }).then(() => {
       // Vue.createApp(App).mount('#app')
-      /*
-      window.vm = new VueElement({
+
+      window.vm = new Vue({
         store,
         render: h => h(App)
-      }).mount('#app')
-      */
+      }).$mount('#app')
 
-      window.vm = app.use(store).mount('#app')
+      // window.vm = new Vue(App).use(store).mount('#app')
+      // window.vm = app.use(store).mount('#app')
 
       // Run
-      // TODO: Спроекттировать архитектуру и взаимосвязи кейса. Чтобы понимать как должен работать проект
       store.dispatch('engine/handlerMoveToState', {
         meta: { eventId },
         data: 'INITIAL'

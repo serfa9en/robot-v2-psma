@@ -23,8 +23,8 @@ export default function (logger) {
         case 'faces/HOOK_START':
         case 'faces/HOOK_ONE':
         case 'faces/HOOK_MANY':
-          if (store.getters['robot/getFaceRecognizeAutotracking'] && store.getters['robot/getFaceRecognizeInfo'].length > 0 && ['PROMO'].includes(getter['engine/getCurrentStateName'])) {
-            let action = 'SELECT_GENERAL'
+          if (store.getters['robot/getFaceRecognizeAutotracking'] && store.getters['robot/getFaceRecognizeInfo'].length > 0 && ['WAIT_PROMO'].includes(getter['engine/getCurrentStateName'])) {
+            let action = 'MEET_FACE'
             dispatch('engine/handlerMoveToState', {
               meta: payload.meta,
               data: action
@@ -35,17 +35,17 @@ export default function (logger) {
           if (['WAIT'].includes(getter['engine/getCurrentStateName'])) {
             dispatch('engine/handlerMoveToState', {
               meta: payload.meta,
-              data: 'PROMO'
+              data: 'WAIT_PROMO'
             })
           }
           break
         case 'faces/HOOK_CLEAN':
           break
         case 'faces/HOOK_TIMER_END':
-          if (['SELECT_GENERAL', 'START_NEW', 'PROMO', 'START-NEW1'].includes(getter['engine/getCurrentStateName']) === false) {
+          if (['MEET_FACE', 'AGE', 'WAIT_PROMO', 'MAIN_VIEW', 'DIAGNOSTIC_START', 'SPECIALIST_START', 'SPECIALIST_QUEST', 'DISEASE_MAIN', 'DISEASE_QUEST', 'EXIT'].includes(getter['engine/getCurrentStateName']) === false) {
             dispatch('engine/handlerMoveToState', {
               meta: payload.meta,
-              data: 'PROMO'
+              data: 'WAIT_PROMO'
             })
           }
           break
@@ -53,7 +53,7 @@ export default function (logger) {
           // console.log('name', payload.data.name)
           break
         case 'faces/HOOK_LOST':
-          if (['SELECT_GENERAL', 'START-NEW', 'PROMO', 'START-NEW1'].includes(getter['engine/getCurrentStateName']) === false) {
+          if (['MEET_FACE', 'AGE', 'WAIT_PROMO', 'MAIN_VIEW', 'DIAGNOSTIC_START', 'SPECIALIST_START', 'SPECIALIST_QUEST', 'DISEASE_MAIN', 'DISEASE_QUEST', 'EXIT'].includes(getter['engine/getCurrentStateName']) === false) {
             dispatch('robot/keyboardHideRequest', {
               meta: payload.meta
             })

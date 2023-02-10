@@ -34,7 +34,6 @@ export default {
       let age = document.getElementById('userAge').value
       console.log(age)
 
-      /*
       // проверка, что поле не пустое
       if (age === '') {
         console.log('ПУСТО')
@@ -59,13 +58,13 @@ export default {
           // строка, дробь и то, что нам не подходит
         }
       }
-      */
 
       // переход на след страницу
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'MAIN_VIEW'
+        // data: 'EXIT'
       })
       // очистка поля
       document.getElementById('userAge').value = ''
@@ -77,14 +76,19 @@ export default {
 <style lang="scss" scoped>
 .settings {
   width: 100%;
-  height: 550px;
+  height: 100%;
   position: absolute;
   bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   // border: #3E0E14 solid 2px;
   &__center {
-    height: 200px;
+    // height: 200px;
     // border: #3E0E14 solid 2px;
+    margin-top: 50px;
   }
 }
 .text {
@@ -101,7 +105,7 @@ input {
   font-size: 32px;
   padding-left: 27px;
   color: #3E0E14;
-  margin: 30px;
+  margin: 25px;
 }
 
 input::placeholder {
@@ -111,15 +115,14 @@ input::placeholder {
 button {
   width: 235px;
   height: 70px;
-  margin: 0;
   font-size: 26px;
+  margin-top: 40px;
 }
 
 .comment {
-  height: 100px;
   // border: #3E0E14 solid 2px;
   font-size: 24px;
-  margin-top: 100px;
+  margin-top: 30px;
 }
 
 </style>

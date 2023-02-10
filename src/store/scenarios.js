@@ -77,6 +77,11 @@ export default {
         'engine/handlerClickMoveToState': 'MEET_FACE'
       },
       timeout: 0
+    },
+    {
+      name: 'ui/setSpinnerEnabled',
+      options: false,
+      timeout: 0
     }
   ],
   // пройти отдельное обследование
@@ -99,7 +104,7 @@ export default {
     {
       name: 'ui/setHeaderBtnLeftAction',
       options: {
-        'engine/handlerClickMoveToState': 'MEET_FACE'
+        'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
     }
@@ -123,7 +128,7 @@ export default {
     {
       name: 'ui/setHeaderBtnLeftAction',
       options: {
-        'engine/handlerClickMoveToState': 'MEET_FACE'
+        'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
     }
@@ -147,8 +152,75 @@ export default {
     {
       name: 'ui/setHeaderBtnLeftAction',
       options: {
-        'engine/handlerClickMoveToState': 'MEET_FACE'
+        'engine/handlerClickMoveToState': 'EXIT'
       },
+      timeout: 0
+    }
+  ],
+  specialist_result: [
+    {
+      name: 'app/setStep',
+      options: 'specialist_result',
+      timeout: 0
+    }
+  ],
+  disease_main: [
+    {
+      name: 'app/setStep',
+      options: 'disease_main',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftText',
+      options: 'Выход',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftAction',
+      options: {
+        'engine/handlerClickMoveToState': 'EXIT'
+      },
+      timeout: 0
+    }
+  ],
+  disease_quest: [
+    {
+      name: 'app/setStep',
+      options: 'disease_quest',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftText',
+      options: 'Выход',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftAction',
+      options: {
+        'engine/handlerClickMoveToState': 'EXIT'
+      },
+      timeout: 0
+    }
+  ],
+  exit_view: [
+    {
+      name: 'app/setStep',
+      options: 'exit_view',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: false,
       timeout: 0
     }
   ],

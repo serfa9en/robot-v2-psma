@@ -16,8 +16,9 @@ module.exports = {
     'object-curly-spacing': ['error', 'always'],
     'prefer-const': ['off'],
     'vue/multi-word-component-names': ['off'],
-    'sub': ['off']
-
+    'sub': ['off'],
+    'vue/no-side-effects-in-computed-properties': ['off'],
+    'no-case-declarations': ['off']
   },
   parserOptions: {
     parser: '@babel/eslint-parser'

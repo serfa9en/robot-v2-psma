@@ -15,7 +15,7 @@ export default {
 .content {
   position: absolute;
   width: 100%;
-  height: 765px;
+  height: 100%;
   display: flex;
   align-items: center;
 }

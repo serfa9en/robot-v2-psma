@@ -50,18 +50,17 @@ export default {
 
 <style lang="scss" scoped>
 .settings {
-    position: absolute;
+    position: fixed;
     top: 0;
     left:0;
     width: 100%;
-    height: 138px;
     box-sizing: border-box;
     padding: 0;
     z-index: 2000;
     background-color: #ffffff;
     border-bottom: 1px solid #ccc;
     .headerData {
-        height: 100%;
+        height: 100px;
         display: flex;
         flex-flow: wrap row;
         justify-content: center;

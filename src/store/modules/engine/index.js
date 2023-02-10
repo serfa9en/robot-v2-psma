@@ -15,6 +15,9 @@ export default {
     current: {
       stateName: 'IDLE'
     },
+    pre: {
+      stateName: 'IDLE'
+    },
     states,
     scenarios
   },
@@ -115,6 +118,15 @@ export default {
         }
       }
     },
+    handlerSavePreStateName: ({ state, dispatch }, payload) => {
+      let logger = PromobotLogger.getInstance()
+      if (payload.meta && payload.meta.eventId && payload.data) {
+        logger.logState(payload.meta.eventId, {
+          stateName: payload.data
+        })
+        dispatch('setPreStateName', payload)
+      }
+    },
     handlerSaveStateName: ({ state, dispatch }, payload) => {
       let logger = PromobotLogger.getInstance()
       if (payload.meta && payload.meta.eventId && payload.data) {
@@ -128,16 +140,22 @@ export default {
     setCurrentStateName: ({ state, commit, getters }, payload) => {
       // console.warn(`[Состояние изменилось]: ${getters.getCurrentStateName} -> ${payload.data} `)
       commit('SET_CURRENT_STATE_NAME', payload)
+    },
+    setPreStateName: ({ state, commit, getters }, payload) => {
+      // console.warn(`[Состояние изменилось]: ${getters.getCurrentStateName} -> ${payload.data} `)
+      commit('SET_PRE_STATE_NAME', payload)
     }
     // setEngineDebug: ({ commit }, payload) => commit('SET_ENGINE_DEBUG', payload)
   },
   mutations: {
     // SET_ENGINE_DEBUG: (state, payload) => { state.engine.debug = payload.data },
-    SET_CURRENT_STATE_NAME: (state, payload) => { state.current.stateName = payload.data }
+    SET_CURRENT_STATE_NAME: (state, payload) => { state.current.stateName = payload.data },
+    SET_PRE_STATE_NAME: (state, payload) => { state.pre.stateName = payload.data }
   },
   getters: {
     // getEngineVersion: (state) => state.engine.version,
     // getEngineDebug: (state) => state.engine.debug,
-    getCurrentStateName: (state) => state.current.stateName
+    getCurrentStateName: (state) => state.current.stateName,
+    getPreStateName: (state) => state.pre.stateName
   }
 }

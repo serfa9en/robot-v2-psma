@@ -1,30 +1,39 @@
 <template>
   <div class="container text" v-show="showComponent">
-    <!--
     <div class="content_block">
       <h1 class="title">С кем я взаимодействую? Выберите себя на экране</h1>
       <div class="videostream">
         <Videostream/>
       </div>
     </div>
-  -->
     <div class="button_block">
-      <button class="btn-dark-grad text-white" @click="next()">Далее</button>
+      <button class="btn-dark-grad text-white" @click="next()" :disabled="!isGeneralEnabled">Далее</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-// import Videostream from '@/components/Videostream.vue'
+import { mapGetters, mapActions } from 'vuex'
+import Videostream from '@/components/Videostream.vue'
 import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
 
 export default {
   name: 'meet_face',
   components: {
-    // Videostream
+    Videostream
+  },
+  data () {
+    return {
+      userAwaitTimer: null
+    }
   },
   watch: {
+    isGeneralEnabled: function (val) {
+      // если перед роботом один человек и робот его видит главным то из промо прокидываем его на главный
+      if (val && this.getStateCount === 'ONE') {
+        this.toStartPage()
+      }
+    },
     getStep: function (val) {
       if (val === 'meet_face') {
         clearTimeout(this.userAwaitTimer)
@@ -44,11 +53,29 @@ export default {
     ...mapGetters('app', [
       'getStep'
     ]),
+    ...mapGetters('faces', [
+      'getUserGeneral',
+      'getStateCount'
+    ]),
+    ...mapGetters('ui', [
+      'getUserMet',
+      'getIsExaminationStarted'
+    ]),
+    ...mapGetters('robot', [
+      'getFaceRecognizeGeneralId',
+      'getFaceRecognizeGeneralSetted'
+    ]),
+    isGeneralEnabled () {
+      return typeof this.getUserGeneral?.id_track !== 'undefined' && this.getFaceRecognizeGeneralSetted !== -1 && this.getFaceRecognizeGeneralId !== -2
+    },
     showComponent () {
       return this.getStep === 'meet_face'
     }
   },
   methods: {
+    ...mapActions('handlers', [
+      'faceRecognizeAddFaceRequest'
+    ]),
     next: function () {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('engine/handlerMoveToState', {
