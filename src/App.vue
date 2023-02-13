@@ -17,6 +17,7 @@
       <SpecialistQuest/>
       <DiseaseMain/>
       <DiseaseQuest/>
+      <WidthHeight/>
       <ExitView/>
     </Content>
     <Footer/>
@@ -39,6 +40,7 @@ import SpecialistStart from '@/components/views/Specialist/Specialist_Main'
 import SpecialistQuest from '@/components/views/Specialist/Specialist_Quest'
 import DiseaseMain from '@/components/views/Disease/Disease_Main'
 import DiseaseQuest from '@/components/views/Disease/Disease_Quest'
+import WidthHeight from '@/components/views/Measurement/WidthHeight'
 
 import ExitView from '@/components/views/Exit'
 
@@ -62,6 +64,7 @@ export default {
     SpecialistQuest,
     DiseaseMain,
     DiseaseQuest,
+    WidthHeight,
 
     ExitView
   },

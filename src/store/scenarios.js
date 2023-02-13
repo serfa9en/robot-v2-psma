@@ -212,6 +212,30 @@ export default {
       timeout: 0
     }
   ],
+  width_height: [
+    {
+      name: 'app/setStep',
+      options: 'width_height',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftText',
+      options: 'Выход',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftAction',
+      options: {
+        'engine/handlerClickMoveToState': 'EXIT'
+      },
+      timeout: 0
+    }
+  ],
   exit_view: [
     {
       name: 'app/setStep',

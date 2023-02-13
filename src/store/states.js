@@ -110,6 +110,15 @@ export default [
     ]
   },
   {
+    name: 'WIDTHHEIGHT',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'width_height'
+      }
+    ]
+  },
+  {
     name: 'EXIT',
     entering: [
       {

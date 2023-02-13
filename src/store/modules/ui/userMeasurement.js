@@ -27,7 +27,7 @@ export const stateUserMeasurement = {
   button: {
     Pressure: {
       text: null,
-      color: '#DC143C'
+      color: '#691B26'
     },
     Glucometry: {
       text: null,
@@ -52,7 +52,7 @@ export const stateUserMeasurement = {
   },
   // значения результатов
   measurement: {
-    pressure: '120/80',
+    pressure: null,
     glucometry: null,
     temperature: null,
     saturatsiya: null,
