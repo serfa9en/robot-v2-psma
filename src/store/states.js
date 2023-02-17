@@ -9,14 +9,6 @@ export default [
     ]
   },
   {
-    name: 'INITIAL',
-    entering: [
-      {
-        name: 'engine/handlerCallScenario',
-        options: 'initial'
-      }]
-  },
-  {
     name: 'MEET_FACE',
     entering: [
       {
@@ -110,7 +102,16 @@ export default [
     ]
   },
   {
-    name: 'WIDTHHEIGHT',
+    name: 'WIDTH_HEIGHT',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'width_height'
+      }
+    ]
+  },
+  {
+    name: 'WIDTH_HEIGHT_2',
     entering: [
       {
         name: 'engine/handlerCallScenario',
@@ -126,5 +127,13 @@ export default [
         options: 'exit_view'
       }
     ]
+  },
+  {
+    name: 'INITIAL',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'initial'
+      }]
   }
 ]

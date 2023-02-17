@@ -12,11 +12,11 @@
       <MeetFace/>
       <Age/>
       <MainView/>
-      <DiagnosticStart/>
       <SpecialistStart/>
       <SpecialistQuest/>
       <DiseaseMain/>
       <DiseaseQuest/>
+      <DiagnosticStart/>
       <WidthHeight/>
       <ExitView/>
     </Content>
@@ -40,7 +40,7 @@ import SpecialistStart from '@/components/views/Specialist/Specialist_Main'
 import SpecialistQuest from '@/components/views/Specialist/Specialist_Quest'
 import DiseaseMain from '@/components/views/Disease/Disease_Main'
 import DiseaseQuest from '@/components/views/Disease/Disease_Quest'
-import WidthHeight from '@/components/views/Measurement/WidthHeight'
+import WidthHeight from '@/components/views/Measurement/Width_Height'
 
 import ExitView from '@/components/views/Exit'
 

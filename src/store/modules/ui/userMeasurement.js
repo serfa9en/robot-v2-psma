@@ -53,11 +53,14 @@ export const stateUserMeasurement = {
   // значения результатов
   measurement: {
     pressure: null,
+    pulse: null,
     glucometry: null,
     temperature: null,
     saturatsiya: null,
     spirographia: null,
-    weightHeight: null
+    imt: null,
+    weight: null,
+    height: null
   },
   // current disease - не сделана ветка
   current_disease: {
@@ -91,11 +94,14 @@ export const actionsUserMeasurement = {
 
   // значения измерений
   setMeasurementPressure: ({ commit }, payload) => commit('SET_MEASUREMENT_PRESSURE', payload),
+  setMeasurementPulse: ({ commit }, payload) => commit('SET_MEASUREMENT_PULSE', payload),
   setMeasurementGlucometry: ({ commit }, payload) => commit('SET_MEASUREMENT_GLUCOMETRY', payload),
   setMeasurementTemperature: ({ commit }, payload) => commit('SET_MEASUREMENT_TEMPERATURE', payload),
   setMeasurementSaturatsiya: ({ commit }, payload) => commit('SET_MEASUREMENT_SATURATSIYA', payload),
   setMeasurementSpirographia: ({ commit }, payload) => commit('SET_MEASUREMENT_SPIROGRAPHIA', payload),
-  setMeasurementWeightHeight: ({ commit }, payload) => commit('SET_MEASUREMENT_WEIGHTHEIGHT', payload),
+  setMeasurementWeight: ({ commit }, payload) => commit('SET_MEASUREMENT_WEIGHT', payload),
+  setMeasurementHeight: ({ commit }, payload) => commit('SET_MEASUREMENT_HEIGHT', payload),
+  setMeasurementImt: ({ commit }, payload) => commit('SET_MEASUREMENT_IMT', payload),
 
   // риск развития заболевания болезни
   setDiseaseNumber: ({ commit }, payload) => commit('SET_DISEASE_NUMBER', payload)
@@ -120,11 +126,14 @@ export const mutationsUserMeasurement = {
 
   // результаты измерений
   SET_MEASUREMENT_PRESSURE: (state, payload) => { state.measurement.pressure = payload.data },
+  SET_MEASUREMENT_PULSE: (state, payload) => { state.measurement.pulse = payload.data },
   SET_MEASUREMENT_GLUCOMETRY: (state, payload) => { state.measurement.glucometry = payload.data },
   SET_MEASUREMENT_TEMPERATURE: (state, payload) => { state.measurement.temperature = payload.data },
   SET_MEASUREMENT_SATURATSIYA: (state, payload) => { state.measurement.saturatsiya = payload.data },
   SET_MEASUREMENT_SPIROGRAPHIA: (state, payload) => { state.measurement.spirographia = payload.data },
-  SET_MEASUREMENT_WEIGHTHEIGHT: (state, payload) => { state.measurement.weightHeight = payload.data },
+  SET_MEASUREMENT_WEIGHT: (state, payload) => { state.measurement.weight = payload.data },
+  SET_MEASUREMENT_HEIGHT: (state, payload) => { state.measurement.height = payload.data },
+  SET_MEASUREMENT_IMT: (state, payload) => { state.measurement.imt = payload.data },
 
   // результаты специалистов
   SET_RESULT_SPECIALIST_CARDIOLOGIST: (state, payload) => { state.result.specialist.cardiologist = payload.data },
@@ -155,11 +164,14 @@ export const gettersUserMeasurement = {
 
   // результаты измерений
   getMeasurementPressure: state => state.measurement.pressure,
+  getMeasurementPulse: state => state.measurement.pulse,
   getMeasurementGlucometry: state => state.measurement.glucometry,
   getMeasurementTemperature: state => state.measurement.temperature,
   getMeasurementSaturatsiya: state => state.measurement.saturatsiya,
   getMeasurementSpirographia: state => state.measurement.spirographia,
-  getMeasurementWeightHeight: state => state.measurement.weightHeight,
+  getMeasurementWeight: state => state.measurement.weight,
+  getMeasurementHeight: state => state.measurement.height,
+  getMeasurementImt: state => state.measurement.imt,
 
   getSpecialistNumber: state => state.current_specialist.number,
   getSpecialistName: state => state.current_specialist.name,

@@ -1,65 +1,107 @@
 <template>
     <div v-show="showComponent" class="settings">
+      <div class="content">
         <p class="text">Пройти отдельное обследование</p>
-        <button class="btn-dark-main" :style=setColorPressure>
+        <button class="btn-dark-main" :style="[{ 'background-color': `${ getButtonPressureColor }` }]" v-on:click="toDiagnostic">
           <div class="block">
-            <div class="icon-box">
-               <img src="../../../assets/img/diagnostic/blood-pressure.png" class="icon line">
+            <div class="line icon-box">
+               <img src="../../../assets/img/diagnostic/blood-pressure.png" class="icon">
             </div>
-            <p class="line_data-res" v-if="flagPressure">{{ this.dataPresure }}</p>
+            <div class="line_data-res block" v-if="flagPressure">
+              <div class="data">
+                <p class="data_text">Давление</p>
+                <p class="data_res">{{ this.dataPressure }}</p>
+              </div>
+              <div class="data">
+                <p class="data_text">Пульс</p>
+                <p class="data_res">{{ this.dataPulse }}</p>
+              </div>
+            </div>
           </div>
           <p>Артериальное давление <br> и пульс</p>
         </button>
 
-        <button class="btn-dark-main" v-on:click="toHeigth" :style="setColorWeightHeight">
+        <button class="btn-dark-main" v-on:click="toHeigth" :style="[{ 'background-color': `${ getButtonWeightHeightColor }` }]">
           <div class="block">
-            <div class="icon-box">
+            <div class="line icon-box">
               <img src="../../../assets/img/diagnostic/union.png" class="icon">
             </div>
-            <p class="line_data-res" v-if="flagWeightHeight">{{ this.dataWeightHeight }}</p>
+            <div class="line_data-res block" v-if="flagWeightHeight">
+              <div class="data">
+                <p class="data_text">ИМТ</p>
+                <p class="data_res">{{ this.dataImt }}</p>
+              </div>
+              <div class="data">
+                <p class="data_text_imt">Рост</p>
+                <p class="data_res_imt">{{ this.dataHeight }}</p>
+              </div>
+              <div class="data">
+                <p class="data_text_imt">Вес</p>
+                <p class="data_res_imt">{{ this.dataWeight }}</p>
+              </div>
+            </div>
           </div>
+          <br>
           <p>Рост и вес</p>
         </button>
 
-        <button class="btn-dark-main" :style="setColorTemperature">
+        <button class="btn-dark-main" :style="[{ 'background-color': `${ getButtonTemperatureColor }` }]" v-on:click="toDiagnostic">
           <div class="block">
-            <div class="icon-box">
+            <div class="line icon-box">
               <img src="../../../assets/img/diagnostic/temperature.png" class="icon">
             </div>
-            <p class="line_data-res" v-if="flagTemperature">{{ this.dataTemperature }}</p>
+            <div class="line_data-res" v-if="flagTemperature">
+              <div class="data">
+                <br>
+                <p class="data_res">{{ this.dataTemperature }}</p>
+              </div>
+            </div>
           </div>
-            <p>Температура тела</p>
+          <br>
+          <p>Температура тела</p>
         </button>
 
-        <button class="btn-dark-main" :style="setColorSaturatsiya">
+        <button class="btn-dark-main" :style="[{ 'background-color': `${ getButtonSaturatsiyaColor }` }]" v-on:click="toDiagnostic">
           <div class="block">
-            <div class="icon-box">
+            <div class="line icon-box">
               <img src="../../../assets/img/diagnostic/oxygen.png" class="icon">
             </div>
-            <p class="line_data-res" v-if="flagSaturatsiya">{{ this.dataSaturatsiya }}</p>
+            <div class="line_data-res" v-if="flagSaturatsiya">
+              <div class="data">
+                <br>
+                <p class="data_res">{{ this.dataSaturatsiya }}</p>
+              </div>
+            </div>
           </div>
-            <p>Насыщение крови кислородом<br>(сатурация)</p>
+          <p>Насыщение крови кислородом<br>(сатурация)</p>
         </button>
 
-        <button class="btn-dark-main" :style="setColorGlucometry">
+        <button class="btn-dark-main" :style="[{ 'background-color': `${ getButtonGlucometryColor }` }]" v-on:click="toDiagnostic">
           <div class="block">
-            <div class="icon-box">
+            <div class="line icon-box">
               <img src="../../../assets/img/diagnostic/gluco.png" class="icon">
             </div>
-            <p class="line_data-res" v-if="flagGlucometry">{{ this.dataGlucometry }}</p>
+            <div class="line_data-res" v-if="flagGlucometry">
+              <div class="data">
+                <p class="data_res">{{ this.dataGlucometry }}</p>
+                <p class="data_text">ммоль/л</p>
+              </div>
+            </div>
           </div>
-            <p>Глюкоза крови</p>
+          <br>
+          <p>Глюкоза крови</p>
         </button>
 
-        <button class="btn-dark-main" :style="setColorSpirographia">
+        <button class="btn-dark-main" :style="[{ 'background-color': `${ getButtonSpirographiaColor }` }]" disabled>
           <div class="block">
-            <div class="icon-box">
+            <div class="line icon-box">
               <img src="../../../assets/img/diagnostic/spirometr.png" class="icon">
             </div>
             <p class="line_data-res" v-if="flagSpirographia">{{ this.dataSpirographia }}</p>
           </div>
-            <p>Функция легких<br>(спирометрия)</p>
+          <p>Функция легких<br>(спирометрия)</p>
         </button>
+      </div>
     </div>
 </template>
 
@@ -71,7 +113,6 @@ export default {
   name: 'diagnostic_start',
   data () {
     return {
-      st: null,
       flagPressure: false,
       flagGlucometry: false,
       flagTemperature: false,
@@ -80,11 +121,14 @@ export default {
       flagWeightHeight: false,
 
       dataPressure: null,
+      dataPulse: null,
       dataGlucometry: null,
       dataTemperature: null,
       dataSaturatsiya: null,
       dataSpirographia: null,
-      dataWeightHeight: null
+      dataWeight: null,
+      dataHeight: null,
+      dataImt: null
     }
   },
   computed: {
@@ -93,25 +137,30 @@ export default {
     ]),
     ...mapGetters('ui', [
       'getButtonPressureColor',
-      'getButtonGlucometry',
-      'getButtonTemperature',
-      'getButtonSaturatsiya',
-      'getButtonSpirographia',
-      'getButtonWeightHeight',
+      'getButtonGlucometryColor',
+      'getButtonTemperatureColor',
+      'getButtonSaturatsiyaColor',
+      'getButtonSpirographiaColor',
+      'getButtonWeightHeightColor',
       'getMeasurementPressure',
+      'getMeasurementPulse',
       'getMeasurementGlucometry',
       'getMeasurementTemperature',
       'getMeasurementSaturatsiya',
       'getMeasurementSpirographia',
-      'getMeasurementWeightHeight'
+      'getMeasurementWeight',
+      'getMeasurementHeight',
+      'getMeasurementImt'
     ]),
     showComponent () {
       if (this.getStep === 'diagnostic_start') {
         this.loggingCurrentStateName()
+
         if (this.getMeasurementPressure != null) {
           // данные есть - отрисовываем элементы кнопки с результатом
           this.flagPressure = true
-          this.dataPresure = this.getMeasurementPressure
+          this.dataPressure = this.getMeasurementPressure
+          this.dataPulse = this.getMeasurementPulse
         }
         if (this.getMeasurementGlucometry != null) {
           // данные есть
@@ -133,37 +182,33 @@ export default {
           this.flagSpirographia = true
           this.dataSpirographia = this.getMeasurementSpirographia
         }
-        if (this.getMeasurementWeightHeight != null) {
+        if (this.getMeasurementImt != null) {
           // данные есть
           this.flagWeightHeight = true
-          this.dataWeightHeight = this.getMeasurementWeightHeight
+          this.dataWeight = this.getMeasurementWeight
+          this.dataHeight = this.getMeasurementHeight
+          this.dataImt = this.getMeasurementImt
         }
       }
       return this.getStep === 'diagnostic_start'
     },
     setColorPressure () {
-      this.st = this.getButtonPressureColor
-      return { 'background-color': this.st }
+      return { 'background-color': this.getButtonPressureColor }
     },
     setColorWeightHeight () {
-      this.st = this.getButtonWeightHeightColor
-      return { 'background-color': this.st }
+      return { 'background-color': this.getButtonWeightHeightColor }
     },
     setColorTemperature () {
-      this.st = this.getButtonTemperatureColor
-      return { 'background-color': this.st }
+      return { 'background-color': this.getButtonTemperatureColor }
     },
     setColorSaturatsiya () {
-      this.st = this.getButtonSaturatsiyaColor
-      return { 'background-color': this.st }
+      return { 'background-color': this.getButtonSaturatsiyaColor }
     },
     setColorGlucometry () {
-      this.st = this.getButtonGlucometryColor
-      return { 'background-color': this.st }
+      return { 'background-color': this.getButtonGlucometryColor }
     },
     setColorSpirographia () {
-      this.st = this.getButtonSpirographiaColor
-      return { 'background-color': this.st }
+      return { 'background-color': this.getButtonSpirographiaColor }
     }
   },
   methods: {
@@ -181,8 +226,11 @@ export default {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
-        data: 'WIDTHHEIGHT'
+        data: 'WIDTH_HEIGHT'
       })
+    },
+    toDiagnostic: function () {
+      // измерения
     }
   }
 }
@@ -192,57 +240,87 @@ export default {
 .settings {
     width: 100%;
     height: 100%;
-    box-sizing: border-box;
-    position: absolute;
-    text-align: center;
-    bottom: 0;
-}
 
-button {
-    width: 380px;
-    height: 200px;
-    margin: 10px;
-}
+    .content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      bottom: 0;
 
-p {
-    width: 100%;
-    font-weight: 500;
-    font-size: 22px;
-    display: flex;
-    flex-flow: wrap row;
-    justify-content: center;
-    align-content: center;
-}
-.text {
-    font-weight: 700;
-    font-size: 30px;
-    margin-top: 50px;
-}
+      button {
+        width: 380px;
+        height: 200px;
+        margin: 10px;
+      }
 
-.icon {
-    width: 75px;
-    height: auto;
-    margin-top: 20px;
-}
+      p {
+          width: 100%;
+          font-weight: 500;
+          font-size: 22px;
+          display: flex;
+          flex-flow: wrap row;
+          justify-content: center;
+          align-content: center;
+      }
+      .text {
+          font-weight: 700;
+          font-size: 30px;
+          margin-top: 120px;
+      }
 
-.block {
-  width: 100%;
-  height: 60%;
-  display: flex;
-  justify-content: center;
-}
+      .icon {
+          width: 75px;
+          height: auto;
+      }
 
-.icon-box {
-  width: 100%;
-  height: 60%;
-}
-.line {
-  display: inline-block;
-  &_data-res {
-    width: 200%;
-    height: 60%;
-    font-size: 50px;
-    font-weight: 700;
-  }
+      .block {
+        width: 100%;
+        height: 60%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .icon-box {
+        width: 100%;
+        height: 60%;
+      }
+      .line {
+        display: inline-block;
+        margin-top: 40px;
+        &_data-res {
+          width: 200%;
+          height: 60%;
+          margin-top: 40px;
+        }
+      }
+
+      .data {
+        margin-right: 20px;
+        &_text {
+          font-size: 24px;
+          margin: 0;
+
+          &_imt {
+            font-size: 20px;
+            margin: 5px 0 0 0;
+          }
+        }
+
+        &_res {
+          font-size: 40px;
+          font-weight: 700;
+          margin: 0;
+          &_imt {
+            font-size: 30px;
+            font-weight: 700;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
 }
 </style>
