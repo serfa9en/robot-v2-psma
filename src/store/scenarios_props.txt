@@ -1,0 +1,5 @@
+app/setStep                  - название шага (для showComponent)
+engine/handlerMoveToState    - куда переходим (что отрисовываем)
+ui/setHeaderEnabled          - отрисовка хэддера
+ui/setHeaderBtnLeftText      - что написано на кнопке хэддера
+ui/setHeaderBtnLeftAction    - по кнопке "Выход" куда переходим (options: {'engine/handlerClickMoveToState': 'MEET_FACE'})
