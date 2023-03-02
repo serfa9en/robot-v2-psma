@@ -155,7 +155,7 @@ export default function (logger) {
                   dispatch('faces/one', {
                     meta: payload.meta
                   })
-                  if (['START_NEW', 'START-1', 'PROMO', 'INITIAL'].includes(getter['engine/getCurrentStateName']) === false) {
+                  if (['DIAGNOSTIC_START', 'START-1', 'WAIT_PROMO', 'INITIAL'].includes(getter['engine/getCurrentStateName']) === false) {
                     if (isAllowSetOneGeneral === true) {
                       setOneGeneralTimeout = setTimeout(() => {
                         dispatch('robot/faceRecognizeAutotrackingRequest', {

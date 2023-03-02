@@ -75,7 +75,7 @@ export default function (logger) {
         // console.warn('ПОЛУЧАЕМ ДАННЫЕ СПИРОГРАФА', JSON.stringify(JSON.parse(event.data)))
         let d = JSON.parse(event.data)
         if (typeof d?.status === 'number') {
-          // console.warn('ПОЛУЧАЕМ СТАТУС ПОДКЛЮЧЕНИЯ СПИРОГРАФА', { status: d.status, description: d.description })
+          console.warn('ПОЛУЧАЕМ СТАТУС ПОДКЛЮЧЕНИЯ СПИРОГРАФА', { status: d.status, description: d.description })
           if (d.status === 1) {
             isSpirometer = true
           }
@@ -176,7 +176,7 @@ export default function (logger) {
                 }, () => {
                   // clearInterval(tempStartInterval)
                   actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': false, 'timeout': 0 })
-                  actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'START_NEW', 'timeout': 0 })
+                  actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'DIAGNOSTIC_START', 'timeout': 0 })
                   actions.push({ 'name': 'robot/abortRobotReplic', 'options': null, 'timeout': 100 })
                   actions.push({ 'name': 'robot/sayText', 'options': 'Извините, в данный момент это оборудование недоступно', 'timeout': 200 })
                   actions.forEach(item => {
@@ -302,8 +302,8 @@ export default function (logger) {
                 tempStartInterval = setInterval(() => {
                   let connection = store.getters['ui/getGlucometerConnectionStatus']
                   let battery = store.getters['ui/getGlucometerBatteryStatus']
-                  // console.warn('connection', connection)
-                  // console.warn('battery', battery)
+                  console.warn('GLUKO connection', connection)
+                  console.warn('GLUKO battery', battery)
                   if (connection) {
                     connectionIsOk = true
                   } else {
@@ -337,11 +337,12 @@ export default function (logger) {
                 batteryIsOk = false
                 clearInterval(tempStartInterval)
                 actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': false, 'timeout': 0 })
-                actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'START_NEW', 'timeout': 0 })
+                actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'DIAGNOSTIC_START', 'timeout': 0 })
                 actions.push({ 'name': 'robot/abortRobotReplic', 'options': null, 'timeout': 100 })
                 if (errorPhrase) {
                   actions.push({ 'name': 'robot/sayReplicByName', 'options': { step: errorPhrase, terminate: true }, 'timeout': 200 })
                 } else {
+                  console.warn('GLUCO Извините, в данный момент это оборудование недоступно')
                   actions.push({ 'name': 'robot/sayText', 'options': 'Извините, в данный момент это оборудование недоступно', 'timeout': 200 })
                 }
                 actions.forEach(item => {
@@ -386,9 +387,10 @@ export default function (logger) {
               }, () => {
                 clearInterval(tempStartInterval)
                 actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': false, 'timeout': 0 })
-                actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'START_NEW', 'timeout': 0 })
+                actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'DIAGNOSTIC_START', 'timeout': 0 })
                 actions.push({ 'name': 'robot/abortRobotReplic', 'options': null, 'timeout': 100 })
                 actions.push({ 'name': 'robot/sayText', 'options': 'Извините, в данный момент это оборудование недоступно', 'timeout': 200 })
+                console.warn('THERMO Извините, в данный момент это оборудование недоступно')
                 actions.forEach(item => {
                   setTimeout(() => {
                     store.dispatch(item.name, { meta: pm, data: item.options })
@@ -421,9 +423,10 @@ export default function (logger) {
                   actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'IBS', 'timeout': 0 })
                 } else {
                   actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': false, 'timeout': 0 })
-                  actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'START_NEW', 'timeout': 0 })
+                  actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'DIAGNOSTIC_START', 'timeout': 0 })
                   actions.push({ 'name': 'robot/abortRobotReplic', 'options': null, 'timeout': 100 })
                   actions.push({ 'name': 'robot/sayText', 'options': 'Извините, в данный момент это оборудование недоступно', 'timeout': 200 })
+                  console.warn('TONOME Извините, в данный момент это оборудование недоступно')
                 }
                 actions.forEach(item => {
                   setTimeout(() => {
@@ -436,6 +439,7 @@ export default function (logger) {
             /**
              *  Ростометр + весы: проверка работоспособности и переход к измерению
              */
+            /*
             if (payload.data === EXAMINATION_TYPE.WEIGHT_HEIGHT && store.getters['ui/getMeasurementStep'] === 1) { // Переход к замеру роста и веса
               new Promise((resolve, reject) => {
                 actions = []
@@ -472,6 +476,7 @@ export default function (logger) {
                 })
               })
             }
+            */
           }
           break
         /**
@@ -524,7 +529,7 @@ export default function (logger) {
          */
         case 'engine/SET_CURRENT_STATE_NAME':
 
-          if (['START_NEW'].includes(payload.data)) {
+          if (['DIAGNOSTIC_START'].includes(payload.data)) {
             // console.warn('localStorage', localStorage)
             // console.warn('localStorage id', store.getters['faces/getUserGeneral'].id)
             // console.warn('localStorage item', localStorage.getItem('med_' + String(store.getters['faces/getUserGeneral'].id)))
@@ -539,7 +544,7 @@ export default function (logger) {
             }, lsUserMeasurements)
           }
 
-          if (['PROMO'].includes(payload.data)) { // при рестарте кейса сбрасываю возможные начатые измерения приборов
+          if (['WAIT_PROMO'].includes(payload.data)) { // при рестарте кейса сбрасываю возможные начатые измерения приборов
             if (isCaseStarted === false && typeof topic_pressure_start !== 'undefined') {
               isCaseStarted = true
               topic_pressure_start.publish(msg_c1)
@@ -549,7 +554,7 @@ export default function (logger) {
             if (isSocket === true) socket_s.send('stopTest')
           }
 
-          if (['PROMO', 'START_NEW'].includes(payload.data)) { // при рестарте и на стрртовом экране кейса сбрасываю все данные в null, отменяю все таймауты и интервалы
+          if (['WAIT_PROMO', 'DIAGNOSTIC_START'].includes(payload.data)) { // при рестарте и на стрртовом экране кейса сбрасываю все данные в null, отменяю все таймауты и интервалы
             clearInterval(spirographMeasure)
             clearInterval(tempStartInterval)
             clearInterval(spirographTube)
@@ -606,7 +611,7 @@ export default function (logger) {
           // Пульсоксиметрия
 
           // Стоп измерения при успехе или ошибке. SATURATSIYA_ERROR - для старого пульсоксиметра, подключенного к спирографу
-          if (['MEASUREMENT_4_1', 'MEASUREMENT_4_3', 'MEASUREMENT_4_7', 'SPIROGRAPHIA_ERROR', 'SATURATSIYA_ERROR', 'START_NEW'].includes(payload.data)) {
+          if (['MEASUREMENT_4_1', 'MEASUREMENT_4_3', 'MEASUREMENT_4_7', 'SPIROGRAPHIA_ERROR', 'SATURATSIYA_ERROR', 'DIAGNOSTIC_START'].includes(payload.data)) {
             if (isSocket === true) socket_s.send('stopTest')
           }
 
@@ -638,7 +643,7 @@ export default function (logger) {
                     meta: pm,
                     data: [
                       {
-                        'name': 'ui/setUserSaturatsiya',
+                        'name': 'ui/setMeasurementSaturatsiya',
                         'data': s,
                         'image': store.getters['app/getIconsSVG'].vessel,
                         'text': 'SpO<sub>2</sub>',
@@ -670,7 +675,7 @@ export default function (logger) {
                   meta: pm,
                   data: [
                     {
-                      'name': 'ui/setUserSaturatsiya',
+                      'name': 'ui/setMeasurementSaturatsiya',
                       'data': null,
                       'image': store.getters['app/getIconsSVG'].vessel,
                       'text': 'SpO<sub>2</sub>',
@@ -682,6 +687,7 @@ export default function (logger) {
                   meta: pm,
                   data: 'SATURATSIYA_ERROR'
                 })
+                console.warn('SATURATSIYA_ERROR')
               }
               i++
             }, 250)
@@ -779,8 +785,8 @@ export default function (logger) {
                 clearInterval(spirographInterval)
                 spirographInterval = null
               }
-              actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'START_NEW', 'timeout': 0 })
-              actions.push({ 'name': 'robot/sayReplicByName', 'options': { 'step': 'START_NEW__NO_SPIROGRAPH_TUBE', 'terminate': true }, 'timeout': 300 })
+              actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'DIAGNOSTIC_START', 'timeout': 0 })
+              actions.push({ 'name': 'robot/sayReplicByName', 'options': { 'step': 'DIAGNOSTIC_START__NO_SPIROGRAPH_TUBE', 'terminate': true }, 'timeout': 300 })
               actions.forEach(item => {
                 setTimeout(() => {
                   store.dispatch(item.name, { meta: pm, data: item.options })
@@ -890,7 +896,7 @@ export default function (logger) {
                       meta: pm,
                       data: [
                         {
-                          'name': 'ui/setUserGlukometr',
+                          'name': 'ui/setMeasurementGlucometry',
                           'data': Number((pd.message.data).toFixed(1)),
                           'image': store.getters['app/getIconsSVG'].glucometer,
                           'text': 'ммоль/л'
@@ -954,6 +960,7 @@ export default function (logger) {
                     meta: payload.meta,
                     data: 'CLUKOMETR_ERROR'
                   })
+                  console.warn('CLUKOMETR_ERROR')
                 }
                 i++
               }, 250)
@@ -973,7 +980,7 @@ export default function (logger) {
             let farDistanceAttempt = 0 // количество произведенных попыток установить пользователя на дистанцию измерения
             // Фраза для температуры
             if (['MEASUREMENT_6_3'].includes(payload.data)) {
-              let temperature = store.getters['ui/getUserTemperature']
+              let temperature = store.getters['ui/getMeasurementTemperature']
               let phrase = (temperature <= 36) ? 'RES_TEMPRATURE_0' : (temperature <= 36.9) ? 'RES_TEMPRATURE_1' : (temperature <= 37.9) ? 'RES_TEMPRATURE_2' : 'RES_TEMPRATURE_3'
               setTimeout(() => {
                 dispatch('robot/sayReplicByName', {
@@ -1116,12 +1123,12 @@ export default function (logger) {
                     /**
                      * ЭМУЛЯТОР: отправляем в псевдотопик сигнал но то, что пользователь подошел вплотную к термометру
                      */
-                    // global.topic_t.publish(new ROSLIB.Message(
-                    //   {
-                    //     distance: 70,
-                    //     temperature: 36600
-                    //   }
-                    // ))
+                    global.topic_t.publish(new ROSLIB.Message(
+                      {
+                        distance: 70,
+                        temperature: 36600
+                      }
+                    ))
                   }
                   tempShort = (tempLong === 0 && pd.message.distance > 100) ? tempShort + 1 : tempShort = 0
                   if (tempShort === tempShortRes) {
@@ -1146,14 +1153,14 @@ export default function (logger) {
                         meta: pm,
                         data: [
                           {
-                            'name': 'ui/setUserTemperature',
+                            'name': 'ui/setMeasurementTemperature',
                             'data': tt,
                             'image': 'dialog-images/temp.png',
                             'text': 'Температура, &deg;C'
                           }
                         ]
                       })
-                      dispatch('ui/setUserTemperature', {
+                      dispatch('ui/setMeasurementTemperature', {
                         meta: pm,
                         data: tt
                       })
@@ -1172,12 +1179,12 @@ export default function (logger) {
                     /**
                      * ЭМУЛЯТОР: отправляем в псевдотопик сигнал о том, что температура измерена и можно вырубать аппарат
                      */
-                    // global.topic_t.publish(new ROSLIB.Message(
-                    //   {
-                    //     distance: 999,
-                    //     temperature: 1000
-                    //   }
-                    // ))
+                    global.topic_t.publish(new ROSLIB.Message(
+                      {
+                        distance: 999,
+                        temperature: 1000
+                      }
+                    ))
                   }
                 }
                 if (i === 90) {
@@ -1185,7 +1192,7 @@ export default function (logger) {
                     meta: payload.meta,
                     data: [
                       {
-                        'name': 'ui/setUserTemperature',
+                        'name': 'ui/setMeasurementTemperature',
                         'data': null,
                         'image': 'dialog-images/temp.png',
                         'text': 'Температура, &deg;C'
@@ -1261,7 +1268,7 @@ export default function (logger) {
                     st = 'MEASUREMENT_5_3'
                     // Если измерение ОК - заполняем данные ручного ввода,
                     // Чтобы не предлагать пользователю ввести в ручную АД
-                    dispatch('ui/setUserArtPressureEnter', {
+                    dispatch('ui/setMeasurementPressure', {
                       meta: pm,
                       data: s
                     })
@@ -1280,13 +1287,13 @@ export default function (logger) {
                     meta: pm,
                     data: [
                       {
-                        'name': 'ui/setUserArtPressure',
+                        'name': 'ui/setMeasurementPressure',
                         'data': s,
                         'image': store.getters['app/getIconsSVG'].bloodPressure,
                         'text': 'Давление'
                       },
                       {
-                        'name': 'ui/setUserArtPressureLow',
+                        'name': 'ui/setMeasurementPressureLow',
                         'data': d,
                         'image': store.getters['app/getIconsSVG'].bloodPressure,
                         'text': 'Нижнее значение',

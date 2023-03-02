@@ -1,8 +1,4 @@
 <template>
-  <!--
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-  -->
   <div class="main-div">
 
     <WaitPromo/>
@@ -17,6 +13,7 @@
       <DiseaseMain/>
       <DiseaseQuest/>
       <DiagnosticStart/>
+      <MeasurementTemp/>
       <WidthHeight/>
       <ExitView/>
     </Content>
@@ -36,6 +33,7 @@ import MeetFace from '@/components/views/MeetFace'
 import Age from '@/components/views/Age'
 import MainView from '@/components/views/MainView'
 import DiagnosticStart from '@/components/views/Measurement/Diagnostic_Start'
+import MeasurementTemp from '@/components/views/Measurement/Measurement_Temp'
 import SpecialistStart from '@/components/views/Specialist/Specialist_Main'
 import SpecialistQuest from '@/components/views/Specialist/Specialist_Quest'
 import DiseaseMain from '@/components/views/Disease/Disease_Main'
@@ -60,6 +58,7 @@ export default {
     Age,
     MainView,
     DiagnosticStart,
+    MeasurementTemp,
     SpecialistStart,
     SpecialistQuest,
     DiseaseMain,

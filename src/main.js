@@ -8,11 +8,13 @@ import App from './App.vue'
 import { MeetService } from '@pb/services'
 
 import Promobot from '@pb/api'
-import defaultSettings from './settings'
+import defaultSettings, { generalAppData } from './settings'
 // import { GetPromobotInstance } from './robot'
 
 import { PromobotLogger, EventInitiatorTypes, EventTypes } from 'promobot-logger' // ActionHandlerTypes, ActionTypes
 import storeSettings from './store/index'
+import { getters } from './features/faces/module'
+import { requestJson } from './utils'
 
 // import defaultSettings from './settings'
 // import Promobot from '@pb/api'
@@ -76,6 +78,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
         meta: { eventId: eventId },
         data: env
       })
+    }).then(() => {
+      global.generalAppData = generalAppData
+      return requestJson('config/facts.json')
     }).then(() => {
       // Vue.createApp(App).mount('#app')
 
@@ -196,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
           queue_size: 5
         })
         global.topic_pressure_start.subscribe(message => {
-        // console.warn('TOPIC_PRESSURE_START', message)
+          // console.warn('TOPIC_PRESSURE_START', message)
         })
 
         global.topic_pressure_cancel = new ROSLIB.Topic({ // топик по отмене замера давления
@@ -206,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
           queue_size: 5
         })
         global.topic_pressure_cancel.subscribe(message => {
-        // console.warn('TOPIC_PRESSURE_CANCEL', message)
+          // console.warn('TOPIC_PRESSURE_CANCEL', message)
         })
 
         global.topic_pressure_state = new ROSLIB.Topic({ // топик по данным при замере давления
@@ -245,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
           queue_size: 5
         })
         global.topic_glukometr_battery.subscribe(message => {
-        // console.warn('GLUCOMETER_BATTERY', JSON.stringify(message))
+          // console.warn('GLUCOMETER_BATTERY', JSON.stringify(message))
           if (store.getters['ui/getMeasurementNum'] === 2 && store.getters['ui/getMeasurementStep'] === 1) {
             store.dispatch('ui/setGlucometerBatteryStatus', {
               meta: null,
@@ -254,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
           }
         })
         global.topic_glukometr_tcp_connection.subscribe(message => {
-        // console.warn('GLUCOMETER_CONNECTION', JSON.stringify(message))
+          // console.warn('GLUCOMETER_CONNECTION', JSON.stringify(message))
           if (store.getters['ui/getMeasurementNum'] === 2 && store.getters['ui/getMeasurementStep'] === 1) {
             store.dispatch('ui/setGlucometerConnectionStatus', {
               meta: null,
@@ -283,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
           queue_size: 5
         })
         global.topic_glukometr_percent.subscribe(message => {
-        // console.warn('GLUCOMETER_PERCENT', message)
+          // console.warn('GLUCOMETER_PERCENT', message)
           if (typeof message.percent === 'number' && store.getters['ui/getMeasurementNum'] === 2 && store.getters['ui/getMeasurementStep'] === 2) {
             store.dispatch('ui/setMeasuredDataFromTopic', {
               meta: null,
@@ -305,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         })
         global.topic_glukometr_finish.subscribe(message => {
           if (store.getters['ui/getMeasurementNum'] === 2) {
-          // console.warn('glucometer finish', message)
+            // console.warn('glucometer finish', message)
             store.dispatch('ui/setMeasuredDataFromTopic', {
               meta: null,
               data: { 'type': 2,

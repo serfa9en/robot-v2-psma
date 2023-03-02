@@ -14,7 +14,13 @@ export default [
       {
         name: 'engine/handlerCallScenario',
         options: 'meet_face'
-      }]
+      },
+      {
+        name: 'robot/sayReplicByName',
+        options: { step: 'START', terminate: true },
+        timeout: 100
+      }
+    ]
   },
   {
     name: 'AGE',
@@ -128,6 +134,214 @@ export default [
       }
     ]
   },
+  /*
+  {
+    name: 'MEASUREMENT',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'measurement'
+      }
+    ]
+  },
+  */
+
+  {
+    'name': 'MEASUREMENT_6_1',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_6_1', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'TEMPERATURE:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_6_1', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_6_2',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_6_2', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'TEMPERATURE-PROCESS:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_6_2', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_6_3',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_6_3', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'TEMPERATURE-RESULT:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_6_3', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_6_3_ERROR',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_6_3', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_6_3_ERROR', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_2_1',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_2_1', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'MEASUREMENT_2_1:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_2_1', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_2_2',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_2_2', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'MEASUREMENT_2_2:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_2_2', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_2_3',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_2_3', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'MEASUREMENT_2_3:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_2_3', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_2_4',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_2_4', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'MEASUREMENT_2_4:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_2_4', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_2_5',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_2_5', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'MEASUREMENT_2_5:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_2_5', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'CLUKOMETR_ERROR',
+    'entering': [
+      { 'name': 'robot/setRobotDialogCase', 'options': 'CLUKOMETR_ERROR:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'CLUKOMETR_ERROR', 'terminate': true }, 'timeout': 50 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'glucometerError' }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_5_1',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_5_1', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'PRESSURE:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_5_1', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_5_2',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_5_2', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'PRESSURE-PROCESS:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_5_2', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_5_3',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_5_3', 'timeout': 0 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_5_3_ERROR',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_5_3', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_5_3_ERROR', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_4_1',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_4_1', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'MEASUREMENT_4_1:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_4_1', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_4_2',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_4_2', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'MEASUREMENT_4_2:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_4_2', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_4_3',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_4_3', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'MEASUREMENT_4_3:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_4_3', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'SATURATSIYA_ERROR',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'saturatsiyaError' }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_3_1',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_3_1', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'HEIGHT:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_3_1', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_3_2',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_3_2', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_3_2', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_3_3',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_3_3', 'timeout': 0 },
+      { 'name': 'robot/setRobotDialogCase', 'options': 'HEIGHT-PROCESS:extend', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_3_3', 'terminate': true }, 'timeout': 100 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_3_4',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_3_4', 'timeout': 0 }
+    ]
+  },
+  {
+    'name': 'MEASUREMENT_3_4_ERROR',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'measurement_3_4', 'timeout': 0 },
+      { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_3_4_ERROR', 'terminate': true }, 'timeout': 50 }
+    ]
+  },
+
   {
     name: 'INITIAL',
     entering: [

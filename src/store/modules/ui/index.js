@@ -4,8 +4,22 @@ export default {
   namespaced: true,
   state: {
     ...stateUserMeasurement,
+    resultGroup: null,
+    resultItems: null,
     user: {
-      age: null
+      met: null,
+      age: null,
+      gender: null,
+      measurementNum: null,
+      measurementStep: null,
+      equipmentWorks: null,
+      isSaturatsiyaStarted: null,
+      measuredData: null,
+      measuredDataFromTopic: null
+    },
+    glucometer: {
+      connectionStatus: false,
+      batteryStatus: false
     },
     headerBtnLeft: {
       enabled: null,
@@ -18,6 +32,10 @@ export default {
     },
     footer: {
       enabled: null
+    },
+    subtitles: {
+      text: null,
+      enabled: true
     },
     videoStream: {
       enabled: null
@@ -36,7 +54,20 @@ export default {
   },
   actions: {
     ...actionsUserMeasurement,
+    setResultGroup: ({ commit }, payload) => commit('SET_RESULT_GROUP', payload),
+    setResultItems: ({ commit }, payload) => commit('SET_RESULT_ITEMS', payload),
     setUserAge: ({ commit }, payload) => commit('SET_USER_AGE', payload),
+    setUserMet: ({ commit }, payload) => commit('SET_USER_MET', payload),
+    setUserGender: ({ commit }, payload) => commit('SET_USER_GENDER', payload),
+    setMeasurementNum: ({ commit }, payload) => commit('SET_MEASUREMENT_NUM', payload),
+    setMeasurementStep: ({ commit }, payload) => commit('SET_MEASUREMENT_STEP', payload),
+    setEquipmentWorks: ({ commit }, payload) => commit('SET_EQUIPMENT_WORKS', payload),
+    setIsSaturatsiyaStarted: ({ commit }, payload) => commit('SET_IS_SATURATSIYA_STARTED', payload),
+    setMeasuredData: ({ commit }, payload) => commit('SET_MEASURED_DATA', payload),
+    setMeasuredDataFromTopic: ({ commit }, payload) => commit('SET_MEASURED_DATA_FROM_TOPIC', payload),
+    // статус глюкометра
+    setGlucometerConnectionStatus: ({ commit }, payload) => commit('SET_GLUCOMETER_CONNECTION_STATUS', payload),
+    setGlucometerBatteryStatus: ({ commit }, payload) => commit('SET_GLUCOMETER_BATTERY_STATUS', payload),
 
     setHeaderBtnLeftEnabled: ({ commit }, payload) => commit('SET_HEADER_BTN_LEFT_ENABLED', payload),
     setHeaderBtnLeftText: ({ commit }, payload) => commit('SET_HEADER_BTN_LEFT_TEXT', payload),
@@ -49,6 +80,9 @@ export default {
 
     // VIDEO STREAM
     setVideoStreamEnabled: ({ commit }, payload) => commit('SET_VIDEO_STREAM_ENABLED', payload),
+    // SUBTITLES
+    setSubtitlesText: ({ commit }, payload) => commit('SET_SUBTITLES_TEXT', payload),
+    setSubtitlesEnabled: ({ commit }, payload) => commit('SET_SUBTITLES_ENABLED', payload),
 
     // spinner
     setSpinnerEnabled: ({ commit, getters }, payload) => commit('SET_SPINNER_ENABLED', payload),
@@ -59,7 +93,20 @@ export default {
   },
   mutations: {
     ...mutationsUserMeasurement,
+    SET_RESULT_GROUP: (state, payload) => { state.resultGroup = payload.data },
+    SET_RESULT_ITEMS: (state, payload) => { state.resultItems = payload.data },
     SET_USER_AGE: (state, payload) => { state.user.age = payload.data },
+    SET_USER_MET: (state, payload) => { state.user.met = payload.data },
+    SET_USER_GENDER: (state, payload) => { state.user.gender = payload.data },
+    SET_MEASUREMENT_NUM: (state, payload) => { state.user.measurementNum = payload.data },
+    SET_MEASUREMENT_STEP: (state, payload) => { state.user.measurementStep = payload.data },
+    SET_EQUIPMENT_WORKS: (state, payload) => { state.user.equipmentWorks = payload.data },
+    SET_IS_SATURATSIYA_STARTED: (state, payload) => { state.user.isSaturatsiyaStarted = payload.data },
+    SET_MEASURED_DATA: (state, payload) => { state.user.measuredData = payload.data },
+    SET_MEASURED_DATA_FROM_TOPIC: (state, payload) => { state.user.measuredDataFromTopic = payload.data },
+
+    SET_GLUCOMETER_CONNECTION_STATUS: (state, payload) => { state.glucometer.connectionStatus = payload.data },
+    SET_GLUCOMETER_BATTERY_STATUS: (state, payload) => { state.glucometer.batteryStatus = payload.data },
 
     SET_HEADER_BTN_LEFT_ENABLED: (state, payload) => { state.headerBtnLeft.enabled = payload.data },
     SET_HEADER_BTN_LEFT_TEXT: (state, payload) => { state.headerBtnLeft.text = payload.data },
@@ -69,6 +116,9 @@ export default {
     SET_HEADER_ENABLED: (state, payload) => { state.header.enabled = payload.data },
 
     SET_FOOTER_ENABLED: (state, payload) => { state.footer.enabled = payload.data },
+    // SUBTITLES
+    SET_SUBTITLES_TEXT: (state, payload) => { state.subtitles.text = payload.data },
+    SET_SUBTITLES_ENABLED: (state, payload) => { state.subtitles.enabled = payload.data },
 
     // VIDEO STREAM
     SET_VIDEO_STREAM_ENABLED: (state, payload) => { state.videoStream.enabled = payload.data },
@@ -82,7 +132,20 @@ export default {
   },
   getters: {
     ...gettersUserMeasurement,
+    getResultGroup: state => state.resultGroup,
+    getResultItems: state => state.resultItems,
     getUserAge: state => state.user.age,
+    getUserMet: state => state.user.met,
+    getUserGender: state => state.user.gender,
+    getMeasurementNum: state => state.user.measurementNum,
+    getMeasurementStep: state => state.user.measurementStep,
+    getEquipmentWorks: state => state.user.equipmentWorks,
+    getIsSaturatsiyaStarted: state => state.user.isSaturatsiyaStarted,
+    getMeasuredData: state => state.user.measuredData,
+    getMeasuredDataFromTopic: state => state.user.measuredDataFromTopic,
+
+    getGlucometerConnectionStatus: state => state.glucometer.connectionStatus,
+    getGlucometerBatteryStatus: state => state.glucometer.batteryStatus,
 
     getHeaderBtnLeftEnabled: state => state.headerBtnLeft.enabled,
     getHeaderBtnLeftText: state => state.headerBtnLeft.text,

@@ -94,7 +94,7 @@ export default function (logger) {
             stopSilentTimer()
           }
 
-          if (['PROMO'].includes(payload.data) && global.generalAppData && store.getters['app/getLoadAppSettings'] === null) {
+          if (['WAIT_PROMO'].includes(payload.data) && global.generalAppData && store.getters['app/getLoadAppSettings'] === null) {
             store.dispatch('app/setLoadAppSettings', {
               meta: { eventId: 1 },
               data: global.generalAppData
@@ -103,6 +103,7 @@ export default function (logger) {
              * SVG COLOR SETTINGS
              * @type {string}
              */
+            /*
             const heightRuler = global.generalAppData.svgHeightRuler
             const heightPerson = global.generalAppData.svgHeightPerson
             const weightLibra = global.generalAppData.svgWeightLibra
@@ -224,6 +225,7 @@ export default function (logger) {
                 fingerPress: '<svg width="70" height="95" viewBox="0 0 70 95" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M62.2955 45.1492C62.2554 45.1482 62.2152 45.1474 62.1752 45.147C60.4111 45.163 58.7119 45.8057 57.3887 46.9574C56.4229 43.8097 53.516 41.6314 50.184 41.559C48.5265 41.5837 46.9267 42.1643 45.6477 43.2049C44.9917 39.6515 41.9172 37.0284 38.2596 36.9012C36.6981 36.9047 35.1788 37.4005 33.9234 38.3167V34.3337C43.0037 29.8979 46.7207 19.0375 42.2259 10.0766C37.7311 1.11556 26.7262 -2.55265 17.6461 1.88314C8.56582 6.31893 4.84881 17.1793 9.34362 26.1402C11.1269 29.6953 14.0438 32.5739 17.6461 34.3337V51.7304L13.8436 46.6776C11.2094 43.2448 6.25827 42.5603 2.76974 45.147C-0.490926 47.9021 -0.934758 52.7192 1.76909 56.0096L16.462 84.5159C21.0817 93.4858 28.4532 94.7367 31.4718 94.8519C34.0735 94.9671 36.7419 95 39.2936 95C47.3322 95 54.3034 94.5885 54.3034 94.5885H54.4702C66.528 94.5885 69.8969 81.8002 69.997 74.9864V53.1788C70.117 48.8627 66.669 45.2677 62.2955 45.1492ZM17.5794 22.5963C17.5794 22.5971 17.5794 22.5979 17.5794 22.5985V30.4657C13.3245 27.7402 10.7525 23.0783 10.7416 18.0724C10.7003 9.89168 17.3868 3.22678 25.6764 3.18604C33.9659 3.14531 40.7195 9.74396 40.7608 17.9247C40.7864 22.9958 38.1816 27.7274 33.8567 30.4659V22.5987C33.8573 18.1629 30.2141 14.5663 25.7193 14.5657C21.2243 14.5651 17.58 18.1605 17.5794 22.5963ZM54.0365 91.2968C53.9198 91.2968 42.1454 92.021 31.5218 91.5602C29.1536 91.4614 23.1831 90.4245 19.4139 83.0182L4.67099 54.3638C4.61949 54.2646 4.5582 54.1708 4.48753 54.084C2.8277 52.2089 3.01407 49.363 4.90447 47.7145C6.931 46.2752 9.75305 46.7077 11.2419 48.6856L17.913 57.7542L18.013 57.8365C18.1598 57.9912 18.3282 58.1244 18.5134 58.2315L18.7969 58.3303H19.1304H19.2472H19.4306H19.7642L20.0644 58.1986H20.2311L20.3145 58.1163C20.4017 58.0431 20.4801 57.9602 20.548 57.8695C20.6116 57.7927 20.6675 57.71 20.7148 57.6226C20.7567 57.5325 20.79 57.4389 20.8149 57.3428C20.8259 57.2333 20.8259 57.1231 20.8149 57.0136C20.8149 57.0136 20.8149 57.0136 20.8149 56.8984V22.5987C20.8149 19.9808 22.9652 17.8587 25.618 17.8587C28.2708 17.8587 30.4211 19.9808 30.4211 22.5987V51.7304C30.4211 52.6393 31.1679 53.3763 32.0889 53.3763C33.0099 53.3763 33.7566 52.6393 33.7566 51.7304V44.933C33.4992 42.5743 35.2282 40.4561 37.6185 40.2022C40.0086 39.9481 42.155 41.6545 42.4123 44.0134C42.4456 44.3191 42.4456 44.6275 42.4123 44.9332V56.7669C42.4123 57.6759 43.159 58.4128 44.08 58.4128C45.0011 58.4128 45.7478 57.6759 45.7478 56.7669V49.591C45.4903 47.2323 47.2194 45.1141 49.6097 44.8602C51.9998 44.6061 54.1462 46.3125 54.4035 48.6714C54.4368 48.9771 54.4368 49.2855 54.4035 49.5912V62.7581C54.4035 63.667 55.1502 64.4039 56.0712 64.4039C56.9922 64.4039 57.739 63.667 57.739 62.7581V53.1792C57.4815 50.8205 59.2105 48.7022 61.6009 48.4484C63.991 48.1943 66.1374 49.9006 66.3946 52.2596C66.428 52.5653 66.428 52.8737 66.3946 53.1794L66.4947 74.9541C66.4947 75.6283 66.0944 91.412 54.0365 91.2968Z" fill="' + fingerPress + '"/></svg>'
               }
             })
+            */
           }
 
           /**
@@ -231,63 +233,33 @@ export default function (logger) {
            **/
           // Тонометрия
           if (['MEASUREMENT_5_3'].includes(payload.data)) {
-            if (store.getters['ui/getIsExaminationStarted']) {
-              store.dispatch('robot/setRobotDialogCase', {
-                meta: payload.meta,
-                data: 'PRESSURE-RESULT-CONSULT:extend'
-              })
-            } else {
-              store.dispatch('robot/setRobotDialogCase', {
-                meta: payload.meta,
-                data: 'PRESSURE-RESULT:extend'
-              })
-            }
+            store.dispatch('robot/setRobotDialogCase', {
+              meta: payload.meta,
+              data: 'PRESSURE-RESULT:extend'
+            })
           }
 
           if (['MEASUREMENT_5_3_ERROR'].includes(payload.data)) {
-            if (store.getters['ui/getIsExaminationStarted']) {
-              store.dispatch('robot/setRobotDialogCase', {
-                meta: payload.meta,
-                data: 'PRESSURE-ERROR-CONSULT:extend'
-              })
-            } else {
-              store.dispatch('robot/setRobotDialogCase', {
-                meta: payload.meta,
-                data: 'PRESSURE-ERROR:extend'
-              })
-            }
+            store.dispatch('robot/setRobotDialogCase', {
+              meta: payload.meta,
+              data: 'PRESSURE-ERROR:extend'
+            })
           }
 
           // Рост вес
 
           if (['MEASUREMENT_3_4'].includes(payload.data)) {
-            if (store.getters['ui/getIsExaminationStarted']) {
-              // console.warn('SET LINGVA HEIGHT-RESULT-CONSULT:extend')
-              store.dispatch('robot/setRobotDialogCase', {
-                meta: payload.meta,
-                data: 'HEIGHT-RESULT-CONSULT:extend'
-              })
-            } else {
-              // console.warn('SET LINGVA HEIGHT-RESULT:extend')
-              store.dispatch('robot/setRobotDialogCase', {
-                meta: payload.meta,
-                data: 'HEIGHT-RESULT:extend'
-              })
-            }
+            store.dispatch('robot/setRobotDialogCase', {
+              meta: payload.meta,
+              data: 'HEIGHT-RESULT:extend'
+            })
           }
 
           if (['MEASUREMENT_3_4_ERROR'].includes(payload.data)) {
-            if (store.getters['ui/getIsExaminationStarted']) {
-              store.dispatch('robot/setRobotDialogCase', {
-                meta: payload.meta,
-                data: 'HEIGHT-ERROR-CONSULT:extend'
-              })
-            } else {
-              store.dispatch('robot/setRobotDialogCase', {
-                meta: payload.meta,
-                data: 'HEIGHT-ERROR:extend'
-              })
-            }
+            store.dispatch('robot/setRobotDialogCase', {
+              meta: payload.meta,
+              data: 'HEIGHT-ERROR:extend'
+            })
           }
 
           break

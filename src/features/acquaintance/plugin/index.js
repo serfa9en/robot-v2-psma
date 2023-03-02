@@ -93,7 +93,7 @@ export default function (logger) {
           })
           dispatch('engine/handlerMoveToState', {
             meta: payload.meta,
-            data: 'START_NEW'
+            data: 'DIAGNOSTIC_START'
           })
           break
         case 'acquaintance/HOOK_FAILED':
@@ -104,7 +104,7 @@ export default function (logger) {
           // console.warn('HOOK_FAILED')
           dispatch('engine/handlerMoveToState', {
             meta: payload.meta,
-            data: 'START_NEW'
+            data: 'DIAGNOSTIC_START'
           })
           // dispatch('robot/faceRecognizeGeneralFrameRequest', {
           //   meta: payload.meta

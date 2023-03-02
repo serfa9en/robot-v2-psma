@@ -142,7 +142,7 @@ export default {
       commit('SET_CURRENT_STATE_NAME', payload)
     },
     setPreStateName: ({ state, commit, getters }, payload) => {
-      // console.warn(`[Состояние изменилось]: ${getters.getCurrentStateName} -> ${payload.data} `)
+      console.warn(`[Состояние изменилось]: ${getters.getPreStateName} -> ${payload.data} `)
       commit('SET_PRE_STATE_NAME', payload)
     }
     // setEngineDebug: ({ commit }, payload) => commit('SET_ENGINE_DEBUG', payload)

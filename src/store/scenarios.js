@@ -14,6 +14,8 @@ export default {
       options: 'WAIT_PROMO',
       timeout: 1000
     },
+    { name: 'robot/setRobotSettingsLoad', options: { settings_type: 'system', group: 'js' }, timeout: 0 },
+    { name: 'robot/setRobotSettingsLoad', options: { settings_type: 'application', group: 'faces' }, timeout: 200 },
     { name: 'app/clearState', options: null }
   ],
   // экран распознавания лица
@@ -91,6 +93,9 @@ export default {
       options: 'diagnostic_start',
       timeout: 0
     },
+    { name: 'ui/setMeasurementStep', options: null, timeout: 0 },
+    { name: 'ui/setMeasurementNum', options: null, timeout: 0 },
+    { name: 'head/setEnabled', options: true, timeout: 0 },
     {
       name: 'ui/setHeaderEnabled',
       options: true,
@@ -248,6 +253,144 @@ export default {
       timeout: 0
     }
   ],
+  measurement: [
+    { name: 'app/setStep', options: 'measurement', timeout: 50 }
+    // { name: 'engine/handlerCallScenario', options: 'exit', timeout: 100 }
+  ],
+  exit: [
+    {
+      name: 'ui/setHeaderEnabled', options: true, timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftText', options: 'Выход', timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftAction',
+      options: {
+        'engine/handlerClickMoveToState': 'EXIT'
+      },
+      timeout: 0
+    }
+  ],
+  reset: [
+    { name: 'app/setSessionName', options: '', timeout: 0 },
+    { name: 'ui/setMeasurementWeight', options: null, timeout: 0 },
+    { name: 'ui/setMeasurementHeight', options: null, timeout: 0 },
+    { name: 'ui/setMeasurementPressure', options: null, timeout: 0 },
+    { name: 'ui/setUserAge', options: null, timeout: 0 },
+    { name: 'ui/setUserGender', options: null, timeout: 0 },
+    { name: 'ui/setFooterEnabled', options: true, timeout: 0 },
+    { name: 'ui/setMeasurementGlucometry', options: null, timeout: 0 },
+    { name: 'ui/setMeasurementSpirographia', options: null, timeout: 0 },
+    { name: 'ui/setMeasurementSaturatsiya', options: null, timeout: 0 },
+    { name: 'ui/setMeasurementPulse', options: null, timeout: 0 },
+    { name: 'ui/setMeasurementPressureLow', options: null, timeout: 0 },
+    { name: 'ui/setMeasurementTemperature', options: null, timeout: 0 },
+    { name: 'ui/setMeasuredDataFromTopic', options: null, timeout: 0 },
+    { name: 'ui/setMeasurementNum', options: null, timeout: 0 },
+    { name: 'ui/setMeasurementStep', options: null, timeout: 0 },
+    { name: 'ui/setEquipmentWorks', options: { '2': null, '3': null, '4': null, '5': null, '6': null }, timeout: 0 },
+    { name: 'app/setIsImportantPhrase', options: null, timeout: 0 },
+    { name: 'app/setTimerAutoSelect', options: null, timeout: 0 }
+  ],
+  /* температура */
+  measurement_6_1: [
+    { 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 6, 'timeout': 0 },
+    { 'name': 'engine/handlerCallScenario', 'options': 'exit', 'timeout': 100 }
+  ],
+  measurement_6_2: [
+    { 'name': 'ui/setMeasurementStep', 'options': 2, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 6, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 }
+  ],
+  measurement_6_3: [
+    { 'name': 'ui/setMeasurementStep', 'options': 3, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 6, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 }
+  ],
+  /* температура */
+
+  /* давление */
+  measurement_5_1: [
+    { 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 5, 'timeout': 0 },
+    { 'name': 'engine/handlerCallScenario', 'options': 'exit', 'timeout': 100 },
+    { 'name': 'head/setEnabled', 'options': false, 'timeout': 300 }
+  ],
+  measurement_5_2: [
+    { 'name': 'ui/setMeasurementStep', 'options': 2, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 5, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 },
+    { 'name': 'head/setEnabled', 'options': false, 'timeout': 300 }
+  ],
+  measurement_5_3: [
+    { 'name': 'ui/setMeasurementStep', 'options': 3, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 5, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 }
+  ],
+  /* давление */
+
+  /* глюкоза */
+  measurement_2_1: [
+    { 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 2, 'timeout': 0 },
+    { 'name': 'engine/handlerCallScenario', 'options': 'exit', 'timeout': 100 }
+  ],
+  measurement_2_2: [
+    { 'name': 'ui/setMeasurementStep', 'options': 2, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 2, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 },
+    { 'name': 'head/setEnabled', 'options': false, 'timeout': 300 }
+  ],
+  measurement_2_3: [
+    { 'name': 'ui/setMeasurementStep', 'options': 3, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 2, 'timeout': 0 },
+    { 'name': 'engine/handlerCallScenario', 'options': 'generalHeaderLogoFooter', 'timeout': 100 },
+    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 200 },
+    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 }
+  ],
+  measurement_2_4: [
+    { 'name': 'ui/setMeasurementStep', 'options': 4, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 2, 'timeout': 0 },
+    { 'name': 'engine/handlerCallScenario', 'options': 'generalHeaderLogoFooter', 'timeout': 100 },
+    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 200 },
+    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 }
+  ],
+  measurement_2_5: [
+    { 'name': 'ui/setMeasurementStep', 'options': 5, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 2, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 }
+  ],
+  /* глюкоза */
+
+  /* сатурация */
+  measurement_4_1: [
+    { 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 4, 'timeout': 0 },
+    { name: 'engine/handlerCallScenario', options: 'exit', timeout: 100 }
+  ],
+  measurement_4_2: [
+    { 'name': 'ui/setMeasurementStep', 'options': 2, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 4, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 },
+    { 'name': 'head/setEnabled', 'options': false, 'timeout': 300 }
+  ],
+  measurement_4_3: [
+    { 'name': 'ui/setMeasurementStep', 'options': 3, 'timeout': 0 },
+    { 'name': 'ui/setMeasurementNum', 'options': 4, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 }
+  ],
+  /* сатурация */
+
   wait: [
     { name: 'app/setMeetingTalk', options: false },
     { name: 'robot/faceRecognizeAutotrackingRequest', options: true },

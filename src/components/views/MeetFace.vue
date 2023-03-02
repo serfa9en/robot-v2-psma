@@ -31,7 +31,7 @@ export default {
     isGeneralEnabled: function (val) {
       // если перед роботом один человек и робот его видит главным то из промо прокидываем его на главный
       if (val && this.getStateCount === 'ONE') {
-        this.toStartPage()
+        this.next()
       }
     },
     getStep: function (val) {
@@ -58,8 +58,7 @@ export default {
       'getStateCount'
     ]),
     ...mapGetters('ui', [
-      'getUserMet',
-      'getIsExaminationStarted'
+      'getUserMet'
     ]),
     ...mapGetters('robot', [
       'getFaceRecognizeGeneralId',
