@@ -31,6 +31,19 @@ export default {
       timeout: 0
     }
   ],
+  meeting: [
+    { 'name': 'robot/setRobotDialogCase', 'options': 'MEETING:extend', 'timeout': 0 },
+    { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEETING', 'terminate': true }, 'timeout': 100 },
+    { 'name': 'robot/faceRecognizeGeneralFrameRequest', 'options': true },
+    { 'name': 'app/setMeetingTalk', 'options': false },
+    { 'name': 'ui/setSpinnerEnabled', 'options': false, 'timeout': 0 },
+    { 'name': 'app/setStep', 'options': 'meeting', 'timeout': 50 },
+    { 'name': 'engine/handlerCallScenario', 'options': 'generalHeaderLogoFooter', 'timeout': 110 },
+    { 'name': 'ui/setHeaderBtnLeftText', 'options': 'Это не я', 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftAction', 'options': { 'engine/handlerClickMoveToState': 'SELECT_GENERAL' }, 'timeout': 120 },
+    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': true, 'timeout': 0 },
+    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 }
+  ],
   // экран с вводом возраста
   age_view: [
     {
@@ -52,6 +65,30 @@ export default {
       name: 'ui/setHeaderBtnLeftAction',
       options: {
         'engine/handlerClickMoveToState': 'MEET_FACE'
+      },
+      timeout: 0
+    }
+  ],
+  result_view: [
+    {
+      name: 'app/setStep',
+      options: 'result_view',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftText',
+      options: 'Выход',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftAction',
+      options: {
+        'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
     }
@@ -297,6 +334,7 @@ export default {
   measurement_6_1: [
     { 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 },
     { 'name': 'ui/setMeasurementNum', 'options': 6, 'timeout': 0 },
+    { 'name': 'engine/handlerCallScenario', 'options': 'generalHeaderLogoFooter', 'timeout': 100 },
     { 'name': 'engine/handlerCallScenario', 'options': 'exit', 'timeout': 100 }
   ],
   measurement_6_2: [
@@ -323,8 +361,7 @@ export default {
   measurement_5_2: [
     { 'name': 'ui/setMeasurementStep', 'options': 2, 'timeout': 0 },
     { 'name': 'ui/setMeasurementNum', 'options': 5, 'timeout': 0 },
-    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
-    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 },
+    { name: 'engine/handlerCallScenario', options: 'exit', timeout: 100 },
     { 'name': 'head/setEnabled', 'options': false, 'timeout': 300 }
   ],
   measurement_5_3: [
@@ -344,8 +381,7 @@ export default {
   measurement_2_2: [
     { 'name': 'ui/setMeasurementStep', 'options': 2, 'timeout': 0 },
     { 'name': 'ui/setMeasurementNum', 'options': 2, 'timeout': 0 },
-    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
-    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 },
+    { name: 'engine/handlerCallScenario', options: 'exit', timeout: 100 },
     { 'name': 'head/setEnabled', 'options': false, 'timeout': 300 }
   ],
   measurement_2_3: [
@@ -379,8 +415,7 @@ export default {
   measurement_4_2: [
     { 'name': 'ui/setMeasurementStep', 'options': 2, 'timeout': 0 },
     { 'name': 'ui/setMeasurementNum', 'options': 4, 'timeout': 0 },
-    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
-    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 },
+    { name: 'engine/handlerCallScenario', options: 'exit', timeout: 100 },
     { 'name': 'head/setEnabled', 'options': false, 'timeout': 300 }
   ],
   measurement_4_3: [
@@ -388,6 +423,13 @@ export default {
     { 'name': 'ui/setMeasurementNum', 'options': 4, 'timeout': 0 },
     { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
     { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 }
+  ],
+  saturatsiyaError: [
+    { 'name': 'robot/setRobotDialogCase', 'options': 'SATURATSIYA_ERROR:extend', 'timeout': 0 },
+    { 'name': 'robot/sayReplicByName', 'options': { 'step': 'SATURATSIYA_ERROR', 'terminate': true }, 'timeout': 100 },
+    { 'name': 'ui/setSpinnerEnabled', 'options': false },
+    { 'name': 'app/setMeetingTalk', 'options': false },
+    { 'name': 'app/setStep', 'options': 'saturatsiyaError', 'timeout': 0 }
   ],
   /* сатурация */
 

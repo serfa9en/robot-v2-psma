@@ -109,7 +109,7 @@ export default {
       if (this.action === false) {
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },
-          data: 'SELECT_GENERAL'
+          data: 'MEET_FACE'
         })
       } else {
         this.action()

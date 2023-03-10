@@ -92,6 +92,7 @@
                 <div class="data">
                   <br>
                   <p class="data_res">{{ fRound(getMeasurementSaturatsiya, 0) }}</p>
+                  <p class="data_text">%</p>
                 </div>
               </div>
             </div>
@@ -274,13 +275,17 @@ export default {
         meta: { eventId },
         data: 'WIDTH_HEIGHT'
         // data: 'MEASUREMENT'
+        // data: 'RESULT'
       })
     },
     doExamination: function (examination) {
       let logger = PromobotLogger.getInstance()
       let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       let actions = []
+      actions.push({ 'name': 'ui/setCurMeasurementNumber', 'options': examination, 'timeout': 0 })
+      console.log('exam = ', examination)
       if (examination === EXAMINATION_TYPE.THERMO_HEAD) {
+        console.log('Examonation == ', examination)
         const options = {
           replica: {
             id: {
@@ -293,8 +298,12 @@ export default {
           terminate: true
         }
         const thermoRequest = { userId: this.getUserGeneral.id }
+        console.log(thermoRequest)
         localStorage.setItem('tempSettings', JSON.stringify(thermoRequest))
+        console.log(localStorage)
         actions.push({ 'name': 'robot/dialogSayReplicByDataRequest', 'options': options, 'timeout': 0 })
+        actions.push({ 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 })
+        actions.push({ 'name': 'ui/setMeasurementNum', 'options': 6, 'timeout': 0 })
       } else {
         let step = 1
         actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': true, 'timeout': 0 })
@@ -305,6 +314,10 @@ export default {
         setTimeout(() => {
           this.$store.dispatch(item.name, { meta: { eventId }, data: item.options })
         }, item.timeout)
+        console.log('examination = ', examination)
+        console.log('item.name = ', item.name)
+        console.log('eventId = ', eventId)
+        console.log('item.options = ', item.options)
       })
     },
     calculateResults () {
@@ -391,6 +404,12 @@ export default {
             font-size: 30px;
             font-weight: 700;
             margin-top: 10px;
+          }
+          &_min{
+            display: inline-block;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
           }
         }
       }

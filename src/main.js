@@ -151,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         })
         global.topic_t.subscribe(message => {
         // console.warn('temp dist measure', message)
+          console.log('store.getters[ui/getMeasurementNum = ', store.getters['ui/getMeasurementNum'])
           if (store.getters['ui/getMeasurementNum'] === 6) {
             store.dispatch('ui/setMeasuredDataFromTopic', {
               meta: null,
@@ -322,70 +323,5 @@ document.addEventListener('DOMContentLoaded', function (event) {
         })
       })
     })
-
-    /*
-    const text = 'Hello World!'
-    api.dialogService.sayText(text)
-    // logger.logAction(eventId, ActionHandlerTypes.API, ActionTypes.ROBOT_SAY_TEXT, text)
-
-    const textStart = 'Робот начал говорить'
-    const textFinish = 'Робот закончил говорить'
-    api.dialogService.onRobotReplicStart(() => {
-      console.log(textStart)
-      // logger.logEvent(EventInitiatorTypes.ROBOT, EventTypes.ROBOT_REPLIC_START, textStart)
-    })
-    api.dialogService.onRobotReplicFinish(() => {
-      console.log(textFinish)
-      // logger.logEvent(EventInitiatorTypes.ROBOT, EventTypes.ROBOT_REPLIC_FINISH, textFinish)
-    })
-    */
-
-    /*
-    global['toggleDebug'] = () => {
-      store.dispatch('engine/setEngineDebug', {
-      // eslint-disable-next-line
-      data: !vm.$store.getters['engine/getEngineDebug']
-      })
-    }
-    */
   })
 })
-
-// const environment = (typeof QWebChannel !== 'undefined') ? 'production' : 'development'
-// const urlParams = new URLSearchParams(window.location.search)
-// settings.emulator.room = urlParams.get('room')
-// const robotInstance = (environment === 'development') ? Promobot.getEmulateInstance(settings.emulator) : Promobot.getInstance()
-
-/*
-document.addEventListener('DOMContentLoaded', () => {
-  robotInstance.then(promobot => {
-    // const logger = PromobotLogger.getInstance()
-    // promobot.environmentService.get()
-    promobot.dialogService.sayText('Привет мир')
-    /*
-      .then(robotEnvironment => {
-        // logger.setRobotUuid(robotEnvironment.uuid_owner) // id робота
-        // logger.setRobotAppId(settings.applicationId) // id приложения
-        // logger.setRobotAppVer(settings.applicationVersion) // версия приложения
-        // logger.setRobotAppLang(settings.applicationLanguage) // id языка приложения (570 - русский)
-        /*
-        if (environment === 'development') {
-          logger.addConnection({
-            url: settings.emulator.url,
-            reconnection: settings.emulator.reconnection,
-            secure: settings.emulator.secure,
-            room: settings.emulator.room
-          })
-        }
-      // })
-      .then(() => {
-        window.vm = new Vue({
-        //  store,
-          render: h => h(App)
-        }).mount('#app')
-      })
-  })
-})
-*/
-
-// createApp(App).use(store).mount('#app')

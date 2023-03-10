@@ -4,6 +4,7 @@ const loaderProps = { styles: Object, loaderClassName: String }
 const StyledLoader = styled('div', loaderProps)`
   display: inline-block;
   position: relative;
+  // border: 2px solid red;
   width: ${props => props.styles.size || '32px'};
   max-width: ${props => props.styles.size || '32px'};
   height: ${props => props.styles.size || '32px'};

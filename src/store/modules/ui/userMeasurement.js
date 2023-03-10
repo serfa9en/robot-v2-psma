@@ -22,6 +22,16 @@ export const stateUserMeasurement = {
       ophtalmologist: null,
       otorinolaringologist: null,
       endocrinologist: null
+    },
+
+    // пути к картинке результата
+    measurement: {
+      pressure: null,
+      pulse: null,
+      glucometry: null,
+      temperature: null,
+      saturatsiya: null,
+      imt: null
     }
   },
   button: {
@@ -69,6 +79,16 @@ export const stateUserMeasurement = {
   imt: {
     step: null
   },
+
+  // true/false
+  consult: null,
+
+  current_measurement: {
+    number: null,
+    info: null,
+    infoAdd: null
+  },
+
   // current disease - не сделана ветка
   current_disease: {
     number: null,
@@ -79,6 +99,8 @@ export const stateUserMeasurement = {
 
 export const actionsUserMeasurement = {
   setSpecialistNumber: ({ commit }, payload) => commit('SET_SPECIALIST_NUMBER', payload),
+
+  setConsult: ({ commit }, payload) => commit('SET_CONSULT', payload),
 
   // результаты специалистов
   setResultSpecialistCardiologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_CARDIOLOGIST', payload),
@@ -91,6 +113,10 @@ export const actionsUserMeasurement = {
   setResultSpecialistOtorinolaringologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_OTORINOLARINGOLOGIST', payload),
   setResultSpecialistEndocrinologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_ENDOCRINOLOGIST', payload),
 
+  setCurMeasurementNumber: ({ commit }, payload) => commit('SET_CURMEASUREMENT_NUMBER', payload),
+  setInfo: ({ commit }, payload) => commit('SET_INFO', payload),
+  setInfoAdd: ({ commit }, payload) => commit('SET_INFO_ADD', payload),
+
   // кнопки измерений
   setButtonPressureColor: ({ commit }, payload) => commit('SET_BUTTON_PRESSURE_COLOR', payload),
   setButtonGlucometryColor: ({ commit }, payload) => commit('SET_BUTTON_GLUCOMETRY_COLOR', payload),
@@ -98,6 +124,13 @@ export const actionsUserMeasurement = {
   setButtonSaturatsiyaColor: ({ commit }, payload) => commit('SET_BUTTON_SATURATSIYA_COLOR', payload),
   setButtonSpirographiaColor: ({ commit }, payload) => commit('SET_BUTTON_SPIROGRAPHIA_COLOR', payload),
   setButtonWeightHeightColor: ({ commit }, payload) => commit('SET_BUTTON_WEIGHTHEIGHT_COLOR', payload),
+
+  setReaultPressure: ({ commit }, payload) => commit('SET_RESULT_PRESSURE', payload),
+  setReaultPulse: ({ commit }, payload) => commit('SET_RESULT_PULSE', payload),
+  setReaultGlucometry: ({ commit }, payload) => commit('SET_RESULT_GLUCOMETRY', payload),
+  setReaultTemperature: ({ commit }, payload) => commit('SET_RESULT_TEMPERATURE', payload),
+  setReaultSaturatsiya: ({ commit }, payload) => commit('SET_RESULT_SATURATSIYA', payload),
+  setReaultImt: ({ commit }, payload) => commit('SET_RESULT_IMT', payload),
 
   // значения измерений
   setMeasurementPressure: ({ commit }, payload) => commit('SET_MEASUREMENT_PRESSURE', payload),
@@ -120,6 +153,7 @@ export const actionsUserMeasurement = {
 }
 
 export const mutationsUserMeasurement = {
+  SET_CONSULT: (state, payload) => { state.consult = payload.data },
   SET_SPECIALIST_NUMBER: (state, payload) => {
     state.current_specialist.number = payload.data
     state.current_specialist.name = getName(payload.data)
@@ -127,6 +161,16 @@ export const mutationsUserMeasurement = {
     state.current_specialist.path = getPath(payload.data)
     state.current_specialist.textResult = getResultGood(payload.data)
   },
+
+  SET_INFO_ADD: (state, payload) => { state.current_measurement.infoAdd = payload.data },
+  SET_INFO: (state, payload) => { state.current_measurement.info = payload.data },
+  SET_CURMEASUREMENT_NUMBER: (state, payload) => { state.current_measurement.number = payload.data },
+  SET_RESULT_PRESSURE: (state, payload) => { state.result.measurement.pressure = payload.data },
+  SET_RESULT_PULSE: (state, payload) => { state.result.measurement.pulse = payload.data },
+  SET_RESULT_GLUCOMETRY: (state, payload) => { state.result.measurement.glucometry = payload.data },
+  SET_RESULT_TEMPERATURE: (state, payload) => { state.result.measurement.temperature = payload.data },
+  SET_RESULT_SATURATSIYA: (state, payload) => { state.result.measurement.saturatsiya = payload.data },
+  SET_RESULT_IMT: (state, payload) => { state.result.measurement.imt = payload.data },
 
   // кнопки на панели измерений
   SET_BUTTON_PRESSURE_COLOR: (state, payload) => { state.button.Pressure.color = payload.data },
@@ -171,6 +215,18 @@ export const mutationsUserMeasurement = {
 }
 
 export const gettersUserMeasurement = {
+  getConsult: state => state.consult,
+
+  getCurMeasurementNumber: state => state.current_measurement.number,
+  getInfo: state => state.current_measurement.info,
+  getInfoAdd: state => state.current_measurement.infoAdd,
+  getReaultPressure: state => state.result.measurement.pressure,
+  getReaultPulse: state => state.result.measurement.pulse,
+  getReaultGlucometry: state => state.result.measurement.glucometry,
+  getReaultTemperature: state => state.result.measurement.temperature,
+  getReaultSaturatsiya: state => state.result.measurement.saturatsiya,
+  getReaultImt: state => state.result.measurement.imt,
+
   // кнопки измерений
   getButtonPressureColor: state => state.button.Pressure.color,
   getButtonGlucometryColor: state => state.button.Glucometry.color,

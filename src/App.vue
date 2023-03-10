@@ -5,6 +5,7 @@
     <Spinner/>
     <Header/>
     <Content>
+      <Unsee/>
       <MeetFace/>
       <Age/>
       <MainView/>
@@ -15,6 +16,8 @@
       <DiagnosticStart/>
       <MeasurementTemp/>
       <WidthHeight/>
+      <ImtMistakeSuccess/>
+      <Result/>
       <ExitView/>
     </Content>
     <Footer/>
@@ -30,6 +33,7 @@ import Content from '@/components/global/Content'
 import Footer from '@/components/global/Footer'
 
 import MeetFace from '@/components/views/MeetFace'
+import Unsee from '@/features/faces/components/Unsee'
 import Age from '@/components/views/Age'
 import MainView from '@/components/views/MainView'
 import DiagnosticStart from '@/components/views/Measurement/Diagnostic_Start'
@@ -39,6 +43,8 @@ import SpecialistQuest from '@/components/views/Specialist/Specialist_Quest'
 import DiseaseMain from '@/components/views/Disease/Disease_Main'
 import DiseaseQuest from '@/components/views/Disease/Disease_Quest'
 import WidthHeight from '@/components/views/Measurement/Width_Height'
+import Result from '@/components/views/Measurement/Result'
+import ImtMistakeSuccess from '@/components/views/Measurement/ImtMistakeSuccess'
 
 import ExitView from '@/components/views/Exit'
 
@@ -55,6 +61,7 @@ export default {
     Footer,
 
     MeetFace,
+    Unsee,
     Age,
     MainView,
     DiagnosticStart,
@@ -64,6 +71,8 @@ export default {
     DiseaseMain,
     DiseaseQuest,
     WidthHeight,
+    ImtMistakeSuccess,
+    Result,
 
     ExitView
   },

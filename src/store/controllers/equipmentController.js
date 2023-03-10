@@ -2,6 +2,25 @@
 /* eslint-disable no-undef */
 /* eslint-disable camelcase */
 import { EXAMINATION_TYPE } from '../../constants'
+import {
+  setColorSaturatsiya,
+  setColorGlucometry,
+  // setColorTemperature,
+  setColorPressure,
+  setImgGlucometry,
+  setImgSaturatsiya,
+  setImgPressure,
+  setImgPulse,
+  // setImgTemp,
+  setInfoGlucometry,
+  setInfoSaturatsiya,
+  setInfoPressure,
+  // setInfoTemp,
+  setInfoAddGlucometry,
+  setInfoAddSaturatsiya,
+  setInfoAddPressure
+  // setInfoTemp
+} from '../../components/styled/setColorButtons'
 
 let measurementProcess = { 'med_2': null, 'med_3': null, 'med_4': null, 'med_5': null, 'med_6': null, 'med_6_1': null, 'med_6_2': null, 'med_6_3': null }
 let tempLong = 0
@@ -94,18 +113,18 @@ export default function (logger) {
          * СТАРЫЙ ПУЛЬСОКСИМЕТР, ПОДКЛЮЧЕН К СПИРОМЕТРУ
          * TODO: Видеофайл pulseoximeter_old.webm
          */
-        // if (store.getters['ui/getMeasurementNum'] === 4 && store.getters['ui/getMeasurementStep'] === 2 && typeof d.HeartRate !== 'undefined') {
-        //   store.dispatch('ui/setMeasuredDataFromTopic', {
-        //     meta: pm,
-        //     data: {
-        //       type: '4_2',
-        //       message: {
-        //         HeartRate: d.HeartRate,
-        //         SpO2: d.SpO2
-        //       }
-        //     }
-        //   })
-        // }
+        if (store.getters['ui/getMeasurementNum'] === 4 && store.getters['ui/getMeasurementStep'] === 2 && typeof d.HeartRate !== 'undefined') {
+          store.dispatch('ui/setMeasuredDataFromTopic', {
+            meta: pm,
+            data: {
+              type: '4_2',
+              message: {
+                HeartRate: d.HeartRate,
+                SpO2: d.SpO2
+              }
+            }
+          })
+        }
         if (store.getters['ui/getMeasurementNum'] === 4 && store.getters['ui/getMeasurementStep'] === 6 && typeof d.FVC !== 'undefined') {
           // console.warn('Спирограф прошел условие store.getters['ui/getMeasurementNum'] === 4 && store.getters['ui/getMeasurementStep'] === 6 && typeof d.FVC !== 'undefined'')
           let res = {}
@@ -212,7 +231,7 @@ export default function (logger) {
                   reject()
                 } else {
                   dataInterval = setInterval(() => {
-                    if (store.getters['ui/getMeasuredDataFromTopic'].type === '4_1' && store.getters['ui/getMeasuredDataFromTopic'].message.data.state) resolve()
+                    if (store.getters['ui/getMeasuredDataFromTopic'].type === '4_2' && store.getters['ui/getMeasuredDataFromTopic'].message.data.state) resolve()
                   }, 250)
                 }
               }).then(result => {
@@ -356,16 +375,22 @@ export default function (logger) {
             /**
              *  Термометрия: проверка работоспособности и переход к измерению
              */
+            console.log('Переход к замеру темп')
             if (payload.data === EXAMINATION_TYPE.THERMO && store.getters['ui/getMeasurementStep'] === 1) { // Переход к замеру температуры
+              console.log('Переход к замеру темп')
               new Promise((resolve, reject) => {
                 actions = []
                 isEquipment = setTimeout(() => { reject() }, 10000)
+                console.log('isEquipment')
+                console.log(topic_t)
                 if (!topic_t) {
                   reject()
+                  console.log('reject')
                 } else {
                   let countInterval = 0
                   tempStartInterval = setInterval(() => {
                     let d = store.getters['ui/getMeasuredDataFromTopic']
+                    console.log(d)
                     if (typeof d !== 'undefined' && d !== null && d.type === 6 && d.message.distance >= 0) {
                       countInterval++
                     }
@@ -383,6 +408,7 @@ export default function (logger) {
                   setTimeout(() => {
                     store.dispatch(item.name, { meta: pm, data: item.options })
                   }, item.timeout)
+                  console.log(item.name)
                 })
               }, () => {
                 clearInterval(tempStartInterval)
@@ -395,6 +421,8 @@ export default function (logger) {
                   setTimeout(() => {
                     store.dispatch(item.name, { meta: pm, data: item.options })
                   }, item.timeout)
+                  console.log(item.name)
+                  console.log(item.options)
                 })
               })
             }
@@ -634,7 +662,7 @@ export default function (logger) {
             let f_max = 10
             saturatsiyaInterval = setInterval(() => {
               let pd = store.getters['ui/getMeasuredDataFromTopic']
-              // console.warn('pd', JSON.stringify(pd))
+              console.warn('pd', JSON.stringify(pd))
               if (typeof pd !== 'undefined' && pd !== null && pd.type === '4_2') {
                 j = (pd?.message?.data?.state === ['NO_FINGER'] ? j + 1 : 0)
                 let s = Number(Number(pd.message.data.SpO2).toFixed(0))
@@ -645,15 +673,39 @@ export default function (logger) {
                       {
                         'name': 'ui/setMeasurementSaturatsiya',
                         'data': s,
-                        'image': store.getters['app/getIconsSVG'].vessel,
+                        'image': null,
                         'text': 'SpO<sub>2</sub>',
                         'dopText': '%'
                       }
                     ]
                   })
+                  console.log(s)
+                  console.log(store.getters['ui/getMeasurementSaturatsiya'])
+                  dispatch('ui/setMeasurementSaturatsiya', {
+                    meta: pm,
+                    data: s
+                  })
+                  dispatch('ui/setButtonSaturatsiyaColor', {
+                    meta: pm,
+                    data: setColorSaturatsiya(s)
+                  })
+                  dispatch('ui/setReaultSaturatsiya', {
+                    meta: pm,
+                    data: setImgSaturatsiya(s)
+                  })
+                  dispatch('ui/setInfo', {
+                    meta: pm,
+                    data: setInfoSaturatsiya(s)
+                  })
+                  dispatch('ui/setInfoAdd', {
+                    meta: pm,
+                    data: setInfoAddSaturatsiya(s)
+                  })
+                  console.log(store.getters['ui/getButtonSaturatsiyaColor'])
+                  console.log(store.getters['ui/getMeasurementSaturatsiya'])
                   dispatch('engine/handlerMoveToState', {
                     meta: pm,
-                    data: 'MEASUREMENT_4_3'
+                    data: 'RESULT'
                   })
                   let phrase = (s < 95) ? 'RES_SAT_1' : 'RES_SAT_0'
                   setTimeout(() => {
@@ -662,6 +714,7 @@ export default function (logger) {
                       data: { 'step': phrase, 'terminate': true }
                     })
                   }, 500)
+                  console.log(pm)
                 }
                 if (s < 90) {
                   f++
@@ -677,7 +730,7 @@ export default function (logger) {
                     {
                       'name': 'ui/setMeasurementSaturatsiya',
                       'data': null,
-                      'image': store.getters['app/getIconsSVG'].vessel,
+                      'image': null,
                       'text': 'SpO<sub>2</sub>',
                       'dopText': '%'
                     }
@@ -898,25 +951,45 @@ export default function (logger) {
                         {
                           'name': 'ui/setMeasurementGlucometry',
                           'data': Number((pd.message.data).toFixed(1)),
-                          'image': store.getters['app/getIconsSVG'].glucometer,
+                          'image': null,
                           'text': 'ммоль/л'
                         }
                       ]
                     })
+                    console.log(store.getters['ui/getMeasurementGlucometry'])
+                    console.log(Number((pd.message.data).toFixed(1)))
                     dispatch('engine/handlerMoveToState', {
                       meta: pm,
-                      data: 'MEASUREMENT_2_5'
+                      data: 'RESULT'
                     })
-                    if (store.getters['ui/getIsExaminationStarted'] !== true) {
-                      let s = Number((pd.message.data).toFixed(1))
-                      let phrase = (s <= 3.3) ? 'RES_GLUK_0' : (s <= 5.5) ? 'RES_GLUK_1' : (s <= 10) ? 'RES_GLUK_2' : 'RES_GLUK_3'
-                      setTimeout(() => {
-                        dispatch('robot/sayReplicByName', {
-                          meta: pm,
-                          data: { 'step': phrase, 'terminate': true }
-                        })
-                      }, 500)
-                    }
+                    let s = Number((pd.message.data).toFixed(1))
+                    dispatch('ui/setMeasurementGlucometry', {
+                      meta: pm,
+                      data: s
+                    })
+                    dispatch('ui/setButtonGlucometryColor', {
+                      meta: pm,
+                      data: setColorGlucometry(s)
+                    })
+                    dispatch('ui/setReaultGlucometry', {
+                      meta: pm,
+                      data: setImgGlucometry(s)
+                    })
+                    dispatch('ui/setInfo', {
+                      meta: pm,
+                      data: setInfoGlucometry(s)
+                    })
+                    dispatch('ui/setInfoAdd', {
+                      meta: pm,
+                      data: setInfoAddGlucometry(s)
+                    })
+                    let phrase = (s <= 3.3) ? 'RES_GLUK_0' : (s <= 5.5) ? 'RES_GLUK_1' : (s <= 10) ? 'RES_GLUK_2' : 'RES_GLUK_3'
+                    setTimeout(() => {
+                      dispatch('robot/sayReplicByName', {
+                        meta: pm,
+                        data: { 'step': phrase, 'terminate': true }
+                      })
+                    }, 500)
                   }
                 }
                 if (typeof pd !== 'undefined' && pd !== null && pd.type === 22) {
@@ -972,6 +1045,7 @@ export default function (logger) {
 
           // Замер температуры
           if (measurementProcess['med_6_3'] !== null && ['MEASUREMENT_6_3', 'MEASUREMENT_6_3_ERROR'].includes(payload.data) === false) {
+            console.log('med_6_3')
             clearInterval(measurementProcess['med_6_3'])
             measurementProcess['med_6_3'] = null
           }
@@ -991,6 +1065,7 @@ export default function (logger) {
             }
             measurementProcess['med_6_3'] = setInterval(() => {
               let pd = store.getters['ui/getMeasuredDataFromTopic']
+              console.log(pd)
               if (typeof pd !== 'undefined' && pd !== null && pd.type === 6) {
                 // пользователь в измерительном интервале, но слишком близко к роботу - ближе 3,6 см
                 if (allowableDistanceAttempt % 36 === 0 && allowableDistanceAttempt > 0) {
@@ -1059,7 +1134,7 @@ export default function (logger) {
           }
           // if (measurementProcess['med_6_1'] !== null && ['MEASUREMENT_6_2', 'MEASUREMENT_6_3', 'MEASUREMENT_6_3_ERROR'].includes(payload.data) === false) {
           if (measurementProcess['med_6_1'] !== null && ['MEASUREMENT_6_2'].includes(payload.data) === false) {
-            // console.warn('exit 6_2, 6_3')
+            console.warn('exit 6_2, 6_3')
             clearInterval(measurementProcess['med_6_1'])
             measurementProcess['med_6_1'] = null
             // isHandScript = null
@@ -1097,7 +1172,7 @@ export default function (logger) {
                 meta: pm,
                 data: offSet
               })
-              // console.warn('TEMP OFFSET', offSet)
+              console.warn('TEMP OFFSET', offSet)
               let scriptName = 'motions/middlenewnext_f64ddb37_6f1c_4428_8d30_305738b8ce27/middlenewnext_f64ddb37_6f1c_4428_8d30_305738b8ce27.json'
               if (store.getters['ui/getUserGrowth'] > 170) {
                 scriptName = 'motions/maxnewnext_f64ddb37_6f1c_4428_8d30_305738b8ce27/maxnewnext_f64ddb37_6f1c_4428_8d30_305738b8ce27.json'
@@ -1123,12 +1198,12 @@ export default function (logger) {
                     /**
                      * ЭМУЛЯТОР: отправляем в псевдотопик сигнал но то, что пользователь подошел вплотную к термометру
                      */
-                    global.topic_t.publish(new ROSLIB.Message(
-                      {
-                        distance: 70,
-                        temperature: 36600
-                      }
-                    ))
+                    // global.topic_t.publish(new ROSLIB.Message(
+                    //   {
+                    //     distance: 70,
+                    //     temperature: 36600
+                    //   }
+                    // ))
                   }
                   tempShort = (tempLong === 0 && pd.message.distance > 100) ? tempShort + 1 : tempShort = 0
                   if (tempShort === tempShortRes) {
@@ -1143,6 +1218,7 @@ export default function (logger) {
                     // console.warn('tempResultRes', tempResultRes)
                     // console.warn('tempResult', tempResult)
                     let tt = Number(((pd.message.temperature + offSet + (((pd.message.distance - 50) / 10 * distCorrect))) / 1000).toFixed(1))
+                    console.log(tt)
                     /**
                      * ЭМУЛЯТОР: хардкод результатов измерения
                      */
@@ -1170,7 +1246,7 @@ export default function (logger) {
                       })
                       dispatch('engine/handlerMoveToState', {
                         meta: pm,
-                        data: 'MEASUREMENT_6_3'
+                        data: 'RESULT'
                       })
                       tempResult = 0
                     } else {
@@ -1179,12 +1255,12 @@ export default function (logger) {
                     /**
                      * ЭМУЛЯТОР: отправляем в псевдотопик сигнал о том, что температура измерена и можно вырубать аппарат
                      */
-                    global.topic_t.publish(new ROSLIB.Message(
-                      {
-                        distance: 999,
-                        temperature: 1000
-                      }
-                    ))
+                    // global.topic_t.publish(new ROSLIB.Message(
+                    //   {
+                    //     distance: 999,
+                    //     temperature: 1000
+                    //   }
+                    // ))
                   }
                 }
                 if (i === 90) {
@@ -1265,12 +1341,20 @@ export default function (logger) {
                     s = Number(pd.message.data.systolic.toFixed(0))
                     d = Number(pd.message.data.diastolic.toFixed(0))
                     p = Number(pd.message.data.heart_rate.toFixed(0))
-                    st = 'MEASUREMENT_5_3'
+                    st = 'RESULT'
                     // Если измерение ОК - заполняем данные ручного ввода,
                     // Чтобы не предлагать пользователю ввести в ручную АД
                     dispatch('ui/setMeasurementPressure', {
                       meta: pm,
                       data: s
+                    })
+                    dispatch('ui/setMeasurementPressureLow', {
+                      meta: pm,
+                      data: d
+                    })
+                    dispatch('ui/setMeasurementPulse', {
+                      meta: pm,
+                      data: p
                     })
                   }
                 }
@@ -1280,32 +1364,52 @@ export default function (logger) {
                   setTimeout(() => {
                     topic_pressure_cancel.publish(msg_c1)
                   }, 200)
-                  // console.warn('Systolic:', s)
-                  // console.warn('Diastolic', d)
-                  // console.warn('Heart rate', p)
+                  console.warn('Systolic:', s)
+                  console.warn('Diastolic', d)
+                  console.warn('Heart rate', p)
                   dispatch('ui/setMeasuredData', {
                     meta: pm,
                     data: [
                       {
                         'name': 'ui/setMeasurementPressure',
                         'data': s,
-                        'image': store.getters['app/getIconsSVG'].bloodPressure,
+                        'image': null,
                         'text': 'Давление'
                       },
                       {
                         'name': 'ui/setMeasurementPressureLow',
                         'data': d,
-                        'image': store.getters['app/getIconsSVG'].bloodPressure,
+                        'image': null,
                         'text': 'Нижнее значение',
                         'hidden': true
                       },
                       {
-                        'name': 'ui/setUserPulse',
+                        'name': 'ui/setMeasurementPulse',
                         'data': p,
-                        'image': store.getters['app/getIconsSVG'].pulse,
+                        'image': null,
                         'text': 'Пульс'
                       }
                     ]
+                  })
+                  dispatch('ui/setButtonPressureColor', {
+                    meta: pm,
+                    data: setColorPressure(s, d)
+                  })
+                  dispatch('ui/setReaultPressure', {
+                    meta: pm,
+                    data: setImgPressure(s, d)
+                  })
+                  dispatch('ui/setReaultPulse', {
+                    meta: pm,
+                    data: setImgPulse(s, d)
+                  })
+                  dispatch('ui/setInfo', {
+                    meta: pm,
+                    data: setInfoPressure(s, d)
+                  })
+                  dispatch('ui/setInfoAdd', {
+                    meta: pm,
+                    data: setInfoAddPressure(s, d)
                   })
                   dispatch('ui/setMeasuredDataFromTopic', {
                     meta: pm,
@@ -1315,7 +1419,7 @@ export default function (logger) {
                     meta: pm,
                     data: st
                   })
-                  if (st === 'MEASUREMENT_5_3') {
+                  if (st === 'RESULT') {
                     let phrase = (s <= 70) ? 'RES_SYSTOLIC_0' : (s <= 90) ? 'RES_SYSTOLIC_1' : (s <= 140) ? 'RES_SYSTOLIC_2' : (s <= 180) ? 'RES_SYSTOLIC_3' : 'RES_SYSTOLIC_4'
                     // console.warn('[pressure phrase]: ', phrase)
                     setTimeout(() => {

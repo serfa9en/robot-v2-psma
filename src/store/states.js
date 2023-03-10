@@ -9,6 +9,12 @@ export default [
     ]
   },
   {
+    'name': 'MEETING',
+    'entering': [
+      { 'name': 'engine/handlerCallScenario', 'options': 'meeting' }
+    ]
+  },
+  {
     name: 'MEET_FACE',
     entering: [
       {
@@ -220,7 +226,8 @@ export default [
   {
     'name': 'MEASUREMENT_2_5',
     'entering': [
-      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      // { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'result_view', 'timeout': 0 },
       { 'name': 'engine/handlerCallScenario', 'options': 'measurement_2_5', 'timeout': 0 },
       { 'name': 'robot/setRobotDialogCase', 'options': 'MEASUREMENT_2_5:extend', 'timeout': 0 },
       { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_2_5', 'terminate': true }, 'timeout': 100 }
@@ -255,7 +262,8 @@ export default [
   {
     'name': 'MEASUREMENT_5_3',
     'entering': [
-      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      // { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'result_view', 'timeout': 0 },
       { 'name': 'engine/handlerCallScenario', 'options': 'measurement_5_3', 'timeout': 0 }
     ]
   },
@@ -288,7 +296,8 @@ export default [
   {
     'name': 'MEASUREMENT_4_3',
     'entering': [
-      { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      // { 'name': 'engine/handlerCallScenario', 'options': 'measurement', 'timeout': 0 },
+      { 'name': 'engine/handlerCallScenario', 'options': 'result_view', 'timeout': 0 },
       { 'name': 'engine/handlerCallScenario', 'options': 'measurement_4_3', 'timeout': 0 },
       { 'name': 'robot/setRobotDialogCase', 'options': 'MEASUREMENT_4_3:extend', 'timeout': 0 },
       { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_4_3', 'terminate': true }, 'timeout': 100 }
@@ -300,6 +309,7 @@ export default [
       { 'name': 'engine/handlerCallScenario', 'options': 'saturatsiyaError' }
     ]
   },
+  /*
   {
     'name': 'MEASUREMENT_3_1',
     'entering': [
@@ -340,6 +350,15 @@ export default [
       { 'name': 'engine/handlerCallScenario', 'options': 'measurement_3_4', 'timeout': 0 },
       { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEASUREMENT_3_4_ERROR', 'terminate': true }, 'timeout': 50 }
     ]
+  },
+  */
+  {
+    name: 'RESULT',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'result_view'
+      }]
   },
 
   {

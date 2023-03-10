@@ -36,8 +36,8 @@ export default {
         let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },
-          // data: 'MEET_FACE'
-          data: 'MAIN_VIEW'
+          data: 'MEET_FACE'
+          // data: 'MAIN_VIEW'
         })
       }
     }

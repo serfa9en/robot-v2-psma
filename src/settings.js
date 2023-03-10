@@ -35,5 +35,17 @@ export const generalAppData = {
     { 'type': EXAMINATION_TYPE.PULSEOXIMETER_SPIROMETER, 'active': 1, 'active_spir': 1, 'active_sat': 1 },
     { 'type': EXAMINATION_TYPE.GLUCOMETER, 'active': 1 },
     { 'type': EXAMINATION_TYPE.SPIROG, 'active': 1 }
-  ]
+  ],
+  // Для рендера кнопок в Measurement /
+  btn: {
+    color: '#691B26',
+    colorText: '#fff'
+  },
+  loaderStyle: {
+    color: '#691B26'
+  },
+  btnMain: {
+    background: '#691B26 ',
+    borderColor: '#63A7E0'
+  }
 }

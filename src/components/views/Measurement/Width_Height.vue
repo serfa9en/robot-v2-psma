@@ -7,7 +7,7 @@
             <p class="text">Какой у Вас рост?</p>
             <img src="../../../../public/dialog-images/measurement/height.png">
             <div class="input-div">
-              <input placeholder="Введите рост...">
+              <input placeholder="Введите рост..." id="usrH">
               <div class="dop">см</div>
             </div>
           </div>
@@ -22,7 +22,7 @@
             <p class="text">Какой у Вас вес?</p>
             <img src="../../../../public/dialog-images/measurement/weight-scale.png">
             <div class="input-div">
-              <input placeholder="Введите вес...">
+              <input placeholder="Введите вес..." id="usrW">
               <div class="dop">кг</div>
             </div>
           </div>
@@ -35,12 +35,16 @@
 <script>
 import { mapGetters } from 'vuex'
 import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
+import { setInfoAddImt, setInfoImt, setImgImt, setColorImt } from '../../styled/setColorButtons'
 
 export default {
   name: 'width_height',
   data () {
     return {
-      step: null // шаг страниц
+      step: null, // шаг страниц
+      height: null,
+      width: null,
+      imt: null
     }
   },
   computed: {
@@ -60,7 +64,7 @@ export default {
   },
   methods: {
     loggingCurrentStateName: function () {
-      if (this.getPreStateName === 'DIAGNOSTIC_START') {
+      if (this.getPreStateName === 'DIAGNOSTIC_START' || this.getPreStateName === 'RESULT') {
         let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
         this.$store.dispatch('engine/setPreStateName', {
           meta: { eventId },
@@ -68,19 +72,79 @@ export default {
         })
       }
     },
+    calculate: function () {
+      const hh = this.height / 100
+      this.imt = this.width / (hh * hh)
+      this.imt = this.imt.toFixed(0)
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('ui/setMeasurementWeight', {
+        meta: { eventId },
+        data: this.width
+      })
+      this.$store.dispatch('ui/setMeasurementHeight', {
+        meta: { eventId },
+        data: this.height
+      })
+      this.$store.dispatch('ui/setMeasurementImt', {
+        meta: { eventId },
+        data: this.imt
+      })
+    },
+    setStyleRes: function () {
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      // картинка
+      this.$store.dispatch('ui/setReaultImt', {
+        meta: { eventId },
+        data: setImgImt(this.imt)
+      })
+      // цвет
+      this.$store.dispatch('ui/setButtonWeightHeightColor', {
+        meta: { eventId },
+        data: setColorImt(this.imt)
+      })
+      // текст
+      this.$store.dispatch('ui/setInfo', {
+        meta: { eventId },
+        data: setInfoImt(this.imt)
+      })
+      // доп текст
+      this.$store.dispatch('ui/setInfoAdd', {
+        meta: { eventId },
+        data: setInfoAddImt(this.imt)
+      })
+    },
     next: function (val) {
       // проверка на введеное значение
 
       // переход
       if (val === 0) {
         this.step = 2
+        let hh = document.getElementById('usrH').value
+        this.height = hh
         let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
         this.$store.dispatch('engine/setPreStateName', {
           meta: { eventId },
           data: 'WIDTH_HEIGHT_2'
         })
-      } else {
-        // Переход к результатам
+      }
+      if (val === 1) {
+        let ww = document.getElementById('usrW').value
+        this.width = ww
+        // Рассчет ИМТ
+        this.calculate()
+        // Установить соотв. параметры для вывода результата
+        let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+        this.$store.dispatch('ui/setCurMeasurementNumber', {
+          meta: { eventId },
+          data: 3
+        })
+        // стили результата
+        this.setStyleRes()
+        // переход к результатам
+        this.$store.dispatch('engine/handlerClickMoveToState', {
+          meta: { eventId },
+          data: 'RESULT'
+        })
       }
     }
   }

@@ -121,7 +121,7 @@ export default function (logger) {
           })
           if (currentUsers.length === 0) {
             lostAllNewTimeOut = setTimeout(() => {
-              if (['MEET_FACE', 'BYE', 'AGE', 'MAIN_VIEW'].includes(store.getters['engine/getCurrentStateName'])) {
+              if (['MEET_FACE', 'BYE', 'AGE', 'MAIN_VIEW', 'DIAGNOSTIC_START', 'SPECIALIST_START', 'SPECIALIST_QUEST', 'WIDTH_HEIGHT'].includes(store.getters['engine/getCurrentStateName'])) {
                 // console.warn('ЛИЦ ВСЕ ЕЩЕ НЕТ И Я НА ЭКРАНЕ СБРОСА')
                 dispatch('engine/handlerMoveToState', {
                   meta: payload.meta,
