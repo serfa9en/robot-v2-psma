@@ -85,6 +85,7 @@ export const stateUserMeasurement = {
 
   current_measurement: {
     number: null,
+    norm: null,
     info: null,
     infoAdd: null
   },
@@ -114,6 +115,7 @@ export const actionsUserMeasurement = {
   setResultSpecialistEndocrinologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_ENDOCRINOLOGIST', payload),
 
   setCurMeasurementNumber: ({ commit }, payload) => commit('SET_CURMEASUREMENT_NUMBER', payload),
+  setNorm: ({ commit }, payload) => commit('SET_NORM', payload),
   setInfo: ({ commit }, payload) => commit('SET_INFO', payload),
   setInfoAdd: ({ commit }, payload) => commit('SET_INFO_ADD', payload),
 
@@ -163,6 +165,7 @@ export const mutationsUserMeasurement = {
   },
 
   SET_INFO_ADD: (state, payload) => { state.current_measurement.infoAdd = payload.data },
+  SET_NORM: (state, payload) => { state.current_measurement.norm = payload.data },
   SET_INFO: (state, payload) => { state.current_measurement.info = payload.data },
   SET_CURMEASUREMENT_NUMBER: (state, payload) => { state.current_measurement.number = payload.data },
   SET_RESULT_PRESSURE: (state, payload) => { state.result.measurement.pressure = payload.data },
@@ -219,6 +222,7 @@ export const gettersUserMeasurement = {
 
   getCurMeasurementNumber: state => state.current_measurement.number,
   getInfo: state => state.current_measurement.info,
+  getNorm: state => state.current_measurement.norm,
   getInfoAdd: state => state.current_measurement.infoAdd,
   getReaultPressure: state => state.result.measurement.pressure,
   getReaultPulse: state => state.result.measurement.pulse,

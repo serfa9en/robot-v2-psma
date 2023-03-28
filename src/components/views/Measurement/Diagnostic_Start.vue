@@ -91,8 +91,9 @@
               <div class="line_data-res" v-if="flagSaturatsiya">
                 <div class="data">
                   <br>
-                  <p class="data_res">{{ fRound(getMeasurementSaturatsiya, 0) }}</p>
-                  <p class="data_text">%</p>
+                  <div class="data_res">{{ fRound(getMeasurementSaturatsiya, 0) }}<div class="per">%</div>
+                  </div>
+                  <!--<p class="data_text">%</p>-->
                 </div>
               </div>
             </div>
@@ -283,9 +284,9 @@ export default {
       let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       let actions = []
       actions.push({ 'name': 'ui/setCurMeasurementNumber', 'options': examination, 'timeout': 0 })
-      console.log('exam = ', examination)
+      // console.log('exam = ', examination)
       if (examination === EXAMINATION_TYPE.THERMO_HEAD) {
-        console.log('Examonation == ', examination)
+        // console.log('Examonation == ', examination)
         const options = {
           replica: {
             id: {
@@ -298,9 +299,9 @@ export default {
           terminate: true
         }
         const thermoRequest = { userId: this.getUserGeneral.id }
-        console.log(thermoRequest)
+        // console.log(thermoRequest)
         localStorage.setItem('tempSettings', JSON.stringify(thermoRequest))
-        console.log(localStorage)
+        // console.log(localStorage)
         actions.push({ 'name': 'robot/dialogSayReplicByDataRequest', 'options': options, 'timeout': 0 })
         actions.push({ 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 })
         actions.push({ 'name': 'ui/setMeasurementNum', 'options': 6, 'timeout': 0 })
@@ -310,14 +311,15 @@ export default {
         actions.push({ 'name': 'ui/setMeasurementStep', 'options': step, 'timeout': 0 })
         actions.push({ 'name': 'ui/setMeasurementNum', 'options': examination, 'timeout': 0 })
       }
+      actions.push({ 'name': 'ui/setFlagConsultation', 'options': false, 'timeout': 0 })
       actions.forEach(item => {
         setTimeout(() => {
           this.$store.dispatch(item.name, { meta: { eventId }, data: item.options })
         }, item.timeout)
-        console.log('examination = ', examination)
-        console.log('item.name = ', item.name)
-        console.log('eventId = ', eventId)
-        console.log('item.options = ', item.options)
+        // console.log('examination = ', examination)
+        // console.log('item.name = ', item.name)
+        // console.log('eventId = ', eventId)
+        // console.log('item.options = ', item.options)
       })
     },
     calculateResults () {
@@ -382,6 +384,10 @@ export default {
           height: 60%;
           margin-top: 40px;
         }
+      }
+      .per {
+        font-size: 20px;
+        display: inline-flex;
       }
 
       .data {

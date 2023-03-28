@@ -5,6 +5,12 @@ export default {
       name: 'app/setStep',
       options: 'wait_promo',
       timeout: 0
+    },
+    { name: 'ui/setSubtitlesEnabled', options: true },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: false,
+      timeout: 0
     }
   ],
   // инициализация кейса (начальные параметры)
@@ -14,6 +20,7 @@ export default {
       options: 'WAIT_PROMO',
       timeout: 1000
     },
+    { name: 'ui/setSubtitlesEnabled', options: true },
     { name: 'robot/setRobotSettingsLoad', options: { settings_type: 'system', group: 'js' }, timeout: 0 },
     { name: 'robot/setRobotSettingsLoad', options: { settings_type: 'application', group: 'faces' }, timeout: 200 },
     { name: 'app/clearState', options: null }
@@ -32,17 +39,17 @@ export default {
     }
   ],
   meeting: [
-    { 'name': 'robot/setRobotDialogCase', 'options': 'MEETING:extend', 'timeout': 0 },
-    { 'name': 'robot/sayReplicByName', 'options': { 'step': 'MEETING', 'terminate': true }, 'timeout': 100 },
-    { 'name': 'robot/faceRecognizeGeneralFrameRequest', 'options': true },
-    { 'name': 'app/setMeetingTalk', 'options': false },
-    { 'name': 'ui/setSpinnerEnabled', 'options': false, 'timeout': 0 },
-    { 'name': 'app/setStep', 'options': 'meeting', 'timeout': 50 },
-    { 'name': 'engine/handlerCallScenario', 'options': 'generalHeaderLogoFooter', 'timeout': 110 },
-    { 'name': 'ui/setHeaderBtnLeftText', 'options': 'Это не я', 'timeout': 0 },
-    { 'name': 'ui/setHeaderBtnLeftAction', 'options': { 'engine/handlerClickMoveToState': 'SELECT_GENERAL' }, 'timeout': 120 },
-    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': true, 'timeout': 0 },
-    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 }
+    { name: 'robot/setRobotDialogCase', options: 'MEETING:extend', timeout: 0 },
+    { name: 'robot/sayReplicByName', options: { 'step': 'MEETING', terminate: true }, timeout: 100 },
+    { name: 'robot/faceRecognizeGeneralFrameRequest', options: true },
+    { name: 'app/setMeetingTalk', options: false },
+    { name: 'ui/setSpinnerEnabled', options: false, timeout: 0 },
+    { name: 'app/setStep', options: 'meeting', timeout: 50 },
+    { name: 'engine/handlerCallScenario', options: 'generalHeaderLogoFooter', timeout: 110 },
+    { name: 'ui/setHeaderBtnLeftText', options: 'Это не я', timeout: 0 },
+    { name: 'ui/setHeaderBtnLeftAction', options: { 'engine/handlerClickMoveToState': 'MEET_FACE' }, timeout: 120 },
+    { name: 'ui/setHeaderBtnLeftEnabled', options: true, timeout: 0 },
+    { name: 'ui/setHeaderBtnLeftPhoto', options: false, timeout: 0 }
   ],
   // экран с вводом возраста
   age_view: [
@@ -150,6 +157,7 @@ export default {
       },
       timeout: 0
     }
+    // { name: 'ui/setFlagConsultation', options: false, timeout: 0 }
   ],
   specialist: [
     {
@@ -332,16 +340,16 @@ export default {
   ],
   /* температура */
   measurement_6_1: [
-    { 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 },
-    { 'name': 'ui/setMeasurementNum', 'options': 6, 'timeout': 0 },
-    { 'name': 'engine/handlerCallScenario', 'options': 'generalHeaderLogoFooter', 'timeout': 100 },
-    { 'name': 'engine/handlerCallScenario', 'options': 'exit', 'timeout': 100 }
+    { name: 'ui/setMeasurementStep', options: 1, timeout: 0 },
+    { name: 'ui/setMeasurementNum', options: 6, timeout: 0 },
+    { name: 'engine/handlerCallScenario', options: 'generalHeaderLogoFooter', timeout: 100 },
+    { name: 'engine/handlerCallScenario', options: 'exit', timeout: 100 }
   ],
   measurement_6_2: [
-    { 'name': 'ui/setMeasurementStep', 'options': 2, 'timeout': 0 },
-    { 'name': 'ui/setMeasurementNum', 'options': 6, 'timeout': 0 },
-    { 'name': 'ui/setHeaderBtnLeftEnabled', 'options': false, 'timeout': 0 },
-    { 'name': 'ui/setHeaderBtnLeftPhoto', 'options': false, 'timeout': 0 }
+    { name: 'ui/setMeasurementStep', options: 2, timeout: 0 },
+    { name: 'ui/setMeasurementNum', options: 6, timeout: 0 },
+    { name: 'ui/setHeaderBtnLeftEnabled', options: false, timeout: 0 },
+    { name: 'ui/setHeaderBtnLeftPhoto', options: false, timeout: 0 }
   ],
   measurement_6_3: [
     { 'name': 'ui/setMeasurementStep', 'options': 3, 'timeout': 0 },
@@ -353,16 +361,16 @@ export default {
 
   /* давление */
   measurement_5_1: [
-    { 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 },
-    { 'name': 'ui/setMeasurementNum', 'options': 5, 'timeout': 0 },
-    { 'name': 'engine/handlerCallScenario', 'options': 'exit', 'timeout': 100 },
-    { 'name': 'head/setEnabled', 'options': false, 'timeout': 300 }
+    { name: 'ui/setMeasurementStep', options: 1, timeout: 0 },
+    { name: 'ui/setMeasurementNum', options: 5, timeout: 0 },
+    { name: 'engine/handlerCallScenario', options: 'exit', timeout: 100 },
+    { name: 'head/setEnabled', options: false, timeout: 300 }
   ],
   measurement_5_2: [
-    { 'name': 'ui/setMeasurementStep', 'options': 2, 'timeout': 0 },
-    { 'name': 'ui/setMeasurementNum', 'options': 5, 'timeout': 0 },
+    { name: 'ui/setMeasurementStep', options: 2, timeout: 0 },
+    { name: 'ui/setMeasurementNum', options: 5, timeout: 0 },
     { name: 'engine/handlerCallScenario', options: 'exit', timeout: 100 },
-    { 'name': 'head/setEnabled', 'options': false, 'timeout': 300 }
+    { name: 'head/setEnabled', options: false, timeout: 300 }
   ],
   measurement_5_3: [
     { 'name': 'ui/setMeasurementStep', 'options': 3, 'timeout': 0 },

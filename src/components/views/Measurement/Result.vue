@@ -2,7 +2,7 @@
     <div v-if="showComponent" class="settings">
       <!-- Вместо Title выводим фразу результата
         Пример: (У Вас значительно повышена температура тела) -->
-        <h1>Title</h1>
+        <h1 class="text">{{ this.title }}</h1>
         <div v-if="this.typeScreen === 0">
           <div class="block">
             <div class="box">
@@ -79,7 +79,7 @@
           {{ this.comment_add }}
         </div>
         <div class="buttonBox">
-          <button class="btn-yes-no">Получить <br> результаты</button>
+          <button class="btn-yes-no" v-if="this.flagCons === false">Получить <br> результаты</button>
           <button class="btn-dark-grad" v-on:click="continueWork">Продолжить обследование</button>
           <button class="btn-yes-no" v-on:click="repeatWork">Повторить <br> измерение</button>
         </div>
@@ -94,6 +94,7 @@ export default {
   name: 'result_view',
   data () {
     return {
+      title: null,
       result: null,
       imt_h: null,
       imt_w: null,
@@ -110,7 +111,8 @@ export default {
       // 1 - давление
       // 2 - ИМТ
       // 3 - спирография
-      typeScreen: null
+      typeScreen: null,
+      flagCons: null
     }
   },
   computed: {
@@ -119,6 +121,8 @@ export default {
     ]),
     ...mapGetters('ui', [
       'getMeasurementNum',
+      'getFlagConsultation',
+      'getNorm',
       'getCurMeasurementNumber',
       'getMeasurementStep',
       'getInfo',
@@ -146,6 +150,10 @@ export default {
     ]),
     showComponent () {
       if (this.$store.getters['app/getStep'] === 'result_view') {
+        this.flagCons = this.getFlagConsultation
+        // flagCons = true (если мы попали в комплексное обследование)
+        // flagCons = false (если это отдельное измерение)
+        console.log('getFlagConsultation = ', this.getFlagConsultation)
         console.log('this.getMeasurementNum = ', this.getMeasurementNum)
         this.loggingCurrentStateName()
         console.log('getCurMeasurementNumber = ', this.getCurMeasurementNumber)
@@ -194,6 +202,7 @@ export default {
           this.comment_add = this.getInfoAdd
           this.typeScreen = 0
         }
+        this.title = this.getNorm
       }
       return this.$store.getters['app/getStep'] === 'result_view'
     },
@@ -232,10 +241,19 @@ export default {
     },
     continueWork: function () {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
-      this.$store.dispatch('engine/handlerClickMoveToState', {
-        meta: { eventId },
-        data: 'DIAGNOSTIC_START'
-      })
+      if (this.flagCons === true) {
+        // консультация
+        this.$store.dispatch('engine/handlerClickMoveToState', {
+          meta: { eventId },
+          data: 'SPECIALIST_QUEST'
+        })
+      } else {
+        // отдельное измерение
+        this.$store.dispatch('engine/handlerClickMoveToState', {
+          meta: { eventId },
+          data: 'DIAGNOSTIC_START'
+        })
+      }
     }
   }
 }
@@ -261,7 +279,7 @@ export default {
     text-align: center;
   }
   .box {
-    width: 120px;
+    width: auto;
     height: 120px;
     display: flex;
     margin: 15px;
@@ -312,7 +330,7 @@ export default {
       }
     }
     &_add {
-      width: auto;
+      width: 200px;
       height: auto;
       font-size: 30px;
       display: flex;
@@ -329,17 +347,18 @@ export default {
   }
 
   .colorBox {
-    width: 810px;
+    width: 850px;
     height: auto;
     background-color: #EAE8E8;
-    font-size: 26px;
+    font-size: 24px;
     padding: 15px;
-    margin: 20px;
+    margin: 10px;
+    margin-top: 15px;
     &_not {
-      width: 810px;
+      width: 840px;
       height: auto;
-      font-size: 22px;
-      margin: 20px;
+      font-size: 18px;
+      margin: 10px;
     }
   }
 

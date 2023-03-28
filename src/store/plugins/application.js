@@ -332,7 +332,7 @@ export function applicationPlugin (logger) {
                     {
                       'name': 'ui/setMeasurementTemperature',
                       'data': thermoResponse.temp.toFixed(1),
-                      'image': '../../assets/img/start_new6.png',
+                      'image': '../../assets/img/diagnostic/temperature.png',
                       'text': 'Температура, &deg;C'
                     }
                   ]
@@ -345,7 +345,7 @@ export function applicationPlugin (logger) {
                   meta: payload.meta,
                   data: null
                 })
-                currentLocalStorageData[EXAMINATION_TYPE.THERMO] = [preparedLocalStorageData]
+                currentLocalStorageData[EXAMINATION_TYPE.THERMO_HEAD] = [preparedLocalStorageData]
                 localStorage.setItem('med_' + String(getter['faces/getUserGeneral'].id), JSON.stringify(currentLocalStorageData))
               }
             }

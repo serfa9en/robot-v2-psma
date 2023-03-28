@@ -14,6 +14,9 @@ export default {
     ...mapGetters('app', [
       'getStep'
     ]),
+    ...mapGetters('ui', [
+      'getSubtitlesEnabled'
+    ]),
     ...mapGetters('engine', [
       'getCurrentStateName'
     ]),

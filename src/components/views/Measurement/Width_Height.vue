@@ -35,7 +35,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
-import { setInfoAddImt, setInfoImt, setImgImt, setColorImt } from '../../styled/setColorButtons'
+import { setInfoAddImt, setInfoImt, setImgImt, setColorImt, setNormImt } from '../../styled/setColorButtons'
 
 export default {
   name: 'width_height',
@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     loggingCurrentStateName: function () {
-      if (this.getPreStateName === 'DIAGNOSTIC_START' || this.getPreStateName === 'RESULT') {
+      if (this.getPreStateName === 'DIAGNOSTIC_START' || this.getPreStateName === 'RESULT' || this.getPreStateName === 'SPECIALIST_QUEST') {
         let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
         this.$store.dispatch('engine/setPreStateName', {
           meta: { eventId },
@@ -96,6 +96,11 @@ export default {
       this.$store.dispatch('ui/setReaultImt', {
         meta: { eventId },
         data: setImgImt(this.imt)
+      })
+      // заголовок
+      this.$store.dispatch('ui/setNorm', {
+        meta: { eventId },
+        data: setNormImt(this.imt)
       })
       // цвет
       this.$store.dispatch('ui/setButtonWeightHeightColor', {

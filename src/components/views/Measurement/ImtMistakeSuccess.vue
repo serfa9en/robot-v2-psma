@@ -154,7 +154,7 @@ export default {
       } else if (num === 1) {
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },
-          data: 'START_NEW'
+          data: 'DIAGNOSTIC_START'
         })
       }
     },
@@ -179,7 +179,7 @@ export default {
       if (num === 0) {
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },
-          data: 'START_NEW'
+          data: 'DIAGNOSTIC_START'
         })
       } else if (num === 1) {
         this.$store.dispatch('engine/handlerClickMoveToState', {

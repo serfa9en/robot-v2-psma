@@ -113,4 +113,8 @@ export default {
 @import './assets/style/styles.scss';
 @import './main.css';
 
+p, div, h1 {
+  font-family: 'Play', sans-serif;
+}
+
 </style>

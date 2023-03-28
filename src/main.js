@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         })
         global.topic_t.subscribe(message => {
         // console.warn('temp dist measure', message)
-          console.log('store.getters[ui/getMeasurementNum = ', store.getters['ui/getMeasurementNum'])
+          // console.log('store.getters[ui/getMeasurementNum = ', store.getters['ui/getMeasurementNum'])
           if (store.getters['ui/getMeasurementNum'] === 6) {
             store.dispatch('ui/setMeasuredDataFromTopic', {
               meta: null,

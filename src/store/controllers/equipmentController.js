@@ -18,8 +18,12 @@ import {
   // setInfoTemp,
   setInfoAddGlucometry,
   setInfoAddSaturatsiya,
-  setInfoAddPressure
+  setInfoAddPressure,
   // setInfoTemp
+  setNormSaturatsiya,
+  setNormGlucometry,
+  // setNormTemperature,
+  setNormPressure
 } from '../../components/styled/setColorButtons'
 
 let measurementProcess = { 'med_2': null, 'med_3': null, 'med_4': null, 'med_5': null, 'med_6': null, 'med_6_1': null, 'med_6_2': null, 'med_6_3': null }
@@ -375,14 +379,14 @@ export default function (logger) {
             /**
              *  Термометрия: проверка работоспособности и переход к измерению
              */
-            console.log('Переход к замеру темп')
+            // console.log('Переход к замеру темп')
             if (payload.data === EXAMINATION_TYPE.THERMO && store.getters['ui/getMeasurementStep'] === 1) { // Переход к замеру температуры
               console.log('Переход к замеру темп')
               new Promise((resolve, reject) => {
                 actions = []
                 isEquipment = setTimeout(() => { reject() }, 10000)
-                console.log('isEquipment')
-                console.log(topic_t)
+                // console.log('isEquipment')
+                // console.log(topic_t)
                 if (!topic_t) {
                   reject()
                   console.log('reject')
@@ -413,7 +417,11 @@ export default function (logger) {
               }, () => {
                 clearInterval(tempStartInterval)
                 actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': false, 'timeout': 0 })
-                actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'DIAGNOSTIC_START', 'timeout': 0 })
+                if (store.getters['ui/getFlagConsultation'] === true) {
+                  actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'SPECIALIST_QUEST', 'timeout': 0 })
+                } else {
+                  actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'DIAGNOSTIC_START', 'timeout': 0 })
+                }
                 actions.push({ 'name': 'robot/abortRobotReplic', 'options': null, 'timeout': 100 })
                 actions.push({ 'name': 'robot/sayText', 'options': 'Извините, в данный момент это оборудование недоступно', 'timeout': 200 })
                 console.warn('THERMO Извините, в данный момент это оборудование недоступно')
@@ -679,11 +687,15 @@ export default function (logger) {
                       }
                     ]
                   })
-                  console.log(s)
-                  console.log(store.getters['ui/getMeasurementSaturatsiya'])
+                  // console.log(s)
+                  // console.log(store.getters['ui/getMeasurementSaturatsiya'])
                   dispatch('ui/setMeasurementSaturatsiya', {
                     meta: pm,
                     data: s
+                  })
+                  dispatch('ui/setNorm', {
+                    meta: pm,
+                    data: setNormSaturatsiya(s)
                   })
                   dispatch('ui/setButtonSaturatsiyaColor', {
                     meta: pm,
@@ -701,8 +713,8 @@ export default function (logger) {
                     meta: pm,
                     data: setInfoAddSaturatsiya(s)
                   })
-                  console.log(store.getters['ui/getButtonSaturatsiyaColor'])
-                  console.log(store.getters['ui/getMeasurementSaturatsiya'])
+                  // console.log(store.getters['ui/getButtonSaturatsiyaColor'])
+                  // console.log(store.getters['ui/getMeasurementSaturatsiya'])
                   dispatch('engine/handlerMoveToState', {
                     meta: pm,
                     data: 'RESULT'
@@ -956,8 +968,8 @@ export default function (logger) {
                         }
                       ]
                     })
-                    console.log(store.getters['ui/getMeasurementGlucometry'])
-                    console.log(Number((pd.message.data).toFixed(1)))
+                    // console.log(store.getters['ui/getMeasurementGlucometry'])
+                    // console.log(Number((pd.message.data).toFixed(1)))
                     dispatch('engine/handlerMoveToState', {
                       meta: pm,
                       data: 'RESULT'
@@ -966,6 +978,10 @@ export default function (logger) {
                     dispatch('ui/setMeasurementGlucometry', {
                       meta: pm,
                       data: s
+                    })
+                    dispatch('ui/setNorm', {
+                      meta: pm,
+                      data: setNormGlucometry(s)
                     })
                     dispatch('ui/setButtonGlucometryColor', {
                       meta: pm,
@@ -1398,6 +1414,10 @@ export default function (logger) {
                   dispatch('ui/setReaultPressure', {
                     meta: pm,
                     data: setImgPressure(s, d)
+                  })
+                  dispatch('ui/setNorm', {
+                    meta: pm,
+                    data: setNormPressure(s)
                   })
                   dispatch('ui/setReaultPulse', {
                     meta: pm,

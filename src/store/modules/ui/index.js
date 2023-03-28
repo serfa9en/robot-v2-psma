@@ -15,7 +15,8 @@ export default {
       equipmentWorks: null,
       isSaturatsiyaStarted: null,
       measuredData: null,
-      measuredDataFromTopic: null
+      measuredDataFromTopic: null,
+      flagConsultation: null
     },
     glucometer: {
       connectionStatus: false,
@@ -89,7 +90,9 @@ export default {
     // SESSION
     setSessionUserLost: ({ commit }, payload) => commit('SET_SESSION_USER_LOST', payload),
     // ACQUAINTANCE
-    setAcquaintanceStatus: ({ commit }, payload) => commit('SET_ACQUAINTANCE_STATUS', payload)
+    setAcquaintanceStatus: ({ commit }, payload) => commit('SET_ACQUAINTANCE_STATUS', payload),
+
+    setFlagConsultation: ({ commit }, payload) => commit('SET_FLAG_CONSULTATION', payload)
   },
   mutations: {
     ...mutationsUserMeasurement,
@@ -128,7 +131,9 @@ export default {
     // SESSION
     SET_SESSION_USER_LOST: (state, payload) => { state.session.user.lost = payload.data },
     // ACQUAINTANCE
-    SET_ACQUAINTANCE_STATUS: (status, payload) => { status.acquaintance.status = payload.data }
+    SET_ACQUAINTANCE_STATUS: (status, payload) => { status.acquaintance.status = payload.data },
+
+    SET_FLAG_CONSULTATION: (state, payload) => { state.user.flagConsultation = payload.data }
   },
   getters: {
     ...gettersUserMeasurement,
@@ -155,6 +160,8 @@ export default {
     getHeaderEnabled: state => state.header.enabled,
 
     getFooterEnabled: state => state.footer.enabled,
+    getSubtitlesText: state => state.subtitles.text,
+    getSubtitlesEnabled: state => state.subtitles.enabled,
 
     // VIDEO STREAM
     getVideoStreamEnabled: state => state.videoStream.enabled,
@@ -164,6 +171,8 @@ export default {
     // SESSION
     getSessionUserLost: state => state.session.user.lost,
     // ACQUAINTANCE
-    getAcquaintanceStatus: state => state.acquaintance.status
+    getAcquaintanceStatus: state => state.acquaintance.status,
+
+    getFlagConsultation: state => state.user.flagConsultation
   }
 }

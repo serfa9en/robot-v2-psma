@@ -90,7 +90,7 @@ export default {
         border-radius: 4px;
         padding: 11px 15px;
         min-width: 140px;
-        font-family: Circe;
+        font-family: 'Play', sans-serif;
         font-size: 18px;
         line-height: 27px;
         font-style: normal;

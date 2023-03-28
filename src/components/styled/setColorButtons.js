@@ -28,23 +28,23 @@ export function setColorGlucometry (val) {
   val = val.toFixed(1)
   if (val < 3) {
     colorBut = colorBad
-    console.log('colorBad + dataBad')
+    // console.log('colorBad + dataBad')
   }
   if (val < 3.3 && val > 3) {
     colorBut = colorNorm
-    console.log('colorNorm + dataNorm')
+    // console.log('colorNorm + dataNorm')
   }
   if (val < 6.8 && val >= 3.3) {
     console.log('colorGood + dataGood')
-    colorBut = colorGood
+    // colorBut = colorGood
   }
   if (val < 11 && val >= 6.8) {
     colorBut = colorNorm
-    console.log('colorNorm + dataNorm')
+    // console.log('colorNorm + dataNorm')
   }
   if (val > 11) {
     colorBut = colorBad
-    console.log('colorBad + dataBad')
+    // console.log('colorBad + dataBad')
   }
   return colorBut
 }
@@ -338,5 +338,90 @@ export function setInfoAddImt (val) {
   }
   if (val > 30) {
     return 'Вам необходимо обратиться для консультации к врачу'
+  }
+}
+
+/* -------------------------------НОРМА-------------------- */
+export function setNormSaturatsiya (val) {
+  if (val >= 95) {
+    // все хорошо
+    return 'Ваша сатурация крови в пределах нормы'
+  }
+  if (val < 95 && val >= 90) {
+    // средне
+    return 'Ваша сатурация крови снижена'
+  }
+  if (val < 90) {
+    // все плохо
+    return 'Ваша сатурация крови значительно снижена'
+  }
+}
+
+export function setNormGlucometry (val) {
+  if (val < 3) {
+    return 'У Вас низкий уровень глюкозы в крови'
+  }
+  if (val < 3.3 && val > 3) {
+    return 'Уровень глюкозы соответствует норме'
+  }
+  if (val < 6.8 && val >= 3.3) {
+    return 'Уровень глюкозы соответствует норме'
+  }
+  if (val < 11 && val >= 6.8) {
+    return 'У Вас повышенный уровень глюкозы в крови'
+  }
+  if (val > 11) {
+    return 'Ваш уровень глюкозы значительно повышен'
+  }
+}
+
+export function setNormTemperature (val) {
+  if (val < 35.5) {
+    return 'У Вас пониженная температура тела'
+  }
+  if (val < 36.9 && val >= 35.5) {
+    return 'Ваша температура тела соответствует физиологической норме'
+  }
+  if (val < 37 && val <= 37.9) {
+    // все плохо
+    return 'У Вас умеренно повышена температура тела'
+  }
+  if (val > 38) {
+    return 'У Вас значительно повышена температура тела'
+  }
+}
+
+export function setNormPressure (val_s, val_d) {
+  if (val_s < 70 && val_d < 40) {
+    return 'У Вас очень низкое давление'
+  }
+  if (val_s >= 70 && val_s <= 90 && val_d >= 40 && val_d <= 50) {
+    // все плохо
+    return 'У Вас пониженное давление'
+  }
+  if (val_s > 90 && val_s <= 140 && val_d > 50 && val_d <= 90) {
+    return 'Ваше артериальное давления соответствует норме'
+  }
+  if (val_s > 140 && val_s <= 180 && val_d > 90 && val_d <= 110) {
+    // все плохо
+    return 'Ваше артериальное давление повышено'
+  }
+  if (val_s > 180 && val_d > 110) {
+    return 'У Вас очень высокое артериальное давление'
+  }
+}
+
+export function setNormImt (val) {
+  if (val < 18.5) {
+    return 'У Вас имеется дефицит массы тела'
+  }
+  if (val >= 18.5 && val <= 25) {
+    return 'ИМТ (индекс массы тела) соответствует норме'
+  }
+  if (val > 25 && val <= 30) {
+    return 'У Вас имеется избыточная масса тела'
+  }
+  if (val > 30) {
+    return 'У Вас имеется ожирение'
   }
 }

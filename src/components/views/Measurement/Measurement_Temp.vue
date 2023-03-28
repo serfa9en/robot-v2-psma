@@ -1225,24 +1225,7 @@ export default {
 }
 </script>
 
-@font-face {
-font-family: Circe;
-src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
-}
-
 <style lang="scss" scoped>
-
-  .fade-enter-active {
-      transition: opacity .25s;
-  }
-
-  .fade-leave-active {
-      display: none;
-  }
-
-  .fade-enter, .fade-leave-to {
-      opacity: 0;
-  }
 
   .measurement {
       width: 100%;
@@ -1256,11 +1239,11 @@ src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
           text-align: center;
 
           p {
-              font-family: Circe;
+            font-family: 'Play', sans-serif;
               font-size: 30px;
               line-height: 44px;
               text-align: center;
-              color: #464646;
+              color: #3E0E14;
           }
 
           .container {
@@ -1279,25 +1262,25 @@ src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
                           padding: 10px;
 
                           h3 {
-                              font-family: Circe;
+                            font-family: 'Play', sans-serif;
                               font-size: 90px;
                               line-height: 90px;
-                              color: #464646;
+                              color: #3E0E14;
                               margin: 10px 0;
                               display: inline-block;
                           }
 
                           h4 {
-                              font-family: Circe;
+                            font-family: 'Play', sans-serif;
                               font-size: 50px;
                               line-height: 50px;
-                              color: #464646;
+                              color: #3E0E14;
                               margin: 10px 0;
                               display: inline-block;
                           }
 
                           p {
-                              font-family: Circe;
+                            font-family: 'Play', sans-serif;
                               font-size: 30px;
                               line-height: 44px;
                               margin: 10px 0;
@@ -1346,10 +1329,10 @@ src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
           }
 
           h3 {
-              font-family: Circe;
+            font-family: 'Play', sans-serif;
               font-size: 52px;
               line-height: 62px;
-              color: #464646;
+              color: #3E0E14;
               margin: 10px 0;
               font-weight: normal;
               display: inline-block;
@@ -1357,25 +1340,25 @@ src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
           }
 
           h4 {
-              font-family: Circe;
+            font-family: 'Play', sans-serif;
               font-size: 50px;
               line-height: 50px;
-              color: #464646;
+              color: #3E0E14;
               margin: 10px 0;
               display: inline-block;
               text-align: left;
           }
 
           p {
-              font-family: Circe;
+            font-family: 'Play', sans-serif;
               font-size: 30px;
               line-height: 44px;
-              color: #464646;
+              color: #3E0E14;
               text-align: left;
           }
 
           span {
-              font-family: Circe;
+            font-family: 'Play', sans-serif;
               font-size: 40px;
               line-height: 40px;
           }
@@ -1404,7 +1387,7 @@ src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
           border: 1px solid transparent;
           padding: 0 25px;
           min-height: 64px;
-          font-family: Circe;
+          font-family: 'Play', sans-serif;
           font-size: 22px;
           line-height: 22px;
           font-style: normal;
@@ -1452,10 +1435,10 @@ src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
               box-sizing: border-box;
 
               p {
-                  font-family: Circe;
+                font-family: 'Play', sans-serif;
                   font-size: 30px;
                   line-height: 44px;
-                  color: #464646;
+                  color: #3E0E14;
                   min-height: 200px;
               }
 
@@ -1474,20 +1457,20 @@ src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
               box-sizing: border-box;
 
               p {
-                  font-family: Circe;
+                font-family: 'Play', sans-serif;
                   font-size: 24px;
                   line-height: 35px;
-                  color: #464646;
+                  color: #3E0E14;
                   margin: 0;
               }
 
               h3 {
-                  font-family: Circe;
+                font-family: 'Play', sans-serif;
                   font-size: 30px;
                   line-height: 44px;
                   text-align: center;
                   font-weight: normal;
-                  color: #464646;
+                  color: #3E0E14;
                   margin: 0 0 10px;
               }
 
@@ -1538,7 +1521,7 @@ src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
                       text-align: left;
 
                       p {
-                          font-family: Circe;
+                        font-family: 'Play', sans-serif;
                           font-size: 18px;
                           line-height: 18px;
                           padding: 0;
@@ -1547,7 +1530,7 @@ src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
                       }
 
                       span {
-                          font-family: Circe;
+                        font-family: 'Play', sans-serif;
                           font-size: 25px;
                           line-height: 25px;
                           padding: 0;
@@ -1556,7 +1539,7 @@ src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
                       }
 
                       h2 {
-                          font-family: Circe;
+                        font-family: 'Play', sans-serif;
                           font-size: 51px;
                           line-height: 51px;
                           display: inline-block;

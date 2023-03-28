@@ -33,7 +33,13 @@ export default {
     ...mapGetters('app', [
       'getStep'
     ]),
+    ...mapGetters('faces', [
+      'getUserGeneral'
+    ]),
     showComponent () {
+      if (this.getStep === 'main_view') {
+        console.log('this.getUserGeneral.id = ', this.getUserGeneral.id)
+      }
       return this.getStep === 'main_view'
     }
   },
