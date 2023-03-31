@@ -25,7 +25,7 @@ export const EXAMINATION_TYPE = {
   THERMO: 6, // 6
 
   // Термометр пальцем в лоб
-  // THERMO_FINGER: 60,
+  THERMO_FINGER: 60,
 
   // Термометр как отдельный модуль
   THERMO_HEAD: 61,
@@ -46,7 +46,7 @@ export const TOPIC_DATA = {
   // WEIGHT_HEIGHT_RESULT: 'WEIGHT_HEIGHT_RESULT', // 3
 
   // Термометр пальцем в лоб
-  // THERMO_FINGER_RESULT: 'THERMO_FINGER_RESULT', // 6
+  THERMO_FINGER_RESULT: 'THERMO_FINGER_RESULT', // 6
 
   // Глюкометр - 2
   GLUCOMETER_BATTERY: 'GLUCOMETER_BATTERY', // 21

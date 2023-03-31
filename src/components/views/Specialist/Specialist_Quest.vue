@@ -217,11 +217,11 @@ export default {
       return this.isMeasuremRes && !this.isBad
     },
     itemImageSpecialist () {
-      return require(`../../../../public/dialog-images/specialist/main/${this.img_spec}.png`)
+      return require(`../../../assets/img/specialist/main/${this.img_spec}.png`)
     },
     itemImageQuestion () {
       let stepImg = this.step_question - 1
-      return require(`../../../../public/dialog-images/specialist/${this.img_dir}/${stepImg}.png`)
+      return require(`../../../assets/img/specialist/${this.img_dir}/${stepImg}.png`)
     },
     itemImageResult () {
       return require(`../../../../public/dialog-images/result/${this.img_result}`)

@@ -79,7 +79,7 @@
           {{ this.comment_add }}
         </div>
         <div class="buttonBox">
-          <button class="btn-yes-no" v-if="this.flagCons === false">Получить <br> результаты</button>
+          <button class="btn-yes-no" v-if="this.flagCons === false || this.flagExam === false">Получить <br> результаты</button>
           <button class="btn-dark-grad" v-on:click="continueWork">Продолжить обследование</button>
           <button class="btn-yes-no" v-on:click="repeatWork">Повторить <br> измерение</button>
         </div>
@@ -112,7 +112,8 @@ export default {
       // 2 - ИМТ
       // 3 - спирография
       typeScreen: null,
-      flagCons: null
+      flagCons: null,
+      flagExam: null
     }
   },
   computed: {
@@ -122,6 +123,7 @@ export default {
     ...mapGetters('ui', [
       'getMeasurementNum',
       'getFlagConsultation',
+      'getFlagExamination',
       'getNorm',
       'getCurMeasurementNumber',
       'getMeasurementStep',
@@ -143,7 +145,8 @@ export default {
       'getMeasurementSpirographia',
       'getMeasurementWeight',
       'getMeasurementHeight',
-      'getMeasurementImt'
+      'getMeasurementImt',
+      'getMeasurementTemperature'
     ]),
     ...mapGetters('robot', [
       'getFaceRecognizeGeneralId'
@@ -151,6 +154,7 @@ export default {
     showComponent () {
       if (this.$store.getters['app/getStep'] === 'result_view') {
         this.flagCons = this.getFlagConsultation
+        this.flagExam = this.getFlagExamination
         // flagCons = true (если мы попали в комплексное обследование)
         // flagCons = false (если это отдельное измерение)
         console.log('getFlagConsultation = ', this.getFlagConsultation)
@@ -196,7 +200,7 @@ export default {
           this.typeScreen = 1
         }
         if (this.getCurMeasurementNumber === 61) {
-          this.result = this.getMeasurementGlucometry
+          this.result = this.getMeasurementTemperature
           this.imgPath = this.getReaultTemperature
           this.comment = this.getInfo
           this.comment_add = this.getInfoAdd
@@ -208,13 +212,13 @@ export default {
     },
     itemImageResult () {
       console.log(this.imgPath)
-      return require(`../../../img/${this.imgPath}`)
+      return require(`../../../assets/img/measurement/result/${this.imgPath}`)
     },
     itemImagePr () {
-      return require(`../../../img/${this.imgPathPr}`)
+      return require(`../../../assets/img/measurement/result/${this.imgPathPr}`)
     },
     itemImagePulse () {
-      return require(`../../../img/${this.imgPathPulse}`)
+      return require(`../../../assets/img/measurement/result/${this.imgPathPulse}`)
     }
   },
   methods: {
@@ -248,11 +252,19 @@ export default {
           data: 'SPECIALIST_QUEST'
         })
       } else {
-        // отдельное измерение
-        this.$store.dispatch('engine/handlerClickMoveToState', {
-          meta: { eventId },
-          data: 'DIAGNOSTIC_START'
-        })
+        if (this.flagExam === true) {
+          // комплексное обследование
+          this.$store.dispatch('engine/handlerClickMoveToState', {
+            meta: { eventId },
+            data: 'EXAMINATION'
+          })
+        } else {
+          // отдельное измерение
+          this.$store.dispatch('engine/handlerClickMoveToState', {
+            meta: { eventId },
+            data: 'DIAGNOSTIC_START'
+          })
+        }
       }
     }
   }

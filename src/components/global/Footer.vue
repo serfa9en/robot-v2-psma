@@ -2,10 +2,11 @@
     <div class="settings" v-show= true>
         <div class="settings-subtitles__wrapper footer">
             <div class="settings-subtitles__text">
+              <SubtitlesController />
             </div>
-            <div class="settings-subtitles__abort-talk">
+            <div class="settings-subtitles__abort-talk" @click="mute">
                 <span class="microphone mic-background">
-                    <img src='../../assets/img/global/mic.png' class="icon">
+                    <img src='../../../public/dialog-images/mic.png' class="icon">
                 </span>
                 <span class="right-text text">Прервать</span>
             </div>
@@ -14,17 +15,50 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import SubtitlesController from '@/components/SubtitlesController'
 
 export default {
   name: 'footer-component',
+  components: {
+    SubtitlesController
+  },
   computed: {
+    ...mapGetters('robot', [
+      'getDialogQuestion'
+    ]),
     ...mapGetters('app', [
       'getStep'
     ]),
     ...mapGetters('ui', [
       'getFooterEnabled'
     ])
+  },
+  methods: {
+    ...mapActions('engine', [
+      'handlerClickMoveToState'
+    ]),
+    ...mapActions('robot', [
+      'clickAnswer'
+    ]),
+    ...mapActions('robot', [
+      'abortRobotReplic'
+    ]),
+    mute () {
+      this.abortRobotReplic()
+    },
+    doAction (action) {
+      if (action.type === 'action') {
+        this.$store.dispatch(action.data.dispatch, { data: action.data.data })
+      }
+
+      if (action.type === 'state') {
+        this.handlerClickMoveToState({
+          transition: action.data,
+          data: action.data
+        })
+      }
+    }
   }
 }
 </script>

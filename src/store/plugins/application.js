@@ -1,5 +1,8 @@
 // import { msToTime } from '@/utils'
 import { EXAMINATION_TYPE } from '@/constants'
+import {
+  setColorTemperature
+} from '../../components/styled/setColorButtons'
 
 let filterTimeout
 let filterTimeoutDelay = 3000
@@ -332,20 +335,22 @@ export function applicationPlugin (logger) {
                     {
                       'name': 'ui/setMeasurementTemperature',
                       'data': thermoResponse.temp.toFixed(1),
-                      'image': '../../assets/img/diagnostic/temperature.png',
+                      'image': null,
                       'text': 'Температура, &deg;C'
                     }
                   ]
                 })
+                let tt = thermoResponse.temp.toFixed(1)
                 dispatch('ui/setMeasurementTemperature', {
                   meta: payload.meta,
-                  data: thermoResponse.temp.toFixed(1)
+                  data: tt
                 })
-                dispatch('ui/setMeasuredDataFromTopic', {
+                dispatch('ui/setButtonTemperatureColor', {
                   meta: payload.meta,
-                  data: null
+                  data: setColorTemperature(tt)
                 })
-                currentLocalStorageData[EXAMINATION_TYPE.THERMO_HEAD] = [preparedLocalStorageData]
+                console.log('color = ', store.getters['ui/getButtonTemperatureColor'])
+                currentLocalStorageData[EXAMINATION_TYPE.THERMO] = [preparedLocalStorageData]
                 localStorage.setItem('med_' + String(getter['faces/getUserGeneral'].id), JSON.stringify(currentLocalStorageData))
               }
             }

@@ -16,7 +16,9 @@ export default {
       isSaturatsiyaStarted: null,
       measuredData: null,
       measuredDataFromTopic: null,
-      flagConsultation: null
+      flagConsultation: null,
+      flagExamination: null,
+      stepExamination: null
     },
     glucometer: {
       connectionStatus: false,
@@ -92,7 +94,9 @@ export default {
     // ACQUAINTANCE
     setAcquaintanceStatus: ({ commit }, payload) => commit('SET_ACQUAINTANCE_STATUS', payload),
 
-    setFlagConsultation: ({ commit }, payload) => commit('SET_FLAG_CONSULTATION', payload)
+    setFlagConsultation: ({ commit }, payload) => commit('SET_FLAG_CONSULTATION', payload),
+    setFlagExamination: ({ commit }, payload) => commit('SET_FLAG_EXAMINATION', payload),
+    setStepExamination: ({ commit }, payload) => commit('SET_STEP_EXAMINATION', payload)
   },
   mutations: {
     ...mutationsUserMeasurement,
@@ -133,7 +137,9 @@ export default {
     // ACQUAINTANCE
     SET_ACQUAINTANCE_STATUS: (status, payload) => { status.acquaintance.status = payload.data },
 
-    SET_FLAG_CONSULTATION: (state, payload) => { state.user.flagConsultation = payload.data }
+    SET_FLAG_CONSULTATION: (state, payload) => { state.user.flagConsultation = payload.data },
+    SET_FLAG_EXAMINATION: (state, payload) => { state.user.flagExamination = payload.data },
+    SET_STEP_EXAMINATION: (state, payload) => { state.user.stepExamination = payload.data }
   },
   getters: {
     ...gettersUserMeasurement,
@@ -173,6 +179,8 @@ export default {
     // ACQUAINTANCE
     getAcquaintanceStatus: state => state.acquaintance.status,
 
-    getFlagConsultation: state => state.user.flagConsultation
+    getFlagConsultation: state => state.user.flagConsultation,
+    getFlagExamination: state => state.user.flagExamination,
+    getStepExamination: state => state.user.stepExamination
   }
 }

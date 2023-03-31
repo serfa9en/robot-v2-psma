@@ -11,15 +11,15 @@ import {
   setImgSaturatsiya,
   setImgPressure,
   setImgPulse,
-  // setImgTemp,
+  // setImgTemperature,
   setInfoGlucometry,
   setInfoSaturatsiya,
   setInfoPressure,
-  // setInfoTemp,
+  // setInfoTemperature,
   setInfoAddGlucometry,
   setInfoAddSaturatsiya,
   setInfoAddPressure,
-  // setInfoTemp
+  // setInfoAddTemperature,
   setNormSaturatsiya,
   setNormGlucometry,
   // setNormTemperature,
@@ -199,7 +199,7 @@ export default function (logger) {
                 }, () => {
                   // clearInterval(tempStartInterval)
                   actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': false, 'timeout': 0 })
-                  actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'DIAGNOSTIC_START', 'timeout': 0 })
+                  // actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'DIAGNOSTIC_START', 'timeout': 0 })
                   actions.push({ 'name': 'robot/abortRobotReplic', 'options': null, 'timeout': 100 })
                   actions.push({ 'name': 'robot/sayText', 'options': 'Извините, в данный момент это оборудование недоступно', 'timeout': 200 })
                   actions.forEach(item => {
@@ -360,7 +360,7 @@ export default function (logger) {
                 batteryIsOk = false
                 clearInterval(tempStartInterval)
                 actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': false, 'timeout': 0 })
-                actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'DIAGNOSTIC_START', 'timeout': 0 })
+                // actions.push({ 'name': 'engine/handlerMoveToState', 'options': 'DIAGNOSTIC_START', 'timeout': 0 })
                 actions.push({ 'name': 'robot/abortRobotReplic', 'options': null, 'timeout': 100 })
                 if (errorPhrase) {
                   actions.push({ 'name': 'robot/sayReplicByName', 'options': { step: errorPhrase, terminate: true }, 'timeout': 200 })
@@ -389,12 +389,12 @@ export default function (logger) {
                 // console.log(topic_t)
                 if (!topic_t) {
                   reject()
-                  console.log('reject')
+                  // console.log('reject')
                 } else {
                   let countInterval = 0
                   tempStartInterval = setInterval(() => {
                     let d = store.getters['ui/getMeasuredDataFromTopic']
-                    console.log(d)
+                    // console.log(d)
                     if (typeof d !== 'undefined' && d !== null && d.type === 6 && d.message.distance >= 0) {
                       countInterval++
                     }
@@ -412,7 +412,7 @@ export default function (logger) {
                   setTimeout(() => {
                     store.dispatch(item.name, { meta: pm, data: item.options })
                   }, item.timeout)
-                  console.log(item.name)
+                  // console.log(item.name)
                 })
               }, () => {
                 clearInterval(tempStartInterval)
@@ -429,8 +429,8 @@ export default function (logger) {
                   setTimeout(() => {
                     store.dispatch(item.name, { meta: pm, data: item.options })
                   }, item.timeout)
-                  console.log(item.name)
-                  console.log(item.options)
+                  // onsole.log(item.name)
+                  // console.log(item.options)
                 })
               })
             }
@@ -1188,7 +1188,7 @@ export default function (logger) {
                 meta: pm,
                 data: offSet
               })
-              console.warn('TEMP OFFSET', offSet)
+              // console.warn('TEMP OFFSET', offSet)
               let scriptName = 'motions/middlenewnext_f64ddb37_6f1c_4428_8d30_305738b8ce27/middlenewnext_f64ddb37_6f1c_4428_8d30_305738b8ce27.json'
               if (store.getters['ui/getUserGrowth'] > 170) {
                 scriptName = 'motions/maxnewnext_f64ddb37_6f1c_4428_8d30_305738b8ce27/maxnewnext_f64ddb37_6f1c_4428_8d30_305738b8ce27.json'
@@ -1234,35 +1234,28 @@ export default function (logger) {
                     // console.warn('tempResultRes', tempResultRes)
                     // console.warn('tempResult', tempResult)
                     let tt = Number(((pd.message.temperature + offSet + (((pd.message.distance - 50) / 10 * distCorrect))) / 1000).toFixed(1))
-                    console.log(tt)
+                    console.log('tt = ', tt)
                     /**
                      * ЭМУЛЯТОР: хардкод результатов измерения
                      */
                     // tt = 36.6
                     if (tt >= 35 && tt <= 39) {
                       // console.log('pd temp', pd)
+                      // console.log('ИЗМЕРЯЮ... setMeasurementTemp')
                       dispatch('ui/setMeasuredData', {
                         meta: pm,
                         data: [
                           {
                             'name': 'ui/setMeasurementTemperature',
                             'data': tt,
-                            'image': 'dialog-images/temp.png',
-                            'text': 'Температура, &deg;C'
+                            'image': null,
+                            'text': '&deg;C'
                           }
                         ]
-                      })
-                      dispatch('ui/setMeasurementTemperature', {
-                        meta: pm,
-                        data: tt
                       })
                       dispatch('ui/setMeasuredDataFromTopic', {
                         meta: pm,
                         data: null
-                      })
-                      dispatch('engine/handlerMoveToState', {
-                        meta: pm,
-                        data: 'RESULT'
                       })
                       tempResult = 0
                     } else {
@@ -1286,7 +1279,7 @@ export default function (logger) {
                       {
                         'name': 'ui/setMeasurementTemperature',
                         'data': null,
-                        'image': 'dialog-images/temp.png',
+                        'image': null,
                         'text': 'Температура, &deg;C'
                       }
                     ]
@@ -1310,9 +1303,9 @@ export default function (logger) {
           } else if (measurementProcess['med_6'] !== null || measurementProcess['med_6_2'] !== null) {
             // Замерить температуру не удалось
             clearInterval(measurementProcess['med_6'])
-            clearTimeout(measurementProcess['med_6_2'])
+            // clearTimeout(measurementProcess['med_6_2'])
             measurementProcess['med_6'] = null
-            measurementProcess['med_6_2'] = null
+            // measurementProcess['med_6_2'] = null
           }
 
           // Замер давления

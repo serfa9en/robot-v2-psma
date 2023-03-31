@@ -653,6 +653,7 @@ export default {
             this.rightHtml = '<div><img src="dialog-images/tempareture_measure.png"/></div>'
             this.rightLoad = null
           }
+          /*
           if (this.getMeasurementStep === 3) {
             this.activeTimer = true
             this.typeScreen = 1
@@ -684,7 +685,6 @@ export default {
                   'options': 'START_NEW'
                 })
               }
-              */
             }
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             this.resultActions = [
@@ -714,6 +714,7 @@ export default {
               }
             ]
           }
+          */
         }
 
         // ТОНОМЕТРИЯ

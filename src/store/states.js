@@ -360,6 +360,14 @@ export default [
         options: 'result_view'
       }]
   },
+  {
+    name: 'EXAMINATION',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'examination'
+      }]
+  },
 
   {
     name: 'INITIAL',

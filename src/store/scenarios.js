@@ -11,7 +11,14 @@ export default {
       name: 'ui/setHeaderEnabled',
       options: false,
       timeout: 0
-    }
+    },
+    { 'name': 'robot/faceRecognizeAutotrackingRequest', 'options': false, 'timeout': 0 },
+    { 'name': 'robot/faceRecognizeAutotrackingRequest', 'options': true, 'timeout': 1000 },
+    { 'name': 'robot/startScript', 'options': 'check_wvs', 'timeout': 0 },
+    { 'name': 'head/setEnabled', 'options': true, 'timeout': 0 },
+    { 'name': 'robot/abortRobotReplic', 'options': null, 'timeout': 0 },
+    { 'name': 'app/setMeetingTalk', 'options': false },
+    { 'name': 'faces/setTimeoutsLostUser', 'options': 600000, 'timeout': 0 }
   ],
   // инициализация кейса (начальные параметры)
   initial: [
@@ -23,7 +30,14 @@ export default {
     { name: 'ui/setSubtitlesEnabled', options: true },
     { name: 'robot/setRobotSettingsLoad', options: { settings_type: 'system', group: 'js' }, timeout: 0 },
     { name: 'robot/setRobotSettingsLoad', options: { settings_type: 'application', group: 'faces' }, timeout: 200 },
-    { name: 'app/clearState', options: null }
+    { name: 'app/clearState', options: null },
+    { name: 'ui/setMeasurementTemperature', options: null, timeout: 0 },
+    { 'name': 'robot/abortRobotReplic', 'options': null, 'timeout': 1100 },
+    { 'name': 'ui/setSessionUserLost', 'options': false },
+    { 'name': 'faces/setLogicDbRequest', 'options': true },
+    { 'name': 'faces/setUserGeneral', 'options': null },
+    { 'name': 'robot/setUserActionActive', 'options': null, 'timeout': 0 },
+    { 'name': 'robot/faceRecognizeAutotrackingRequest', 'options': true }
   ],
   // экран распознавания лица
   meet_face: [
@@ -127,6 +141,11 @@ export default {
     {
       name: 'ui/setSpinnerEnabled',
       options: false,
+      timeout: 0
+    },
+    {
+      name: 'ui/setStepExamination',
+      options: null,
       timeout: 0
     }
   ],
@@ -342,9 +361,11 @@ export default {
   measurement_6_1: [
     { name: 'ui/setMeasurementStep', options: 1, timeout: 0 },
     { name: 'ui/setMeasurementNum', options: 6, timeout: 0 },
-    { name: 'engine/handlerCallScenario', options: 'generalHeaderLogoFooter', timeout: 100 },
+    { name: 'head/setEnabled', options: false, timeout: 300 },
+    // { name: 'engine/handlerCallScenario', options: 'generalHeaderLogoFooter', timeout: 100 },
     { name: 'engine/handlerCallScenario', options: 'exit', timeout: 100 }
   ],
+  /*
   measurement_6_2: [
     { name: 'ui/setMeasurementStep', options: 2, timeout: 0 },
     { name: 'ui/setMeasurementNum', options: 6, timeout: 0 },
@@ -441,10 +462,37 @@ export default {
   ],
   /* сатурация */
 
+  examination: [
+    {
+      name: 'app/setStep',
+      options: 'examination',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftText',
+      options: 'Выход',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftAction',
+      options: {
+        'engine/handlerClickMoveToState': 'EXIT'
+      },
+      timeout: 0
+    }
+  ],
+
   wait: [
     { name: 'app/setMeetingTalk', options: false },
     { name: 'robot/faceRecognizeAutotrackingRequest', options: true },
     { name: 'faces/setLogicDbRequest', options: true },
-    { name: 'faces/refresh' }
+    { name: 'faces/refresh' },
+    { name: 'ui/setSubtitlesEnabled', options: true },
+    { name: 'ui/setSpinnerEnabled', options: false, timeout: 50 }
   ]
 }

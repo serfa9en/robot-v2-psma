@@ -23,7 +23,6 @@ export default {
   },
   actions: {
     // handlers
-    /*
     handlerDelayedMoveToState: ({ state, commit, dispatch }, payload) => {
       if (payload.data !== state.current.stateName) {
         let logger = PromobotLogger.getInstance()
@@ -36,7 +35,6 @@ export default {
         })
       }
     },
-    */
     handlerClickMoveToState: ({ dispatch }, payload) => {
       let transition = payload.transition || 'UNKNOWN'
       let logger = PromobotLogger.getInstance()
@@ -57,7 +55,7 @@ export default {
       if (currentState !== nextState) {
         timeOut.clearTimers()
         if (currentState) {
-          if ('exiting' in currentState && Array.isArray(currentState.exiting)) {
+          if ('exiting' in currentState && Array.isArray(currentState['exiting'])) {
             currentState.exiting.forEach(action => {
               let timeout = (typeof action.timeout !== 'undefined') ? action.timeout : 0
               let enabled = (typeof action.enabled !== 'undefined') ? action.enabled : true
@@ -75,7 +73,7 @@ export default {
         }
         if (nextState) {
           if ('entering' in nextState && Array.isArray(nextState.entering)) {
-            nextState.entering.forEach(action => {
+            nextState['entering'].forEach(action => {
               let timeout = (typeof action.timeout !== 'undefined') ? action.timeout : 0
               let enabled = (typeof action.enabled !== 'undefined') ? action.enabled : true
               if (enabled) {
@@ -142,7 +140,7 @@ export default {
       commit('SET_CURRENT_STATE_NAME', payload)
     },
     setPreStateName: ({ state, commit, getters }, payload) => {
-      console.warn(`[Состояние изменилось]: ${getters.getPreStateName} -> ${payload.data} `)
+      // console.warn(`[Состояние изменилось]: ${getters.getPreStateName} -> ${payload.data} `)
       commit('SET_PRE_STATE_NAME', payload)
     }
     // setEngineDebug: ({ commit }, payload) => commit('SET_ENGINE_DEBUG', payload)
@@ -153,7 +151,7 @@ export default {
     SET_PRE_STATE_NAME: (state, payload) => { state.pre.stateName = payload.data }
   },
   getters: {
-    // getEngineVersion: (state) => state.engine.version,
+    getEngineVersion: (state) => state.engine.version,
     // getEngineDebug: (state) => state.engine.debug,
     getCurrentStateName: (state) => state.current.stateName,
     getPreStateName: (state) => state.pre.stateName

@@ -76,9 +76,9 @@ Whatsapp: +79194401919`
         y: clickEvent.offsetY / clickEvent.target.clientHeight,
         transition: 'TOUCH'
       }
-      const eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK, eventData)
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK, eventData)
 
-      const coordinates = {
+      let coordinates = {
         x: clickEvent.offsetX / clickEvent.target.clientWidth,
         y: clickEvent.offsetY / clickEvent.target.clientHeight
       }
@@ -97,8 +97,8 @@ Whatsapp: +79194401919`
       }, { root: true })
     },
     faceRecognizeGeneralFrameRequest: ({ dispatch }, payload) => {
-      const logger = PromobotLogger.getInstance()
-      const eventId = logger.logEvent(EventInitiatorTypes.JS, EventTypes.FACE_GENERAL_FRAME)
+      let logger = PromobotLogger.getInstance()
+      let eventId = logger.logEvent(EventInitiatorTypes.JS, EventTypes.FACE_GENERAL_FRAME)
 
       dispatch('robot/faceRecognizeGeneralFrameRequest', {
         meta: { eventId: eventId }

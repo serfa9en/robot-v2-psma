@@ -45,7 +45,7 @@ export const stateUserMeasurement = {
     },
     Temperature: {
       text: null,
-      color: '##691B26'
+      color: '#691B26'
     },
     Saturatsiya: {
       text: null,

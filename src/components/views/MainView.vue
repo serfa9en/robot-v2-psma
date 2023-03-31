@@ -11,7 +11,7 @@
         </button>
       </div>
       <div>
-        <button class="btn-dark-main text-white" disabled>
+        <button class="btn-dark-main text-white" v-on:click="toExam">
             <img src="../../assets/img/main/clinical_exam.png">
             <p>Пройти комплексное<br>обследование</p>
         </button>
@@ -38,7 +38,12 @@ export default {
     ]),
     showComponent () {
       if (this.getStep === 'main_view') {
-        console.log('this.getUserGeneral.id = ', this.getUserGeneral.id)
+        // console.log('this.getUserGeneral.id = ', this.getUserGeneral.id)
+        let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+        this.$store.dispatch('ui/setFlagExamination', {
+          meta: { eventId },
+          data: false
+        })
       }
       return this.getStep === 'main_view'
     }
@@ -58,6 +63,14 @@ export default {
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'SPECIALIST_START'
+      })
+    },
+    toExam: function () {
+      // переход на комплексное обследование
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'EXAMINATION'
       })
     },
     toDisease: function () {

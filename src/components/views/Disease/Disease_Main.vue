@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="block">
-                <img src="../../../../public/dialog-images/disease/Disease_main.png">
+                <img>
             </div>
         </div>
         <div class="container">

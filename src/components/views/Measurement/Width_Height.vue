@@ -5,7 +5,7 @@
         <div class="content" v-if="step === 1">
           <div class="settings__center">
             <p class="text">Какой у Вас рост?</p>
-            <img src="../../../../public/dialog-images/measurement/height.png">
+            <img src="../../../assets/img/measurement/height.png">
             <div class="input-div">
               <input placeholder="Введите рост..." id="usrH">
               <div class="dop">см</div>
@@ -20,7 +20,7 @@
         <div class="content" v-if="step === 2">
           <div class="settings__center">
             <p class="text">Какой у Вас вес?</p>
-            <img src="../../../../public/dialog-images/measurement/weight-scale.png">
+            <img src="../../../assets/img/measurement/weight-scale.png">
             <div class="input-div">
               <input placeholder="Введите вес..." id="usrW">
               <div class="dop">кг</div>
@@ -146,10 +146,17 @@ export default {
         // стили результата
         this.setStyleRes()
         // переход к результатам
-        this.$store.dispatch('engine/handlerClickMoveToState', {
-          meta: { eventId },
-          data: 'RESULT'
-        })
+        if (this.getPreStateName === 'EXAMINATION') {
+          this.$store.dispatch('engine/handlerClickMoveToState', {
+            meta: { eventId },
+            data: 'FULL_RESULT'
+          })
+        } else {
+          this.$store.dispatch('engine/handlerClickMoveToState', {
+            meta: { eventId },
+            data: 'RESULT'
+          })
+        }
       }
     }
   }

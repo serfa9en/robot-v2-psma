@@ -18,6 +18,7 @@
       <WidthHeight/>
       <ImtMistakeSuccess/>
       <Result/>
+      <Examination/>
       <ExitView/>
     </Content>
     <Footer/>
@@ -45,6 +46,7 @@ import DiseaseQuest from '@/components/views/Disease/Disease_Quest'
 import WidthHeight from '@/components/views/Measurement/Width_Height'
 import Result from '@/components/views/Measurement/Result'
 import ImtMistakeSuccess from '@/components/views/Measurement/ImtMistakeSuccess'
+import Examination from '@/components/views/FullExam/Examination'
 
 import ExitView from '@/components/views/Exit'
 
@@ -53,7 +55,6 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'App',
   components: {
-    // HelloWorld
     WaitPromo,
     Spinner,
     Header,
@@ -72,6 +73,7 @@ export default {
     DiseaseQuest,
     WidthHeight,
     ImtMistakeSuccess,
+    Examination,
     Result,
 
     ExitView

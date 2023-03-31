@@ -204,7 +204,8 @@ export default {
     ]),
     showComponent () {
       if (this.getStep === 'diagnostic_start') {
-        console.warn('DIAGNISTIC START LOADING...')
+        // console.warn('DIAGNISTIC START LOADING...')
+        // console.log('result_temp = ', this.getMeasurementTemperature)
         this.loggingCurrentStateName()
         if (this.getMeasurementPressure != null) {
           // данные есть - отрисовываем элементы кнопки с результатом
@@ -316,10 +317,6 @@ export default {
         setTimeout(() => {
           this.$store.dispatch(item.name, { meta: { eventId }, data: item.options })
         }, item.timeout)
-        // console.log('examination = ', examination)
-        // console.log('item.name = ', item.name)
-        // console.log('eventId = ', eventId)
-        // console.log('item.options = ', item.options)
       })
     },
     calculateResults () {
