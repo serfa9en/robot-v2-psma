@@ -185,7 +185,7 @@ export default {
   }
   .unsee-button {
     width: 240px;
-    font-family: Roboto;
+    font-family: Play;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;

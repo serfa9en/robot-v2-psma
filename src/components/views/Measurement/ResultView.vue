@@ -78,10 +78,13 @@
         <div class="text colorBox_not" v-if="this.comment_add !== null">
           {{ this.comment_add }}
         </div>
-        <div class="buttonBox">
+        <div class="buttonBox" v-show="flagFullExam === false">
           <button class="btn-yes-no" v-if="this.flagCons === false || this.flagExam === false">Получить <br> результаты</button>
           <button class="btn-dark-grad" v-on:click="continueWork">Продолжить обследование</button>
           <button class="btn-yes-no" v-on:click="repeatWork">Повторить <br> измерение</button>
+        </div>
+        <div v-show="flagFullExam">
+          <button class="btn-dark-grad" v-on:click="returnView">Назад</button>
         </div>
     </div>
 </template>
@@ -114,6 +117,7 @@ export default {
       typeScreen: null,
       flagCons: null,
       flagExam: null
+      // flagFullExam: null
     }
   },
   computed: {
@@ -124,6 +128,7 @@ export default {
       'getMeasurementNum',
       'getFlagConsultation',
       'getFlagExamination',
+      'getFlagFullExamination',
       'getNorm',
       'getCurMeasurementNumber',
       'getMeasurementStep',
@@ -155,9 +160,11 @@ export default {
       if (this.$store.getters['app/getStep'] === 'result_view') {
         this.flagCons = this.getFlagConsultation
         this.flagExam = this.getFlagExamination
+        // this.flagFullExam = this.getFlagFullExamination
         // flagCons = true (если мы попали в комплексное обследование)
         // flagCons = false (если это отдельное измерение)
         console.log('getFlagConsultation = ', this.getFlagConsultation)
+        console.log('getFlagFullExamination = ', this.flagFullExam)
         console.log('this.getMeasurementNum = ', this.getMeasurementNum)
         this.loggingCurrentStateName()
         console.log('getCurMeasurementNumber = ', this.getCurMeasurementNumber)
@@ -209,6 +216,10 @@ export default {
         this.title = this.getNorm
       }
       return this.$store.getters['app/getStep'] === 'result_view'
+    },
+    flagFullExam () {
+      if (this.getFlagFullExamination === true) return true
+      else return false
     },
     itemImageResult () {
       console.log(this.imgPath)
@@ -266,6 +277,15 @@ export default {
           })
         }
       }
+    },
+    returnView: function () {
+      // let logger = PromobotLogger.getInstance()
+      // console.log('vndfkjibn')
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'EXAM_RESULT'
+      })
     }
   }
 }

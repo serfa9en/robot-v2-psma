@@ -71,6 +71,7 @@ export default {
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'EXAMINATION'
+        // data: 'EXAM_RESULT'
       })
     },
     toDisease: function () {

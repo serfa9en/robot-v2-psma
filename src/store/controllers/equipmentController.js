@@ -325,8 +325,8 @@ export default function (logger) {
                 tempStartInterval = setInterval(() => {
                   let connection = store.getters['ui/getGlucometerConnectionStatus']
                   let battery = store.getters['ui/getGlucometerBatteryStatus']
-                  console.warn('GLUKO connection', connection)
-                  console.warn('GLUKO battery', battery)
+                  // console.warn('GLUKO connection', connection)
+                  // console.warn('GLUKO battery', battery)
                   if (connection) {
                     connectionIsOk = true
                   } else {

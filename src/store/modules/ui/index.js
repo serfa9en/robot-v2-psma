@@ -18,7 +18,8 @@ export default {
       measuredDataFromTopic: null,
       flagConsultation: null,
       flagExamination: null,
-      stepExamination: null
+      stepExamination: null,
+      flagFullExamination: null
     },
     glucometer: {
       connectionStatus: false,
@@ -96,6 +97,7 @@ export default {
 
     setFlagConsultation: ({ commit }, payload) => commit('SET_FLAG_CONSULTATION', payload),
     setFlagExamination: ({ commit }, payload) => commit('SET_FLAG_EXAMINATION', payload),
+    setFlagFullExamination: ({ commit }, payload) => commit('SET_FLAG_FULLEXAMINATION', payload),
     setStepExamination: ({ commit }, payload) => commit('SET_STEP_EXAMINATION', payload)
   },
   mutations: {
@@ -139,6 +141,7 @@ export default {
 
     SET_FLAG_CONSULTATION: (state, payload) => { state.user.flagConsultation = payload.data },
     SET_FLAG_EXAMINATION: (state, payload) => { state.user.flagExamination = payload.data },
+    SET_FLAG_FULLEXAMINATION: (state, payload) => { state.user.flagFullExamination = payload.data },
     SET_STEP_EXAMINATION: (state, payload) => { state.user.stepExamination = payload.data }
   },
   getters: {
@@ -181,6 +184,7 @@ export default {
 
     getFlagConsultation: state => state.user.flagConsultation,
     getFlagExamination: state => state.user.flagExamination,
+    getFlagFullExamination: state => state.user.flagFullExamination,
     getStepExamination: state => state.user.stepExamination
   }
 }

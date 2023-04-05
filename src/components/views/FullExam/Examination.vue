@@ -7,7 +7,8 @@
             <div class="container">
                 <div class="block">
                     <p class="part">
-                        Описание обследование, что будет происходить и т.д.
+                        В данном разделе вы измерите сатурацию и глюкозу крови, давление. Проведется расчет индекса массы тела. <br>
+                        Вы получите необходимые рекомендации по вашему здоровью
                     </p>
                 </div>
                 <div class="block">
@@ -22,13 +23,15 @@
 <script>
 import { mapGetters } from 'vuex'
 import { PromobotLogger, EventInitiatorTypes, EventTypes } from 'promobot-logger'
+import { EXAMINATION_TYPE } from '@/constants'
 
 export default {
   name: 'examination',
   data () {
     return {
       step: null,
-      examination: null
+      examination: null,
+      EXAMINATION_TYPE
     }
   },
   computed: {
@@ -43,33 +46,32 @@ export default {
     ]),
     showComponent () {
       if (this.getStep === 'examination') {
-        if (this.getStepExamination > 0) {
-          this.toNext()
-        }
         this.loggingCurrentStateName()
         this.step = this.getStepExamination
         this.examination = this.getMeasurement(this.getStepExamination)
-        console.log('this.step = ', this.step)
-        console.log('this.stepExam = ', this.getStepExamination)
+        if (this.getStepExamination !== null) {
+          this.toNext()
+        }
       }
       return this.getStep === 'examination'
     }
   },
   methods: {
     loggingCurrentStateName: function () {
-      console.log('this.getPreStateName = ', this.getPreStateName)
+      // console.log('this.getPreStateName = ', this.getPreStateName)
       let logger = PromobotLogger.getInstance()
       let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       if (this.getPreStateName === 'RESULT') {
-        console.log('loggingCurrentStateName = EXAMINATION => RESULT')
+        // console.log('loggingCurrentStateName = EXAMINATION => RESULT')
         let ex = this.getStepExamination + 1
+        // console.log('ex = ', ex)
         // actions.push({ 'name': 'ui/setStepExamination', 'options': ex, 'timeout': 0 })
         this.$store.dispatch('ui/setStepExamination', {
           meta: { eventId },
           data: ex
         })
       }
-      console.log('this.stepExam2 = ', this.getStepExamination)
+      // console.log('this.stepExam2 = ', this.getStepExamination)
       // let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('engine/setPreStateName', {
         meta: { eventId },
@@ -77,27 +79,40 @@ export default {
       })
     },
     getMeasurement: function (val) {
-      if (val === null) return 4 // сатурация
-      if (val === 1) return 2 // глюкоза
-      if (val === 2) return 5 // давление
+      // console.log('Examination.vue - getMeasurement() = ', val)
+      if (val === null) return EXAMINATION_TYPE.PULSEOXIMETER_SPIROMETER // сатурация
+      if (val === 1) return EXAMINATION_TYPE.GLUCOMETER // глюкоза
+      if (val === 2) return EXAMINATION_TYPE.TONOMETER // давление
       // if (val === 4) return 61 // температура
-      if (val === 3) return 3 // рост/вес
+      if (val === 3) return EXAMINATION_TYPE.WEIGHT_HEIGHT // рост/вес
     },
     toNext: function () {
       let logger = PromobotLogger.getInstance()
       let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       let actions = []
-      // console.log(this.examination)
-      actions.push({ 'name': 'ui/setCurMeasurementNumber', 'options': this.examination, 'timeout': 0 })
-      actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': true, 'timeout': 0 })
-      actions.push({ 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 })
-      actions.push({ 'name': 'ui/setMeasurementNum', 'options': this.examination, 'timeout': 0 }) // измерение
-      actions.push({ 'name': 'ui/setFlagExamination', 'options': true, 'timeout': 0 })
-      actions.forEach(item => {
-        setTimeout(() => {
-          this.$store.dispatch(item.name, { meta: { eventId }, data: item.options })
-        }, item.timeout)
-      })
+      if (this.examination === EXAMINATION_TYPE.WEIGHT_HEIGHT) {
+        // actions.push({ 'name': 'ui/setFlagExamination', 'options': true, 'timeout': 0 })
+        this.$store.dispatch('ui/setFlagExamination', {
+          meta: { eventId },
+          data: true
+        })
+        this.$store.dispatch('engine/handlerClickMoveToState', {
+          meta: { eventId },
+          data: 'WIDTH_HEIGHT'
+        })
+      } else {
+        // console.log(this.examination)
+        actions.push({ 'name': 'ui/setCurMeasurementNumber', 'options': this.examination, 'timeout': 0 })
+        actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': true, 'timeout': 0 })
+        actions.push({ 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 })
+        actions.push({ 'name': 'ui/setMeasurementNum', 'options': this.examination, 'timeout': 0 }) // измерение
+        actions.push({ 'name': 'ui/setFlagExamination', 'options': true, 'timeout': 0 })
+        actions.forEach(item => {
+          setTimeout(() => {
+            this.$store.dispatch(item.name, { meta: { eventId }, data: item.options })
+          }, item.timeout)
+        })
+      }
     }
   }
 }

@@ -208,28 +208,39 @@ export default {
         // console.log('result_temp = ', this.getMeasurementTemperature)
         this.loggingCurrentStateName()
         if (this.getMeasurementPressure != null) {
-          // данные есть - отрисовываем элементы кнопки с результатом
           this.flagPressure = true
+        } else {
+          this.flagPressure = false
         }
+
         if (this.getMeasurementGlucometry != null) {
-          // данные есть
           this.flagGlucometry = true
+        } else {
+          this.flagGlucometry = false
         }
+
         if (this.getMeasurementTemperature != null) {
-          // данные есть
           this.flagTemperature = true
+        } else {
+          this.flagTemperature = false
         }
+
         if (this.getMeasurementSaturatsiya != null) {
-          // данные есть
           this.flagSaturatsiya = true
+        } else {
+          this.flagSaturatsiya = false
         }
+
         if (this.getMeasurementSpirographia != null) {
-          // данные есть
           this.flagSpirographia = true
+        } else {
+          this.flagSpirographia = false
         }
+
         if (this.getMeasurementImt != null) {
-          // данные есть
           this.flagWeightHeight = true
+        } else {
+          this.flagWeightHeight = false
         }
       }
       return this.getStep === 'diagnostic_start'
@@ -313,6 +324,7 @@ export default {
         actions.push({ 'name': 'ui/setMeasurementNum', 'options': examination, 'timeout': 0 })
       }
       actions.push({ 'name': 'ui/setFlagConsultation', 'options': false, 'timeout': 0 })
+      actions.push({ 'name': 'ui/setFlagFullExamination', 'options': false, 'timeout': 0 })
       actions.forEach(item => {
         setTimeout(() => {
           this.$store.dispatch(item.name, { meta: { eventId }, data: item.options })

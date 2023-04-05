@@ -54,6 +54,9 @@ export default {
     ...mapGetters('engine', [
       'getPreStateName'
     ]),
+    ...mapGetters('ui', [
+      'getFlagExamination'
+    ]),
     showComponent () {
       if (this.getStep === 'width_height') {
         this.loggingCurrentStateName()
@@ -64,7 +67,7 @@ export default {
   },
   methods: {
     loggingCurrentStateName: function () {
-      if (this.getPreStateName === 'DIAGNOSTIC_START' || this.getPreStateName === 'RESULT' || this.getPreStateName === 'SPECIALIST_QUEST') {
+      if (this.getPreStateName === 'DIAGNOSTIC_START' || this.getPreStateName === 'RESULT' || this.getPreStateName === 'SPECIALIST_QUEST' || this.getPreStateName === 'EXAMINATION') {
         let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
         this.$store.dispatch('engine/setPreStateName', {
           meta: { eventId },
@@ -146,10 +149,12 @@ export default {
         // стили результата
         this.setStyleRes()
         // переход к результатам
-        if (this.getPreStateName === 'EXAMINATION') {
+        // console.log('WIDTH_HEIGHT => EXAM_RESULT = ', this.getFlagExamination)
+        if (this.getFlagExamination === true) {
+          // console.log('WIDTH_HEIGHT => EXAM_RESULT = ', this.getFlagExamination)
           this.$store.dispatch('engine/handlerClickMoveToState', {
             meta: { eventId },
-            data: 'FULL_RESULT'
+            data: 'EXAM_RESULT'
           })
         } else {
           this.$store.dispatch('engine/handlerClickMoveToState', {

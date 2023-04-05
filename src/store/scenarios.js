@@ -41,6 +41,7 @@ export default {
   ],
   // экран распознавания лица
   meet_face: [
+    { 'name': 'engine/handlerCallScenario', 'options': 'reset' },
     {
       name: 'app/setStep',
       options: 'meet_face',
@@ -355,7 +356,28 @@ export default {
     { name: 'ui/setMeasurementStep', options: null, timeout: 0 },
     { name: 'ui/setEquipmentWorks', options: { '2': null, '3': null, '4': null, '5': null, '6': null }, timeout: 0 },
     { name: 'app/setIsImportantPhrase', options: null, timeout: 0 },
-    { name: 'app/setTimerAutoSelect', options: null, timeout: 0 }
+    { name: 'app/setTimerAutoSelect', options: null, timeout: 0 },
+    { name: 'ui/setConsult', options: null, timeout: 0 },
+    { name: 'ui/setResultSpecialistCardiologist', options: null, timeout: 0 },
+    { name: 'ui/setResultSpecialistNeurologist', options: null, timeout: 0 },
+    { name: 'ui/setResultSpecialistGastroenterologist', options: null, timeout: 0 },
+    { name: 'ui/setResultSpecialistGynecologist', options: null, timeout: 0 },
+    { name: 'ui/setResultSpecialistUrologist', options: null, timeout: 0 },
+    { name: 'ui/setResultSpecialistColoproctologist', options: null, timeout: 0 },
+    { name: 'ui/setResultSpecialistOphtalmologist', options: null, timeout: 0 },
+    { name: 'ui/setResultSpecialistOtorinolaringologist', options: null, timeout: 0 },
+    { name: 'ui/setResultSpecialistEndocrinologist', options: null, timeout: 0 },
+    { name: 'ui/setMeasurementImt', options: null, timeout: 0 },
+    { name: 'ui/setFlagConsultation', options: null, timeout: 0 },
+    { name: 'ui/setFlagExamination', options: null, timeout: 0 },
+    { name: 'ui/setFlagFullExamination', options: null, timeout: 0 },
+    { name: 'ui/setStepExamination', options: null, timeout: 0 },
+    { name: 'ui/setButtonPressureColor', options: '#691B26', timeout: 0 },
+    { name: 'ui/setButtonGlucometryColor', options: '#691B26', timeout: 0 },
+    { name: 'ui/setButtonTemperatureColor', options: '#691B26', timeout: 0 },
+    { name: 'ui/setButtonSaturatsiyaColor', options: '#691B26', timeout: 0 },
+    { name: 'ui/setButtonSpirographiaColor', options: '#691B26', timeout: 0 },
+    { name: 'ui/setButtonWeightHeightColor', options: '#691B26', timeout: 0 }
   ],
   /* температура */
   measurement_6_1: [
@@ -466,6 +488,31 @@ export default {
     {
       name: 'app/setStep',
       options: 'examination',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftText',
+      options: 'Выход',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftAction',
+      options: {
+        'engine/handlerClickMoveToState': 'EXIT'
+      },
+      timeout: 0
+    }
+  ],
+
+  exam_result: [
+    {
+      name: 'app/setStep',
+      options: 'exam_result',
       timeout: 0
     },
     {

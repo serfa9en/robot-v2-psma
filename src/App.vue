@@ -17,8 +17,9 @@
       <MeasurementTemp/>
       <WidthHeight/>
       <ImtMistakeSuccess/>
-      <Result/>
+      <ResultView/>
       <Examination/>
+      <ExamResult/>
       <ExitView/>
     </Content>
     <Footer/>
@@ -44,9 +45,10 @@ import SpecialistQuest from '@/components/views/Specialist/Specialist_Quest'
 import DiseaseMain from '@/components/views/Disease/Disease_Main'
 import DiseaseQuest from '@/components/views/Disease/Disease_Quest'
 import WidthHeight from '@/components/views/Measurement/Width_Height'
-import Result from '@/components/views/Measurement/Result'
+import ResultView from '@/components/views/Measurement/ResultView'
 import ImtMistakeSuccess from '@/components/views/Measurement/ImtMistakeSuccess'
 import Examination from '@/components/views/FullExam/Examination'
+import ExamResult from '@/components/views/FullExam/Exam_Result'
 
 import ExitView from '@/components/views/Exit'
 
@@ -74,7 +76,8 @@ export default {
     WidthHeight,
     ImtMistakeSuccess,
     Examination,
-    Result,
+    ExamResult,
+    ResultView,
 
     ExitView
   },

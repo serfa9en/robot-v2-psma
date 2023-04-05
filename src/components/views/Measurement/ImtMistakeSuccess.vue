@@ -4,11 +4,12 @@
       <div class="content_block">
         <div class="fact">Сатурация крови: проверьте, правильно ли расположен палец в приборе</div>
         <!--img src="../../assets/img/mistake.png" /-->
-        <div v-html="errorPic"></div>
+        <!--<div v-html="errorPic"></div>-->
+        <img src="../../../../public/dialog-images/result/Result_bad.png">
       </div>
       <div class="button_block">
-        <button class="btn" :style="buttonStyle" @click="goToSaturatsiya(0)">Начать сначала</button>
-        <button class="btn" :style="buttonStyle" @click="goToSaturatsiya(1)">Назад</button>
+        <button class="btn btn-dark-grad" :style="buttonStyle" @click="goToSaturatsiya(0)">Начать сначала</button>
+        <button class="btn btn-yes-no" :style="buttonStyle" @click="goToSaturatsiya(1)">Назад</button>
       </div>
     </div>
   </div>

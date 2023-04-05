@@ -32,12 +32,10 @@ export default {
       'getCurrentStateName'
     ]),
     showComponent () {
-      /*
       if (this.getStep === 'exit_view') {
         console.log(this.getCurrentStateName)
         console.log(this.getPreStateName)
       }
-      */
       return this.getStep === 'exit_view'
     }
   },

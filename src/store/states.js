@@ -368,6 +368,14 @@ export default [
         options: 'examination'
       }]
   },
+  {
+    name: 'EXAM_RESULT',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'exam_result'
+      }]
+  },
 
   {
     name: 'INITIAL',
