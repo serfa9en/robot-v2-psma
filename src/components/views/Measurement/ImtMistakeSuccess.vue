@@ -2,14 +2,14 @@
   <div v-if="showComponent" class="wrapper">
     <div class="container-meeting" v-if="showComponent && getStep === 'saturatsiyaError'">
       <div class="content_block">
-        <div class="fact">Сатурация крови: проверьте, правильно ли расположен палец в приборе</div>
+        <div class="text">Сатурация крови: проверьте, правильно ли расположен палец в приборе</div>
         <!--img src="../../assets/img/mistake.png" /-->
         <!--<div v-html="errorPic"></div>-->
         <img src="../../../../public/dialog-images/result/Result_bad.png">
       </div>
       <div class="button_block">
-        <button class="btn btn-dark-grad" :style="buttonStyle" @click="goToSaturatsiya(0)">Начать сначала</button>
-        <button class="btn btn-yes-no" :style="buttonStyle" @click="goToSaturatsiya(1)">Назад</button>
+        <button class="btn btn-dark-grad" @click="goToSaturatsiya(0)">Начать сначала</button>
+        <button class="btn btn-yes-no" @click="goToSaturatsiya(1)">Назад</button>
       </div>
     </div>
   </div>
@@ -55,12 +55,6 @@ export default {
     ...mapGetters('engine', [
       'getCurrentStateName'
     ]),
-    buttonStyle () {
-      return this.getLoadAppSettings ? { ...this.getLoadAppSettings.btnMain } : {
-        background: '#2589DE',
-        borderColor: '#2589DE'
-      }
-    },
     showComponent () {
       if (this.$store.getters['app/getStep'] === 'imtMistakeSuccess') {
         // eslint-disable-next-line vue/no-async-in-computed-properties
@@ -215,11 +209,6 @@ export default {
 }
 </script>
 
-@font-face {
-  font-family: Circe;
-  src: url(../../assets/fonts/Circe/Circe-Regular.ttf);
-}
-
 <style lang="scss" scoped>
 .wrapper {
   width: 100%;
@@ -241,19 +230,9 @@ export default {
     }
     > .content_block {
       width: 100%;
-      h2 {
-        margin: 80px 0 10px;
-        font-family: Circe;
-        font-size: 30px;
-        line-height: 44px;
-        color: #464646;
-        font-weight: normal;
-      }
       p {
-        font-family: Circe;
         font-size: 20px;
         line-height: 120%;
-        color: #666;
         max-width: 840px;
         margin: 0 auto;
       }
@@ -265,96 +244,21 @@ export default {
       align-items: flex-end;
       padding-bottom: 40px;
       width: 100%;
-      .btn, .btn_psevdo {
-        display: inline-block;
-        background: transparent;
-        border: 1px solid transparent;
-        box-sizing: border-box;
-        border-radius: 4px;
-        padding: 16px 25px;
-        font-family: Circe;
-        font-size: 22px;
-        line-height: 32px;
-        font-style: normal;
-        font-weight: 500;
-        color: #fff;
-        margin: 0 10px;
-        min-width: 360px;
-        text-align: center;
-        cursor: pointer;
-        > img {
-          display: inline-block;
-          vertical-align: middle;
-          max-height: 40px;
-        }
-      }
-      .btn_psevdo {
-        width: auto;
-        padding: 13px 10px;
-      }
-      .btn[disabled] {
-        opacity: 0.5;
+      .btn {
+        width: 300px;
+        height: 70px;
+        font-size: 26px;
+        font-weight: 700;
+        padding: 10px;
+        margin: 15px;
       }
     }
-    .fact {
-      font-family: Circe;
+    .text {
       font-size: 30px;
       line-height: 120%;
-      color: #464646;
       max-width: 786px;
       text-align: center;
       margin: 50px auto;
-    }
-    .man_block {
-      text-align: center;
-      margin-top: 15px;
-      > div {
-        width: 160px;
-        display: inline-block;
-        margin: 0 8px;
-        position: relative;
-        vertical-align: top;
-        > .img_block {
-          width: 100%;
-          height: 160px;
-          background-position: center center;
-          background-repeat: no-repeat;
-        }
-      }
-      > .act_div > .img_block {
-        margin: -10px 0 20px;
-      }
-      .info_block {
-        padding: 9px;
-        border-radius: 4px;
-        font-family: Circe;
-        font-size: 22px;
-        line-height: 32px;
-        color: #fff;
-        position: relative;
-        z-index: 6;
-      }
-      .act_info_block {
-        height: 110px;
-        padding: 75px 11px 0;
-        border-radius: 4px;
-        font-family: Circe;
-        font-size: 16px;
-        line-height: 100%;
-        color: #fff;
-        position: absolute;
-        top: 160px;
-        left: 0;
-        z-index: 3;
-        width: 100%;
-        box-sizing: border-box;
-      }
-      .pre_act {
-        color:#666;
-        padding-top: 60px;
-        font-size: 16px;
-        line-height: 120%;
-      }
     }
   }
 }

@@ -24,6 +24,7 @@ function initialState () {
     labels: null,
     states_no_back: [],
     meeting_talk: false,
+    talon: false,
 
     loadAppSettings: null,
     iconsSVG: null,
@@ -41,6 +42,7 @@ export default {
     setIsImportantPhrase: ({ commit }, payload) => commit('SET_IS_IMPORTANT_PHRASE', payload),
     clearState: ({ commit }, payload) => commit('CLEAR_STATE'),
     clearUsersData: ({ commit }, payload) => commit('CLEAR_USERS_DATA', payload),
+    set_create_talon: ({ commit }, payload) => commit('SET_CREATE_TALON', payload),
     setStep: ({ commit }, payload) => commit('SET_STEP', payload),
     setPassportData: ({ commit }, payload) => commit('SET_PASSPORT_DATA', payload),
     updatePassportData: ({ commit }, payload) => commit('UPDATE_PASSPORT_DATA', payload),
@@ -94,6 +96,7 @@ export default {
       })
     },
     CLEAR_USERS_DATA: (state, payload) => { },
+    SET_CREATE_TALON: (state, payload) => { state.talon = payload.data },
     SET_STEP: (state, payload) => { state.step = payload.data },
     SET_PASSPORT_DATA: (state, payload) => { state.passport.data = payload.data },
     UPDATE_PASSPORT_DATA: (state, payload) => { state.passport.data = Object.assign({}, state.passport.data, payload.data) },

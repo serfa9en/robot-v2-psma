@@ -533,6 +533,23 @@ export default {
       timeout: 0
     }
   ],
+  print_view: [
+    {
+      name: 'app/setStep',
+      options: 'print_view',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: false,
+      timeout: 0
+    },
+    {
+      name: 'ui/setSpinnerEnabled',
+      options: false,
+      timeout: 0
+    }
+  ],
 
   wait: [
     { name: 'app/setMeetingTalk', options: false },

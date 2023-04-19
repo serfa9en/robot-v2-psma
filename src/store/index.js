@@ -33,6 +33,7 @@ import dispenserController from './controllers/dispenserController'
 import socketController from './controllers/socketController'
 import equipmentController from './controllers/equipmentController'
 import appController from './controllers/appController'
+import createTalon from './controllers/createTalon'
 
 export default (logger, promobot) => ({
   strict: true,
@@ -66,6 +67,7 @@ export default (logger, promobot) => ({
     dispenserController(logger),
     socketController(logger),
     equipmentController(logger),
-    appController(logger, promobot)
+    appController(logger, promobot),
+    createTalon(logger)
   ]
 })

@@ -79,7 +79,7 @@
           {{ this.comment_add }}
         </div>
         <div class="buttonBox" v-show="flagFullExam === false">
-          <button class="btn-yes-no" v-if="this.flagCons === false || this.flagExam === false">Получить <br> результаты</button>
+          <button class="btn-yes-no" v-if="this.flagCons === false || this.flagExam === false" v-on:click="getResultPrint">Получить <br> результаты</button>
           <button class="btn-dark-grad" v-on:click="continueWork">Продолжить обследование</button>
           <button class="btn-yes-no" v-on:click="repeatWork">Повторить <br> измерение</button>
         </div>
@@ -116,7 +116,8 @@ export default {
       // 3 - спирография
       typeScreen: null,
       flagCons: null,
-      flagExam: null
+      flagExam: null,
+      templatePath: 'talon-template-dop.html'
       // flagFullExam: null
     }
   },
@@ -285,6 +286,14 @@ export default {
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'EXAM_RESULT'
+      })
+    },
+    getResultPrint: function () {
+      // получить результаты
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'PRINT_VIEW'
       })
     }
   }

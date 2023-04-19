@@ -23,6 +23,18 @@ export const stateUserMeasurement = {
       otorinolaringologist: null,
       endocrinologist: null
     },
+    // если плохо - сохранение в виде строки (0,1,1,0,1...)
+    specialistBad: {
+      cardiologist: null,
+      neurologist: null,
+      gastroenterologist: null,
+      gynecologist: null,
+      urologist: null,
+      coloproctologist: null,
+      ophtalmologist: null,
+      otorinolaringologist: null,
+      endocrinologist: null
+    },
 
     // пути к картинке результата
     measurement: {
@@ -113,6 +125,17 @@ export const actionsUserMeasurement = {
   setResultSpecialistOphtalmologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_OPHTALMOLOGIST', payload),
   setResultSpecialistOtorinolaringologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_OTORINOLARINGOLOGIST', payload),
   setResultSpecialistEndocrinologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_ENDOCRINOLOGIST', payload),
+
+  // результаты специалистов ВСЕ ПЛОХО - сохранения вопросов
+  setResultSpecialistBadCardiologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_BAD_CARDIOLOGIST', payload),
+  setResultSpecialistBadNeurologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_BAD_NEUROLOGIST', payload),
+  setResultSpecialistBadGastroenterologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_BAD_GASTROENTEROLOGIST', payload),
+  setResultSpecialistBadGynecologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_BAD_GYNECOLOGIST', payload),
+  setResultSpecialistBadUrologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_BAD_UROLOGIST', payload),
+  setResultSpecialistBadColoproctologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_BAD_COLOPROCTOLOGIST', payload),
+  setResultSpecialistBadOphtalmologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_BAD_OPHTALMOLOGIST', payload),
+  setResultSpecialistBadOtorinolaringologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_BAD_OTORINOLARINGOLOGIST', payload),
+  setResultSpecialistBadEndocrinologist: ({ commit }, payload) => commit('SET_RESULT_SPECIALIST_BAD_ENDOCRINOLOGIST', payload),
 
   setCurMeasurementNumber: ({ commit }, payload) => commit('SET_CURMEASUREMENT_NUMBER', payload),
   setNorm: ({ commit }, payload) => commit('SET_NORM', payload),
@@ -210,6 +233,17 @@ export const mutationsUserMeasurement = {
   SET_RESULT_SPECIALIST_OTORINOLARINGOLOGIST: (state, payload) => { state.result.specialist.otorinolaringologist = payload.data },
   SET_RESULT_SPECIALIST_ENDOCRINOLOGIST: (state, payload) => { state.result.specialist.endocrinologist = payload.data },
 
+  // результаты специалистов - ВСЕ ПЛОХО - сохранение вопросов
+  SET_RESULT_SPECIALIST_BAD_CARDIOLOGIST: (state, payload) => { state.result.specialistBad.cardiologist = payload.data },
+  SET_RESULT_SPECIALIST_BAD_NEUROLOGIST: (state, payload) => { state.result.specialistBad.neurologist = payload.data },
+  SET_RESULT_SPECIALIST_BAD_GASTROENTEROLOGIST: (state, payload) => { state.result.specialistBad.gastroenterologist = payload.data },
+  SET_RESULT_SPECIALIST_BAD_GYNECOLOGIST: (state, payload) => { state.result.specialistBad.gynecologist = payload.data },
+  SET_RESULT_SPECIALIST_BAD_UROLOGIST: (state, payload) => { state.result.specialistBad.urologist = payload.data },
+  SET_RESULT_SPECIALIST_BAD_COLOPROCTOLOGIST: (state, payload) => { state.result.specialistBad.coloproctologist = payload.data },
+  SET_RESULT_SPECIALIST_BAD_OPHTALMOLOGIST: (state, payload) => { state.result.specialistBad.ophtalmologist = payload.data },
+  SET_RESULT_SPECIALIST_BAD_OTORINOLARINGOLOGIST: (state, payload) => { state.result.specialistBad.otorinolaringologist = payload.data },
+  SET_RESULT_SPECIALIST_BAD_ENDOCRINOLOGIST: (state, payload) => { state.result.specialistBad.endocrinologist = payload.data },
+
   SET_DISEASE_NUMBER: (state, payload) => {
     state.current_disease.number = payload.data
     state.current_disease.name = getDiseaseName(payload.data)
@@ -271,6 +305,17 @@ export const gettersUserMeasurement = {
   getResultSpecialistOphtalmologist: state => state.result.specialist.ophtalmologist,
   getResultSpecialistOtorinolaringologist: state => state.result.specialist.otorinolaringologist,
   getResultSpecialistEndocrinologist: state => state.result.specialist.endocrinologist,
+
+  // результаты специалистов - ВСЕ ПЛОХО - Вопросы
+  getResultSpecialistBadCardiologist: state => state.result.specialistBad.cardiologist,
+  getResultSpecialistBadNeurologist: state => state.result.specialistBad.neurologist,
+  getResultSpecialistBadGastroenterologist: state => state.result.specialistBad.gastroenterologist,
+  getResultSpecialistBadGynecologist: state => state.result.specialistBad.gynecologist,
+  getResultSpecialistBadUrologist: state => state.result.specialistBad.urologist,
+  getResultSpecialistBadColoproctologist: state => state.result.specialistBad.coloproctologist,
+  getResultSpecialistBadOphtalmologist: state => state.result.specialistBad.ophtalmologist,
+  getResultSpecialistBadOtorinolaringologist: state => state.result.specialistBad.otorinolaringologist,
+  getResultSpecialistBadEndocrinologist: state => state.result.specialistBad.endocrinologist,
 
   getDiseasetNumber: state => state.current_disease.number,
   getDiseaseName: state => state.current_disease.name,

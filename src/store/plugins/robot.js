@@ -2,6 +2,7 @@ import { EventInitiatorTypes, EventTypes, ActionHandlerTypes, ActionTypes } from
 import { faceRecognizeEvents, faceRecognizeSubscribers } from './faceRecognize'
 import { userEvents, userSubscribers } from './user'
 import { keyboardEvents, keyboardSubscribers } from './keyboard'
+// import { createTalon } from './createTalon'
 
 // let timeoutResetTimer = null
 /* eslint-disable camelcase */
@@ -11,6 +12,7 @@ export function robotPlugin (logger, robot) {
     faceRecognizeEvents(store.dispatch, logger, robot)
     userEvents(store.dispatch, logger, robot)
     keyboardEvents(store.dispatch, logger, robot)
+    // createTalon(store.dispatch, logger)
 
     // // userService.onUserPresence
     // robot.userService.onUserPresence((user, isNew) => {
@@ -191,7 +193,7 @@ export function robotPlugin (logger, robot) {
     })
     // ДОБАВОЧНЫЕ ФРАЗЫ
     robot.dialogService.onLoadExtraReplic(replica => {
-      if (store.getters['engine/getCurrentStateName'] === 'START_NEW') {
+      if (store.getters['engine/getCurrentStateName'] === 'MAIN_VIEW') {
         let eventId = logger.logEvent(EventInitiatorTypes.ROBOT, EventTypes.ROBOT_LOAD_EXTRA_REPLIC, replica)
         logger.logAction(eventId, ActionHandlerTypes.ROBOT, ActionTypes.ROBOT_SAY_REPLIC)
         robot.dialogService.sayReplicByData(replica, false)
@@ -697,6 +699,17 @@ export function robotPlugin (logger, robot) {
           }
           break
       }
+
+      /*
+      // TALON
+      switch (mutation.type) {
+        case 'robot/SET_CREATE_TALON':
+          if (mutation.payload.data === true) {
+            createTalon()
+          }
+          break
+      }
+      */
     })
   }
 }

@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="buttonBox">
-          <button class="btn-yes-no">Получить <br> результаты</button>
+          <button class="btn-yes-no" v-on:click="printTalon">Получить <br> результаты</button>
           <!--<button class="btn-dark-grad">Получить <br> рекомендации</button>-->
           <button class="btn-dark-grad" v-on:click="continueWork">Продолжить <br> обследование</button>
         </div>
@@ -97,7 +97,8 @@ export default {
       iconGluco: null,
       iconRost: null,
       iconVes: null,
-      iconImt: null
+      iconImt: null,
+      templatePath: 'talon-template.html'
     }
   },
   computed: {
@@ -228,6 +229,13 @@ export default {
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'MAIN_VIEW'
+      })
+    },
+    printTalon: function () {
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'PRINT_VIEW'
       })
     }
   }

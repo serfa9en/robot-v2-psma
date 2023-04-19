@@ -20,6 +20,7 @@
       <ResultView/>
       <Examination/>
       <ExamResult/>
+      <PrintView/>
       <ExitView/>
     </Content>
     <Footer/>
@@ -49,6 +50,7 @@ import ResultView from '@/components/views/Measurement/ResultView'
 import ImtMistakeSuccess from '@/components/views/Measurement/ImtMistakeSuccess'
 import Examination from '@/components/views/FullExam/Examination'
 import ExamResult from '@/components/views/FullExam/Exam_Result'
+import PrintView from '@/components/views/PrintView'
 
 import ExitView from '@/components/views/Exit'
 
@@ -78,6 +80,7 @@ export default {
     Examination,
     ExamResult,
     ResultView,
+    PrintView,
 
     ExitView
   },

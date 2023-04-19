@@ -361,6 +361,15 @@ export default [
       }]
   },
   {
+    name: 'PRINT_VIEW',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'print_view'
+      }
+    ]
+  },
+  {
     name: 'EXAMINATION',
     entering: [
       {

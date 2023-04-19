@@ -57,7 +57,7 @@
             </p>
           </div>
           <div>
-            <button class="btn_result btn-dark-grad">Получить <br> результаты</button>
+            <button class="btn_result btn-dark-grad" v-on:click="getResultPrint">Получить <br> результаты</button>
             <button class="btn_result btn-yes-no" v-on:click="continueWork">Продолжить обследование</button>
           </div>
         </div>
@@ -152,6 +152,7 @@ export default {
         {}
       ],
       array_list: [],
+      mass_quest: '',
       EXAMINATION_TYPE,
       is_imt: null,
       is_gluco: null,
@@ -201,6 +202,7 @@ export default {
           }
           this.items = [{}]
           this.array_list = []
+          this.mass_quest = ''
         }
         this.loggingCurrentStateName()
         this.measureProcess()
@@ -350,6 +352,7 @@ export default {
     },
     // обработка кнопок Да/нет
     next: function (val) {
+      this.mass_quest += val + ','
       if (val === 1) {
         this.answer_yes++
         this.quest_array[this.step_question - 1] = true
@@ -361,7 +364,114 @@ export default {
       } else {
         // результат
         this.step = 3
-        console.log('this.isMeasureProcess = ', this.isMeasureProcess)
+        // console.log('this.isMeasureProcess = ', this.isMeasureProcess)
+        let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+        let res = null
+        if (this.answer_yes === 0) res = true
+        else res = false
+        // let res = () ? true : false
+        switch (this.getSpecialistNumber) {
+          case 0: {
+            this.$store.dispatch('ui/setResultSpecialistBadCardiologist', {
+              meta: { eventId },
+              data: this.mass_quest
+            })
+            this.$store.dispatch('ui/setResultSpecialistCardiologist', {
+              meta: { eventId },
+              data: res
+            })
+            break
+          }
+          case 1: {
+            this.$store.dispatch('ui/setResultSpecialistBadNeurologist', {
+              meta: { eventId },
+              data: this.mass_quest
+            })
+            this.$store.dispatch('ui/setResultSpecialistNeurologist', {
+              meta: { eventId },
+              data: res
+            })
+            break
+          }
+          case 2: {
+            this.$store.dispatch('ui/setResultSpecialistBadGastroenterologist', {
+              meta: { eventId },
+              data: this.mass_quest
+            })
+            this.$store.dispatch('ui/setResultSpecialistGastroenterologist', {
+              meta: { eventId },
+              data: res
+            })
+            break
+          }
+          case 3: {
+            this.$store.dispatch('ui/setResultSpecialistBadGynecologist', {
+              meta: { eventId },
+              data: this.mass_quest
+            })
+            this.$store.dispatch('ui/setResultSpecialistGynecologist', {
+              meta: { eventId },
+              data: res
+            })
+            break
+          }
+          case 4: {
+            this.$store.dispatch('ui/setResultSpecialistBadUrologist', {
+              meta: { eventId },
+              data: this.mass_quest
+            })
+            this.$store.dispatch('ui/setResultSpecialistUrologist', {
+              meta: { eventId },
+              data: res
+            })
+            break
+          }
+          case 5: {
+            this.$store.dispatch('ui/setResultSpecialistBadColoproctologist', {
+              meta: { eventId },
+              data: this.mass_quest
+            })
+            this.$store.dispatch('ui/setResultSpecialistColoproctologist', {
+              meta: { eventId },
+              data: res
+            })
+            break
+          }
+          case 6: {
+            this.$store.dispatch('ui/setResultSpecialistBadOphtalmologist', {
+              meta: { eventId },
+              data: this.mass_quest
+            })
+            this.$store.dispatch('ui/setResultSpecialistOphtalmologist', {
+              meta: { eventId },
+              data: res
+            })
+            break
+          }
+          case 7: {
+            this.$store.dispatch('ui/setResultSpecialistBadOtorinolaringologist', {
+              meta: { eventId },
+              data: this.mass_quest
+            })
+            this.$store.dispatch('ui/setResultSpecialistOtorinolaringologist', {
+              meta: { eventId },
+              data: res
+            })
+            break
+          }
+          case 8: {
+            this.$store.dispatch('ui/setResultSpecialistBadEndocrinologist', {
+              meta: { eventId },
+              data: this.mass_quest
+            })
+            this.$store.dispatch('ui/setResultSpecialistEndocrinologist', {
+              meta: { eventId },
+              data: res
+            })
+            break
+          }
+        }
+        // console.log('mass_quest = ', this.mass_quest)
         this.title_result = 'Спасибо за прохождение консультации ' + this.getSpecialistDescription + '!'
         if (this.getMeasurementImt > 25) {
           this.answer_yes++
@@ -437,6 +547,14 @@ export default {
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'MAIN_VIEW'
+      })
+    },
+    // печать
+    getResultPrint: function () {
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'PRINT_VIEW'
       })
     }
   }

@@ -284,6 +284,10 @@ export default {
     toImt: function () {
       let logger = PromobotLogger.getInstance()
       let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('ui/setFlagConsultation', {
+        meta: { eventId },
+        data: false
+      })
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'WIDTH_HEIGHT'

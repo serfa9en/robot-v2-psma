@@ -3,6 +3,7 @@ import { EXAMINATION_TYPE } from '@/constants'
 import {
   setColorTemperature
 } from '../../components/styled/setColorButtons'
+// import * as create from '../controllers/createTalon'
 
 let filterTimeout
 let filterTimeoutDelay = 3000

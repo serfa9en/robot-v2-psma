@@ -1,5 +1,6 @@
 <template>
     <div v-show="showComponent" class="settings">
+      <!--<button class="button-print btn-yes-no">Печать</button>-->
       <div>
         <button class="btn-dark-main text-white" v-on:click="toSpecialist">
             <img src="../../assets/img/main/specialist.png">
@@ -39,11 +40,13 @@ export default {
     showComponent () {
       if (this.getStep === 'main_view') {
         // console.log('this.getUserGeneral.id = ', this.getUserGeneral.id)
+        /*
         let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
         this.$store.dispatch('ui/setFlagExamination', {
           meta: { eventId },
           data: false
         })
+        */
       }
       return this.getStep === 'main_view'
     }
@@ -59,6 +62,7 @@ export default {
     },
     toSpecialist: function () {
       // переход на ветку специалистов
+      // console.log('bdhjsbvgks?? = ', this.getMeasurementGlucometry)
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
@@ -99,10 +103,15 @@ export default {
     align-items: center;
 }
 
+.button-print {
+  width: 240px;
+  height: 60px;
+}
+
 button {
     width: 450px;
     height: 240px;
-    margin: 23px 28px 23px 28px;
+    margin: 23px 40px 23px 40px;
 }
 img {
     margin-top: 15px;
