@@ -16,7 +16,7 @@
             <img src="../../assets/img/main/clinical_exam.png">
             <p>Пройти комплексное<br>обследование</p>
         </button>
-        <button class="btn-dark-main text-white" v-on:click="toDisease" disabled>
+        <button class="btn-dark-main text-white" v-on:click="toDisease">
             <img src="../../assets/img/main/risk_disease.png">
             <p>Узнать риск<br>развития заболевания</p>
         </button>

@@ -1,5 +1,6 @@
 import { getDescription, getName, getPath, getResultGood } from '../../dataStorage/specialist'
-import { getDiseaseName, getContextDisease } from '../../dataStorage/disease'
+// import { getDiseaseName, getContextDisease } from '../../dataStorage/disease'
+import { getOncologyName, getContextOncology, getPathOncology } from '../../dataStorage/oncology'
 
 export const stateUserMeasurement = {
   current_specialist: {
@@ -44,6 +45,26 @@ export const stateUserMeasurement = {
       temperature: null,
       saturatsiya: null,
       imt: null
+    },
+
+    disease_count: {
+      diabetes: null,
+      reflux: null,
+      depression: null,
+      prostatitis: null,
+      oncology: {
+        mammary_cancer: null,       // рак молочной железы
+        stomach_cancer: null,       // рак желудка
+        esophageal_carcinoma: null, // рак пищевода
+        bladder_cancer: null,       // рак мочевого пузыря
+        lung_cancer: null,          // рак легкого
+        melanoma: null,             // меланома
+        skin_cancer: null,          // рак кожи
+        throat_cancer: null,        // рак глотки
+        laryngeal_cancer: null,     // рак гортани
+        thyroid_cancer: null,       // рак щитовидной железы
+        bowel_cancer: null          // рак кишечника
+      }
     }
   },
   button: {
@@ -103,10 +124,25 @@ export const stateUserMeasurement = {
   },
 
   // current disease - не сделана ветка
-  current_disease: {
+  current_oncology: {
     number: null,
     name: null,
-    context_disease: null
+    context_disease: null,
+    path_img: null,
+    comment: null,
+    commentD: null,
+    text: null,
+    color: null
+  },
+
+  current_disease: {
+    number: null,
+    title: null,
+    path_img: null,
+    comment: null,
+    commentD: null,
+    text: null,
+    color: null
   }
 }
 
@@ -174,7 +210,33 @@ export const actionsUserMeasurement = {
   setImtStep: ({ commit }, payload) => commit('SET_IMT_STEP', payload),
 
   // риск развития заболевания болезни
-  setDiseaseNumber: ({ commit }, payload) => commit('SET_DISEASE_NUMBER', payload)
+  // setDiseaseNumber: ({ commit }, payload) => commit('SET_DISEASE_NUMBER', payload),
+  setOncologyNumber: ({ commit }, payload) => commit('SET_ONCOLOGY_NUMBER', payload),
+
+  setResultDiseaseCountDiabetes: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_DIABETES', payload),
+  setResultDiseaseCountReflux: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_REFLUX', payload),
+  setResultDiseaseCountDepression: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_DEPRESSION', payload),
+  setResultDiseaseCountProstatitis: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_PROSTATITIS', payload),
+  setResultDiseaseCountOncologyMammaryCancer: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_ONCOLOGY_MAMMARY_CANCER', payload),
+  setResultDiseaseCountOncologyStomachCancer: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_ONCOLOGY_STOMACH_CANCER', payload),
+  setResultDiseaseCountOncologyEsophagealCarcinoma: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_ONCOLOGY_ESOPHAGEAL_CARCINOMA', payload),
+  setResultDiseaseCountOncologyBladderCancer: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_ONCOLOGY_BLADDER_CANCER', payload),
+  setResultDiseaseCountOncologyLungCancer: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_ONCOLOGY_LUNG_CANCER', payload),
+  setResultDiseaseCountOncologyMelanoma: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_ONCOLOGY_MELANOMA', payload),
+  setResultDiseaseCountOncologySkinCancer: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_ONCOLOGY_SKIN_CANCER', payload),
+  setResultDiseaseCountOncologyThroatCancer: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_ONCOLOGY_THROAT_CANCER', payload),
+  setResultDiseaseCountOncologyLaryngealCancer: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_ONCOLOGY_LARYNGEAL_CANCER', payload),
+  setResultDiseaseCountOncologyThyroidCancer: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_ONCOLOGY_THYROID_CANCER', payload),
+  setResultDiseaseCountOncologyBowelCancer: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_ONCOLOGY_BOWEL_CANCER', payload),
+
+  // риск развития заболеваний
+  setCurrentDiseaseNumber: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_NUMBER', payload),
+  setCurrentDiseaseTitle: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_TITLE', payload),
+  setCurrentDiseaseImg: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_IMG', payload),
+  setCurrentDiseaseComment: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_COMMENT', payload),
+  setCurrentDiseaseCommentD: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_COMMENT_D', payload),
+  setCurrentDiseaseText: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_TEXT', payload),
+  setCurrentDiseaseColor: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_COLOR', payload)
 }
 
 export const mutationsUserMeasurement = {
@@ -244,11 +306,36 @@ export const mutationsUserMeasurement = {
   SET_RESULT_SPECIALIST_BAD_OTORINOLARINGOLOGIST: (state, payload) => { state.result.specialistBad.otorinolaringologist = payload.data },
   SET_RESULT_SPECIALIST_BAD_ENDOCRINOLOGIST: (state, payload) => { state.result.specialistBad.endocrinologist = payload.data },
 
-  SET_DISEASE_NUMBER: (state, payload) => {
-    state.current_disease.number = payload.data
-    state.current_disease.name = getDiseaseName(payload.data)
-    state.current_disease.context_disease = getContextDisease(payload.data)
-  }
+  SET_ONCOLOGY_NUMBER: (state, payload) => {
+    state.current_oncology.number = payload.data
+    state.current_oncology.name = getOncologyName(payload.data)
+    state.current_oncology.context_disease = getContextOncology(payload.data)
+    state.current_oncology.path_img = getPathOncology(payload.data)
+  },
+
+  SET_RESULT_DISEASE_COUNT_DIABETES: (state, payload) => { state.result.disease_count.diabetes = payload.data },
+  SET_RESULT_DISEASE_COUNT_REFLUX: (state, payload) => { state.result.disease_count.reflux = payload.data },
+  SET_RESULT_DISEASE_COUNT_DEPRESSION: (state, payload) => { state.result.disease_count.depression = payload.data },
+  SET_RESULT_DISEASE_COUNT_PROSTATITIS: (state, payload) => { state.result.disease_count.prostatitis = payload.data },
+  SET_RESULT_DISEASE_COUNT_ONCOLOGY_MAMMARY_CANCER: (state, payload) => { state.result.disease_count.oncology.mammary_cancer = payload.data },
+  SET_RESULT_DISEASE_COUNT_ONCOLOGY_STOMACH_CANCER: (state, payload) => { state.result.disease_count.oncology.stomach_cancer = payload.data },
+  SET_RESULT_DISEASE_COUNT_ONCOLOGY_ESOPHAGEAL_CARCINOMA: (state, payload) => { state.result.disease_count.oncology.esophageal_carcinoma = payload.data },
+  SET_RESULT_DISEASE_COUNT_ONCOLOGY_BLADDER_CANCER: (state, payload) => { state.result.disease_count.oncology.bladder_cancer = payload.data },
+  SET_RESULT_DISEASE_COUNT_ONCOLOGY_LUNG_CANCER: (state, payload) => { state.result.disease_count.oncology.lung_cancer = payload.data },
+  SET_RESULT_DISEASE_COUNT_ONCOLOGY_MELANOMA: (state, payload) => { state.result.disease_count.oncology.melanoma = payload.data },
+  SET_RESULT_DISEASE_COUNT_ONCOLOGY_SKIN_CANCER: (state, payload) => { state.result.disease_count.oncology.skin_cancer = payload.data },
+  SET_RESULT_DISEASE_COUNT_ONCOLOGY_THROAT_CANCER: (state, payload) => { state.result.disease_count.oncology.throat_cancer = payload.data },
+  SET_RESULT_DISEASE_COUNT_ONCOLOGY_LARYNGEAL_CANCER: (state, payload) => { state.result.disease_count.oncology.laryngeal_cancer = payload.data },
+  SET_RESULT_DISEASE_COUNT_ONCOLOGY_THYROID_CANCER: (state, payload) => { state.result.disease_count.oncology.thyroid_cancer = payload.data },
+  SET_RESULT_DISEASE_COUNT_ONCOLOGY_BOWEL_CANCER: (state, payload) => { state.result.disease_count.oncology.bowel_cancer = payload.data },
+
+  SET_CURRENT_DISEASE_NUMBER: (state, payload) => { state.current_disease.number = payload.data },
+  SET_CURRENT_DISEASE_TITLE: (state, payload) => { state.current_disease.title = payload.data },
+  SET_CURRENT_DISEASE_IMG: (state, payload) => { state.current_disease.path_img = payload.data },
+  SET_CURRENT_DISEASE_COMMENT: (state, payload) => { state.current_disease.comment = payload.data },
+  SET_CURRENT_DISEASE_COMMENT_D: (state, payload) => { state.current_disease.commentD = payload.data },
+  SET_CURRENT_DISEASE_TEXT: (state, payload) => { state.current_disease.text = payload.data },
+  SET_CURRENT_DISEASE_COLOR: (state, payload) => { state.current_disease.color = payload.data }
 }
 
 export const gettersUserMeasurement = {
@@ -317,7 +404,32 @@ export const gettersUserMeasurement = {
   getResultSpecialistBadOtorinolaringologist: state => state.result.specialistBad.otorinolaringologist,
   getResultSpecialistBadEndocrinologist: state => state.result.specialistBad.endocrinologist,
 
-  getDiseasetNumber: state => state.current_disease.number,
-  getDiseaseName: state => state.current_disease.name,
-  getContextDisease: state => state.current_disease.context_disease
+  getOncologyNumber: state => state.current_oncology.number,
+  getOncologyName: state => state.current_oncology.name,
+  getContextOncology: state => state.current_oncology.context_disease,
+  getPathOncology: state => state.current_oncology.path_img,
+
+  getResultDiseaseCountDiabetes: state => state.result.disease_count.diabetes,
+  getResultDiseaseCountReflux: state => state.result.disease_count.reflux,
+  getResultDiseaseCountDepression: state => state.result.disease_count.depression,
+  getResultDiseaseCountProstatitis: state => state.result.disease_count.prostatitis,
+  getResultDiseaseCountOncologyMammaryCancer: state => state.result.disease_count.oncology.mammary_cancer,
+  getResultDiseaseCountOncologyStomachCancer: state => state.result.disease_count.oncology.stomach_cancer,
+  getResultDiseaseCountOncologyEsophagealCarcinoma: state => state.result.disease_count.oncology.esophageal_carcinoma,
+  getResultDiseaseCountOncologyBladderCancer: state => state.result.disease_count.oncology.bladder_cancer,
+  getResultDiseaseCountOncologyLungCancer: state => state.result.disease_count.oncology.lung_cancer,
+  getResultDiseaseCountOncologyMelanoma: state => state.result.disease_count.oncology.melanoma,
+  getResultDiseaseCountOncologySkinCancer: state => state.result.disease_count.oncology.skin_cancer,
+  getResultDiseaseCountOncologyThroatCancer: state => state.result.disease_count.oncology.throat_cancer,
+  getResultDiseaseCountOncologyLaryngealCancer: state => state.result.disease_count.oncology.laryngeal_cancer,
+  getResultDiseaseCountOncologyThyroidCancer: state => state.result.disease_count.oncology.thyroid_cancer,
+  getResultDiseaseCountOncologyBowelCancer: state => state.result.disease_count.oncology.bowel_cancer,
+
+  getCurrentDiseaseNumber: state => state.current_disease.number,
+  getCurrentDiseaseTitle: state => state.current_disease.title,
+  getCurrentDiseaseImg: state => state.current_disease.path_img,
+  getCurrentDiseaseComment: state => state.current_disease.comment,
+  getCurrentDiseaseCommentD: state => state.current_disease.commentD,
+  getCurrentDiseaseText: state => state.current_disease.text,
+  getCurrentDiseaseColor: state => state.current_disease.color
 }

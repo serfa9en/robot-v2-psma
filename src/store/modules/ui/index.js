@@ -19,7 +19,10 @@ export default {
       flagConsultation: null,
       flagExamination: null,
       stepExamination: null,
-      flagFullExamination: null
+      flagFullExamination: null,
+      flagDisease: {
+        diabetes: null
+      }
     },
     glucometer: {
       connectionStatus: false,
@@ -54,7 +57,8 @@ export default {
     },
     acquaintance: {
       status: null
-    }
+    },
+    flagExit: null
   },
   actions: {
     ...actionsUserMeasurement,
@@ -98,7 +102,9 @@ export default {
     setFlagConsultation: ({ commit }, payload) => commit('SET_FLAG_CONSULTATION', payload),
     setFlagExamination: ({ commit }, payload) => commit('SET_FLAG_EXAMINATION', payload),
     setFlagFullExamination: ({ commit }, payload) => commit('SET_FLAG_FULLEXAMINATION', payload),
-    setStepExamination: ({ commit }, payload) => commit('SET_STEP_EXAMINATION', payload)
+    setStepExamination: ({ commit }, payload) => commit('SET_STEP_EXAMINATION', payload),
+    setFlagExit: ({ commit }, payload) => commit('SET_FLAG_EXIT', payload),
+    setFlagDiseaseDiabetes: ({ commit }, payload) => commit('SET_FLAG_DISEASE_DIABETES', payload)
   },
   mutations: {
     ...mutationsUserMeasurement,
@@ -142,7 +148,9 @@ export default {
     SET_FLAG_CONSULTATION: (state, payload) => { state.user.flagConsultation = payload.data },
     SET_FLAG_EXAMINATION: (state, payload) => { state.user.flagExamination = payload.data },
     SET_FLAG_FULLEXAMINATION: (state, payload) => { state.user.flagFullExamination = payload.data },
-    SET_STEP_EXAMINATION: (state, payload) => { state.user.stepExamination = payload.data }
+    SET_STEP_EXAMINATION: (state, payload) => { state.user.stepExamination = payload.data },
+    SET_FLAG_EXIT: (state, payload) => { state.flagExit = payload.data },
+    SET_FLAG_DISEASE_DIABETES: (state, payload) => { state.user.flagDisease.diabetes = payload.data }
   },
   getters: {
     ...gettersUserMeasurement,
@@ -185,6 +193,8 @@ export default {
     getFlagConsultation: state => state.user.flagConsultation,
     getFlagExamination: state => state.user.flagExamination,
     getFlagFullExamination: state => state.user.flagFullExamination,
-    getStepExamination: state => state.user.stepExamination
+    getStepExamination: state => state.user.stepExamination,
+    getFlagExit: state => state.flagExit,
+    getFlagDiseaseDiabetes: state => state.user.flagDisease.diabetes
   }
 }

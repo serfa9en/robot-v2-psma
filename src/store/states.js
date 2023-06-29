@@ -385,6 +385,63 @@ export default [
         options: 'exam_result'
       }]
   },
+  {
+    name: 'ONCOLOGY_MAIN',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'oncology_main'
+      }]
+  },
+
+  {
+    name: 'DIABETES',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'diabetes'
+      }]
+  },
+  {
+    name: 'REFLUX',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'reflux'
+      }]
+  },
+  {
+    name: 'DEPRESSION',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'depression'
+      }]
+  },
+  {
+    name: 'PROSTATITIS',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'prostatitis'
+      }]
+  },
+  {
+    name: 'ONCOLOGY_QUEST',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'oncology_quest'
+      }]
+  },
+  {
+    name: 'DISEASE_RESULT',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'disease_result'
+      }]
+  },
 
   {
     name: 'INITIAL',

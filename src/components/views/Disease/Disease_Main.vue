@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="block">
-                <img>
+                <img src="../../../assets/img/disease/main.png">
             </div>
         </div>
         <div class="container">
@@ -23,7 +23,7 @@
             </button>
             </div>
             <div class="block">
-                <button class="btn-dark-main" disabled v-on:click="toOncology">
+                <button class="btn-dark-main" v-on:click="toOncology">
                 <p>Онкология</p>
             </button>
             </div>
@@ -65,19 +65,35 @@ export default {
       // логгируем в store
       let logger = PromobotLogger.getInstance()
       let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
-      this.$store.dispatch('ui/setDiseaseNumber', {
-        meta: { eventId },
-        data: val
-      })
-
+      let questName
+      switch (val) {
+        case 0:
+          questName = 'DIABETES'
+          break
+        case 1:
+          questName = 'REFLUX'
+          break
+        case 2:
+          questName = 'DEPRESSION'
+          break
+        case 3:
+          questName = 'PROSTATITIS'
+          break
+      }
       // переход к шаблону опросника
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
-        data: 'DISEASE_QUEST'
+        data: questName
       })
     },
     toOncology: function () {
-
+      // переход к онкологии
+      let logger = PromobotLogger.getInstance()
+      let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'ONCOLOGY_MAIN'
+      })
     }
   }
 }
@@ -91,18 +107,24 @@ export default {
     position: absolute;
     text-align: center;
     bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 button {
     width: 380px;
     height: 200px;
+    margin: 10px;
+    font-weight: 700;
+    font-size: 24px;
 }
 
 p {
     width: 100%;
-    height: 2.5em;
     font-weight: 700;
-    font-size: 22px;
+    font-size: 30px;
     display: flex;
     flex-flow: wrap row;
     justify-content: center;
@@ -115,16 +137,10 @@ p {
 }
 
 .container {
-    width: 840px;
+    width: 1200px;
     height: auto;
     display: flex;
     text-align: center;
-    margin-left: 40px;
-}
-
-img {
-    margin-top: -20px;
-    margin-left: 70px;
 }
 
 .block {
@@ -132,7 +148,6 @@ img {
     height: auto;
     display: inline-block;
     text-align: center;
-    margin: 10px;
 }
 
 </style>

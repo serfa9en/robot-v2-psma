@@ -117,6 +117,7 @@ export default {
       typeScreen: null,
       flagCons: null,
       flagExam: null,
+      flagDiabetes: null,
       templatePath: 'talon-template-dop.html'
       // flagFullExam: null
     }
@@ -130,6 +131,7 @@ export default {
       'getFlagConsultation',
       'getFlagExamination',
       'getFlagFullExamination',
+      'getFlagDiseaseDiabetes',
       'getNorm',
       'getCurMeasurementNumber',
       'getMeasurementStep',
@@ -161,6 +163,7 @@ export default {
       if (this.$store.getters['app/getStep'] === 'result_view') {
         this.flagCons = this.getFlagConsultation
         this.flagExam = this.getFlagExamination
+        this.flagDiabetes = this.getFlagDiseaseDiabetes
         // this.flagFullExam = this.getFlagFullExamination
         // flagCons = true (если мы попали в комплексное обследование)
         // flagCons = false (если это отдельное измерение)
@@ -271,11 +274,19 @@ export default {
             data: 'EXAMINATION'
           })
         } else {
-          // отдельное измерение
-          this.$store.dispatch('engine/handlerClickMoveToState', {
-            meta: { eventId },
-            data: 'DIAGNOSTIC_START'
-          })
+          if (this.flagDiabetes === true) {
+            // Диабет (риск развития)
+            this.$store.dispatch('engine/handlerClickMoveToState', {
+              meta: { eventId },
+              data: 'DIABETES'
+            })
+          } else {
+            // отдельное измерение
+            this.$store.dispatch('engine/handlerClickMoveToState', {
+              meta: { eventId },
+              data: 'DIAGNOSTIC_START'
+            })
+          }
         }
       }
     },

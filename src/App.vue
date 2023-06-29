@@ -12,7 +12,7 @@
       <SpecialistStart/>
       <SpecialistQuest/>
       <DiseaseMain/>
-      <DiseaseQuest/>
+      <OncologyQuest/>
       <DiagnosticStart/>
       <MeasurementTemp/>
       <WidthHeight/>
@@ -21,6 +21,12 @@
       <Examination/>
       <ExamResult/>
       <PrintView/>
+      <OncologyMain/>
+      <Diabetes/>
+      <Reflux/>
+      <Depression/>
+      <Prostatitis/>
+      <DiseaseResult/>
       <ExitView/>
     </Content>
     <Footer/>
@@ -44,13 +50,19 @@ import MeasurementTemp from '@/components/views/Measurement/Measurement_Temp'
 import SpecialistStart from '@/components/views/Specialist/Specialist_Main'
 import SpecialistQuest from '@/components/views/Specialist/Specialist_Quest'
 import DiseaseMain from '@/components/views/Disease/Disease_Main'
-import DiseaseQuest from '@/components/views/Disease/Disease_Quest'
+import OncologyQuest from '@/components/views/Disease/Oncology_Quest'
 import WidthHeight from '@/components/views/Measurement/Width_Height'
 import ResultView from '@/components/views/Measurement/ResultView'
 import ImtMistakeSuccess from '@/components/views/Measurement/ImtMistakeSuccess'
 import Examination from '@/components/views/FullExam/Examination'
 import ExamResult from '@/components/views/FullExam/Exam_Result'
 import PrintView from '@/components/views/PrintView'
+import OncologyMain from '@/components/views/Disease/Oncology_Main'
+import Diabetes from '@/components/views/Disease/Diabetes'
+import Reflux from '@/components/views/Disease/Reflux'
+import Depression from '@/components/views/Disease/Depression'
+import Prostatitis from '@/components/views/Disease/Prostatitis'
+import DiseaseResult from '@/components/views/Disease/Disease_Result'
 
 import ExitView from '@/components/views/Exit'
 
@@ -74,13 +86,19 @@ export default {
     SpecialistStart,
     SpecialistQuest,
     DiseaseMain,
-    DiseaseQuest,
     WidthHeight,
     ImtMistakeSuccess,
     Examination,
     ExamResult,
     ResultView,
     PrintView,
+    OncologyMain,
+    OncologyQuest,
+    Diabetes,
+    Reflux,
+    Depression,
+    Prostatitis,
+    DiseaseResult,
 
     ExitView
   },

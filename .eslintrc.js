@@ -20,7 +20,8 @@ module.exports = {
     'vue/no-side-effects-in-computed-properties': ['off'],
     'no-case-declarations': ['off'],
     'no-useless-escape': ['off'],
-    'no-undef': ['off']
+    'no-undef': ['off'],
+    'no-multi-spaces':['off']
   },
   parserOptions: {
     parser: 'babel-eslint'

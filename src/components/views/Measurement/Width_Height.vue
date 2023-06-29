@@ -67,7 +67,11 @@ export default {
   },
   methods: {
     loggingCurrentStateName: function () {
-      if (this.getPreStateName === 'DIAGNOSTIC_START' || this.getPreStateName === 'RESULT' || this.getPreStateName === 'SPECIALIST_QUEST' || this.getPreStateName === 'EXAMINATION') {
+      if (this.getPreStateName === 'DIAGNOSTIC_START'
+      || this.getPreStateName === 'RESULT'
+      || this.getPreStateName === 'SPECIALIST_QUEST'
+      || this.getPreStateName === 'EXAMINATION'
+      || this.getPreStateName === 'DIABETES') {
         let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
         this.$store.dispatch('engine/setPreStateName', {
           meta: { eventId },

@@ -32,7 +32,8 @@ export default {
     ]),
     ...mapGetters('ui', [
       'getMeasurementGlucometry',
-      'getMeasurementImt'
+      'getMeasurementImt',
+      'getFlagExit'
     ]),
     showComponent () {
       if (this.getStep === 'print_view') {
@@ -79,10 +80,18 @@ export default {
         meta: { eventId },
         data: true
       })
-      this.$store.dispatch('engine/handlerClickMoveToState', {
-        meta: { eventId },
-        data: 'MAIN_VIEW'
-      })
+      console.log('this.getFlagExit = ', this.getFlagExit)
+      if (this.getFlagExit === true) {
+        this.$store.dispatch('engine/handlerClickMoveToState', {
+          meta: { eventId },
+          data: 'MEET_FACE'
+        })
+      } else {
+        this.$store.dispatch('engine/handlerClickMoveToState', {
+          meta: { eventId },
+          data: 'MAIN_VIEW'
+        })
+      }
     }
   }
 }

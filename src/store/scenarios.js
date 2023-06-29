@@ -32,6 +32,7 @@ export default {
     { name: 'robot/setRobotSettingsLoad', options: { settings_type: 'application', group: 'faces' }, timeout: 200 },
     { name: 'app/clearState', options: null },
     { name: 'ui/setMeasurementTemperature', options: null, timeout: 0 },
+    { name: 'ui/setFlagExit', options: null, timeout: 0 },
     { 'name': 'robot/abortRobotReplic', 'options': null, 'timeout': 1100 },
     { 'name': 'ui/setSessionUserLost', 'options': false },
     { 'name': 'faces/setLogicDbRequest', 'options': true },
@@ -335,6 +336,11 @@ export default {
         'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
+    },
+    {
+      name: 'ui/setFlagExit',
+      options: true,
+      timeout: 0
     }
   ],
   reset: [
@@ -377,7 +383,8 @@ export default {
     { name: 'ui/setButtonTemperatureColor', options: '#691B26', timeout: 0 },
     { name: 'ui/setButtonSaturatsiyaColor', options: '#691B26', timeout: 0 },
     { name: 'ui/setButtonSpirographiaColor', options: '#691B26', timeout: 0 },
-    { name: 'ui/setButtonWeightHeightColor', options: '#691B26', timeout: 0 }
+    { name: 'ui/setButtonWeightHeightColor', options: '#691B26', timeout: 0 },
+    { name: 'ui/setFlagExit', options: null, timeout: 0 }
   ],
   /* температура */
   measurement_6_1: [
@@ -547,6 +554,133 @@ export default {
     {
       name: 'ui/setSpinnerEnabled',
       options: false,
+      timeout: 0
+    }
+  ],
+  oncology_main: [
+    {
+      name: 'app/setStep',
+      options: 'oncology_main',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setSpinnerEnabled',
+      options: false,
+      timeout: 0
+    }
+  ],
+
+  diabetes: [
+    {
+      name: 'app/setStep',
+      options: 'diabetes',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setSpinnerEnabled',
+      options: false,
+      timeout: 0
+    }
+  ],
+  reflux: [
+    {
+      name: 'app/setStep',
+      options: 'reflux',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setSpinnerEnabled',
+      options: false,
+      timeout: 0
+    }
+  ],
+  depression: [
+    {
+      name: 'app/setStep',
+      options: 'depression',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setSpinnerEnabled',
+      options: false,
+      timeout: 0
+    }
+  ],
+  prostatitis: [
+    {
+      name: 'app/setStep',
+      options: 'prostatitis',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setSpinnerEnabled',
+      options: false,
+      timeout: 0
+    }
+  ],
+  oncology_quest: [
+    {
+      name: 'app/setStep',
+      options: 'oncology_quest',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setSpinnerEnabled',
+      options: false,
+      timeout: 0
+    }
+  ],
+  disease_result: [
+    {
+      name: 'app/setStep',
+      options: 'disease_result',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftText',
+      options: 'Выход',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftAction',
+      options: {
+        'engine/handlerClickMoveToState': 'EXIT'
+      },
       timeout: 0
     }
   ],

@@ -90,6 +90,7 @@
     border: 1px solid #3E0E14;
     border-radius: 10px;
     color: #3E0E14;
+    cursor: pointer;
 }
 
 .btn-yes-no:disabled {

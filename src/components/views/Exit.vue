@@ -12,6 +12,7 @@
         <div>
             <button class="btn btn-yes-no" v-on:click="exit">Выход</button>
             <button class="btn btn-yes-no" v-on:click="toMainView">На главную</button>
+            <!--<button v-if="this.getPreStateName === 'ONCOLOGY_MAIN'" class="btn btn-yes-no" v-on:click="toDisease">Назад</button>-->
             <button class="btn btn_next btn-dark-grad" v-on:click="next">Продолжить</button>
         </div>
     </div>
@@ -33,8 +34,8 @@ export default {
     ]),
     showComponent () {
       if (this.getStep === 'exit_view') {
-        console.log(this.getCurrentStateName)
-        console.log(this.getPreStateName)
+        // console.log(this.getCurrentStateName)
+        // console.log(this.getPreStateName)
       }
       return this.getStep === 'exit_view'
     }
@@ -51,7 +52,7 @@ export default {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
-        data: 'MEET_FACE'
+        data: 'PRINT_VIEW'
       })
     },
     toMainView: function () {
