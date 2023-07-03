@@ -58,7 +58,12 @@ export default {
     acquaintance: {
       status: null
     },
-    flagExit: null
+    flagExit: null,
+    recomend: {
+      type0: null,
+      type1: null,
+      type2: null
+    }
   },
   actions: {
     ...actionsUserMeasurement,
@@ -104,7 +109,10 @@ export default {
     setFlagFullExamination: ({ commit }, payload) => commit('SET_FLAG_FULLEXAMINATION', payload),
     setStepExamination: ({ commit }, payload) => commit('SET_STEP_EXAMINATION', payload),
     setFlagExit: ({ commit }, payload) => commit('SET_FLAG_EXIT', payload),
-    setFlagDiseaseDiabetes: ({ commit }, payload) => commit('SET_FLAG_DISEASE_DIABETES', payload)
+    setFlagDiseaseDiabetes: ({ commit }, payload) => commit('SET_FLAG_DISEASE_DIABETES', payload),
+    setRecomendType0: ({ commit }, payload) => commit('SET_RECOMEND_TYPE0', payload),
+    setRecomendType1: ({ commit }, payload) => commit('SET_RECOMEND_TYPE1', payload),
+    setRecomendType2: ({ commit }, payload) => commit('SET_RECOMEND_TYPE2', payload)
   },
   mutations: {
     ...mutationsUserMeasurement,
@@ -150,7 +158,11 @@ export default {
     SET_FLAG_FULLEXAMINATION: (state, payload) => { state.user.flagFullExamination = payload.data },
     SET_STEP_EXAMINATION: (state, payload) => { state.user.stepExamination = payload.data },
     SET_FLAG_EXIT: (state, payload) => { state.flagExit = payload.data },
-    SET_FLAG_DISEASE_DIABETES: (state, payload) => { state.user.flagDisease.diabetes = payload.data }
+    SET_FLAG_DISEASE_DIABETES: (state, payload) => { state.user.flagDisease.diabetes = payload.data },
+
+    SET_RECOMEND_TYPE0: (state, payload) => { state.recomend.type0 = payload.data },
+    SET_RECOMEND_TYPE1: (state, payload) => { state.recomend.type1 = payload.data },
+    SET_RECOMEND_TYPE2: (state, payload) => { state.recomend.type2 = payload.data }
   },
   getters: {
     ...gettersUserMeasurement,
@@ -195,6 +207,10 @@ export default {
     getFlagFullExamination: state => state.user.flagFullExamination,
     getStepExamination: state => state.user.stepExamination,
     getFlagExit: state => state.flagExit,
-    getFlagDiseaseDiabetes: state => state.user.flagDisease.diabetes
+    getFlagDiseaseDiabetes: state => state.user.flagDisease.diabetes,
+
+    getRecomendType0: state => state.recomend.type0,
+    getRecomendType1: state => state.recomend.type1,
+    getRecomendType2: state => state.recomend.type2
   }
 }

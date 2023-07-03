@@ -58,6 +58,7 @@
           </div>
           <div>
             <button class="btn_result btn-dark-grad" v-on:click="getResultPrint">Получить <br> результаты</button>
+            <button class="btn_result btn-dark-grad" v-on:click="getRecomend">Получить <br> рекомендации</button>
             <button class="btn_result btn-yes-no" v-on:click="continueWork">Продолжить обследование</button>
           </div>
         </div>
@@ -539,6 +540,23 @@ export default {
       this.step = 3
       this.items = [{}]
       this.array_list = []
+    },
+
+    getRecomend: function () {
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      if (this.getSpecialistNumber === 6) {
+        this.$store.dispatch('ui/setRecomendType0', { meta: { eventId }, data: 0 })
+        this.$store.dispatch('ui/setRecomendType1', { meta: { eventId }, data: 0 })
+        this.$store.dispatch('ui/setRecomendType2', { meta: { eventId }, data: 1 })
+      } else {
+        this.$store.dispatch('ui/setRecomendType0', { meta: { eventId }, data: 1 })
+        this.$store.dispatch('ui/setRecomendType1', { meta: { eventId }, data: 0 })
+        this.$store.dispatch('ui/setRecomendType2', { meta: { eventId }, data: 0 })
+      }
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'RECOMEND_VIEW'
+      })
     },
 
     // продолжить обследлование (вернуться на главную - результаты сохранить в БД)

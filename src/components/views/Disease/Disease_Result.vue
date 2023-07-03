@@ -22,7 +22,7 @@
         </div>
         <div>
           <button class="btn-yes-no" v-on:click="getResultPrint">Получить <br> результаты</button>
-          <button class="btn-dark-grad">Получить <br> рекомендации</button>
+          <button class="btn-dark-grad" v-on:click="getRecomend">Получить <br> рекомендации</button>
           <button class="btn-yes-no" v-on:click="continueWork">Продолжить <br> обследование</button>
         </div>
     </div>
@@ -143,6 +143,16 @@ export default {
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'PRINT_VIEW'
+      })
+    },
+    getRecomend: function () {
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('ui/setRecomendType0', { meta: { eventId }, data: 1 })
+      this.$store.dispatch('ui/setRecomendType1', { meta: { eventId }, data: 0 })
+      this.$store.dispatch('ui/setRecomendType2', { meta: { eventId }, data: 0 })
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'RECOMEND_VIEW'
       })
     }
   }

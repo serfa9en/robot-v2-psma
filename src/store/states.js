@@ -442,6 +442,14 @@ export default [
         options: 'disease_result'
       }]
   },
+  {
+    name: 'RECOMEND_VIEW',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'recomend_view'
+      }]
+  },
 
   {
     name: 'INITIAL',

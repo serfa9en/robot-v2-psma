@@ -229,7 +229,7 @@
           </div>
           <div>
             <button class="btn_result btn-yes-no" v-on:click="print">Получить<br> результаты</button>
-            <button class="btn_result btn-dark-grad">Получить <br> рекомендации</button>
+            <button class="btn_result btn-dark-grad" v-on:click="getRecomend">Получить <br> рекомендации</button>
             <button class="btn_result btn-yes-no" v-on:click="continueWork">Продолжить обследование</button>
           </div>
         </div>
@@ -447,6 +447,16 @@ export default {
         data: 'WIDTH_HEIGHT'
       })
     },
+    getRecomend: function () {
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('ui/setRecomendType0', { meta: { eventId }, data: 1 })
+      this.$store.dispatch('ui/setRecomendType1', { meta: { eventId }, data: 1 })
+      this.$store.dispatch('ui/setRecomendType2', { meta: { eventId }, data: 0 })
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'RECOMEND_VIEW'
+      })
+    },
 
     // продолжить обследлование (вернуться на главную - результаты сохранить в БД)
     continueWork: function () {
@@ -616,7 +626,7 @@ export default {
       width: 1100px;
       display: inline-block;
       margin: 20px;
-      border: 2px solid red;
+      // border: 2px solid red;
     }
     .rad-label {
         display: flex;

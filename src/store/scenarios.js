@@ -149,6 +149,21 @@ export default {
       name: 'ui/setStepExamination',
       options: null,
       timeout: 0
+    },
+    {
+      name: 'ui/setRecomendType0',
+      options: null,
+      timeout: 0
+    },
+    {
+      name: 'ui/setRecomendType1',
+      options: null,
+      timeout: 0
+    },
+    {
+      name: 'ui/setRecomendType2',
+      options: null,
+      timeout: 0
     }
   ],
   // пройти отдельное обследование
@@ -681,6 +696,18 @@ export default {
       options: {
         'engine/handlerClickMoveToState': 'EXIT'
       },
+      timeout: 0
+    }
+  ],
+  recomend_view: [
+    {
+      name: 'app/setStep',
+      options: 'recomend_view',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: false,
       timeout: 0
     }
   ],

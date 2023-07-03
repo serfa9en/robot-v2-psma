@@ -59,6 +59,7 @@ export default {
     },
     send: function () {
       console.log('send')
+
       /*
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('robot/sendMailSendMail', {
@@ -68,7 +69,7 @@ export default {
       */
     },
     print: function () {
-      console.log('print')
+      // console.log('print')
       // вызываем глобальную функцию формирования талона
       // printDf()
       // pp.printDf()
@@ -80,7 +81,7 @@ export default {
         meta: { eventId },
         data: true
       })
-      console.log('this.getFlagExit = ', this.getFlagExit)
+      // console.log('this.getFlagExit = ', this.getFlagExit)
       if (this.getFlagExit === true) {
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },

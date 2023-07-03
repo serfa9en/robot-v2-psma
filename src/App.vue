@@ -27,6 +27,7 @@
       <Depression/>
       <Prostatitis/>
       <DiseaseResult/>
+      <RecomendView/>
       <ExitView/>
     </Content>
     <Footer/>
@@ -63,6 +64,7 @@ import Reflux from '@/components/views/Disease/Reflux'
 import Depression from '@/components/views/Disease/Depression'
 import Prostatitis from '@/components/views/Disease/Prostatitis'
 import DiseaseResult from '@/components/views/Disease/Disease_Result'
+import RecomendView from '@/components/views/RecomendView'
 
 import ExitView from '@/components/views/Exit'
 
@@ -99,6 +101,7 @@ export default {
     Depression,
     Prostatitis,
     DiseaseResult,
+    RecomendView,
 
     ExitView
   },
