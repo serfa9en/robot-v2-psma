@@ -3,7 +3,7 @@
       <!--<h1 class="text">Рекомендации</h1>-->
       <div class="scroll">
       <div v-if="this.type0">
-          <div class="container container_title">
+          <div class="container container_title" v-on:click="getInfo" id="healthInfo">
             <div class="block_img">
               <img src="../../assets/img/recomend/0.png">
             </div>
@@ -15,7 +15,7 @@
             <div class="container">
               <div class="box">
                 <!--<img class="box_img" src="../../assets/img/recomend/0.png">-->
-                <p class="text">Придерживайтесь принципам здорового питания</p>
+                <p class="text">Придерживайтесь здорового питания</p>
               </div>
               <div class="box">
                 <!--<img class="box_img" src="../../assets/img/recomend/0.png">-->
@@ -33,11 +33,11 @@
               </div>
               <div class="box">
                 <!--<img class="box_img" src="../../assets/img/recomend/0.png">-->
-                <p class="text">Соблюдайте режим сна и отдыха</p>
+                <p class="text">Соблюдайте режим <br>сна и отдыха</p>
               </div>
               <div class="box">
                 <!--<img class="box_img" src="../../assets/img/recomend/0.png">-->
-                <p class="text">Откажитесь от курения и алкоголя</p>
+                <p class="text">Откажитесь от курения <br>и алкоголя</p>
               </div>
             </div>
           </div>
@@ -77,6 +77,41 @@
             </div>
           </div>
       </div>
+      <div v-if="this.type3">
+        <p class="text ophtalmologist">Придерживайтесь здорового образа жизни:</p>
+        <div class="container">
+            <div class="block_add-img_dop">
+              <img src="../../assets/img/recomend/0.png">
+            </div>
+            <div class="block_add-list">
+              <ul>
+                <li class="text li">
+                  Придерживаться принципам здорового питания
+                  <ul>
+                    <li class="text li_dop" v-for="item in health" :key="item.message">
+                      {{ item.message }}
+                    </li>
+                  </ul>
+                </li>
+                <li class="text li">
+                  Поддерживайте нормальную массу тела. Индекс массы тела  от 18.5 до 25
+                </li>
+                <li class="text li">
+                  Выполняйте регулярные физические упражнения. 30 минут ходьбы в день + не менее 75 минут физической активности высокой интенсивности (плавание, бег) в неделю
+                </li>
+                <li class="text li">
+                  Избегайте стрессовых ситуаций
+                </li>
+                <li class="text li">
+                  Сохраняйте оптимизм. Учитесь радоваться жизни. Соблюдайте режим сна и отдыха
+                </li>
+                <li class="text li">
+                  Отказаться от курения и приема алкоголя
+                </li>
+              </ul>
+            </div>
+          </div>
+      </div>
     </div>
       <button class="btn btn-dark-grad" v-on:click="backView">Назад</button>
     </div>
@@ -85,7 +120,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
-import { getListRecomendFeetCare, getListRecomendOphtalmologist } from '../../store/dataStorage/recomendations'
+import { getListRecomendFeetCare, getListRecomendOphtalmologist, getListRecomendHealth } from '../../store/dataStorage/recomendations'
 
 export default {
   name: 'recomend_view',
@@ -94,10 +129,17 @@ export default {
       type0: null,
       type1: null,
       type2: null,
+      type3: null,
+      type0_rem: null,
+      type1_rem: null,
+      type2_rem: null,
       items: [
         {}
       ],
       legs: [
+        {}
+      ],
+      health: [
         {}
       ],
       pre_state: null
@@ -153,19 +195,53 @@ export default {
         })
       }
     },
-    backView: function () {
-      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
-      if (this.pre_state === 'DISEASE_RESULT') {
-        this.$store.dispatch('engine/handlerClickMoveToState', {
-          meta: { eventId },
-          data: 'DISEASE_RESULT'
+    getInfo: function () {
+      this.type0_rem = this.type0
+      this.type0 = false
+      this.type1_rem = this.type1
+      this.type1 = false
+      this.type2_rem = this.type2
+      this.type2 = false
+      this.type3 = true
+      console.log('nfvgjgnvsk')
+      this.setHealth()
+    },
+    setHealth: function () {
+      this.health = [{}]
+      for (let i = 0; i < 3; i++) {
+        this.health.push({
+          message: getListRecomendHealth(i)
         })
+      }
+      console.log(this.health)
+    },
+    backView: function () {
+      if (this.type3 === true) {
+        this.type0 = this.type0_rem
+        this.type1 = this.type1_rem
+        this.type2 = this.type2_rem
+        this.type3 = false
       } else {
-        if (this.pre_state === 'SPECIALIST_QUEST') {
+        let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+        if (this.pre_state === 'DISEASE_RESULT') {
           this.$store.dispatch('engine/handlerClickMoveToState', {
             meta: { eventId },
-            data: 'SPECIALIST_QUEST'
+            data: 'DISEASE_RESULT'
           })
+        } else {
+          if (this.pre_state === 'SPECIALIST_QUEST') {
+            this.$store.dispatch('engine/handlerClickMoveToState', {
+              meta: { eventId },
+              data: 'SPECIALIST_QUEST'
+            })
+          } else {
+            if (this.pre_state === 'DIABETES') {
+              this.$store.dispatch('engine/handlerClickMoveToState', {
+                meta: { eventId },
+                data: 'DIABETES'
+              })
+            }
+          }
         }
       }
     }
@@ -198,9 +274,21 @@ export default {
         // margin-left: 60px;
         width: 100%;
         // padding: 10px 25px 10px 25px;
-        // background: #EAE8E8;
+        background: #EAE8E8;
         border-radius: 14px;
       }
+
+      /*
+      &_title:hover {
+        background: #F9F9F9;
+        cursor: pointer;
+      }
+      */
+    }
+
+    #healthInfo:hover {
+      background: #F9F9F9;
+        cursor: pointer;
     }
     .btn {
       width: 300px;
@@ -236,6 +324,7 @@ export default {
     // background: #EAE8E8;
     border-radius: 10px;
     margin: 5px 10px 0 10px;
+    padding: 15px;
 
     &_img {
       width: 60px;
@@ -293,6 +382,17 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        &_dop {
+          width: 200px;
+        height: 150px;
+        padding-left: 50px;
+        padding-top: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        }
       }
 
       &_add-list {
@@ -353,6 +453,12 @@ export default {
       font-size: 20px;
       // text-align: left;
       list-style: none;
+      }
+
+      &_dop {
+        margin: 15px;
+        font-size: 18px;
+        list-style:none;
       }
     }
 

@@ -65,12 +65,12 @@ export default {
       'getContextOncology',
       'getPathOncology'
     ]),
+    ...mapGetters('engine', [
+      'getPreStateName'
+    ]),
     showComponent () {
       if (this.getStep === 'oncology_quest') {
         // console.log(getPoints(0, 2))
-        this.step = 1
-        this.question_step = 0
-        this.count = 0
         this.title = this.getOncologyName
         this.context_title = this.getContextOncology
         this.img_main = this.getPathOncology
@@ -85,6 +85,11 @@ export default {
   },
   methods: {
     loggingCurrentStateName: function () {
+      if (this.getPreStateName === 'ONCOLOGY_MAIN') {
+        this.step = 1
+        this.question_step = 0
+        this.count = 0
+      }
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('engine/setPreStateName', {
         meta: { eventId },

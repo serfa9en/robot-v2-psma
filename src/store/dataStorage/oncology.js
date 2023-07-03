@@ -102,8 +102,8 @@ export function getLengthPoints (number) {
   switch (number) {
     case 0: return 6
     case 1: return 6
-    case 2: return 6
-    case 3: return 4
+    case 2: return 4
+    case 3: return 6
     case 4: return 6
     case 5: return 9
     case 6: return 8
@@ -114,6 +114,7 @@ export function getLengthPoints (number) {
   }
 }
 
+// рак молочной железы
 export function getMammaryCancer (index) {
   const question = [6]
   question[0] = 'Отмечаете ли вы изменение формы молочной железы или выделение из соска?'
@@ -125,6 +126,7 @@ export function getMammaryCancer (index) {
   return (question[index])
 }
 
+// рак желудка
 export function getStomachCancer (index) {
   const question = [6]
   question[0] = 'Страдаете ли вы язвенной болезнью желудка более 10 лет?'
@@ -136,18 +138,8 @@ export function getStomachCancer (index) {
   return (question[index])
 }
 
+// рак пищевода
 export function getEsophagealCarcinoma (index) {
-  const question = [6]
-  question[0] = 'Испытываете ли вы слабость, одышку, боли в грудной клетке?'
-  question[1] = 'Бывает ли у вас кровохарканье?'
-  question[2] = 'Отмечали ли вы у себя длительный кашель?'
-  question[3] = 'Если вы курите, замечали ли вы у себя изменения в кашле?'
-  question[4] = 'Вы работаете на вредном предприятии (контакт с асбестом, цементом и др.)?'
-  question[5] = 'Вы курите?'
-  return (question[index])
-}
-
-export function getBladderCancer (index) {
   const question = [4]
   question[0] = 'Отмечали ли вы нарушения проходимости пищи?'
   question[1] = 'Были ли у вас операции на пищевода?'
@@ -156,7 +148,8 @@ export function getBladderCancer (index) {
   return (question[index])
 }
 
-export function getLungCancer (index) {
+// рак мочевого пузыря
+export function getBladderCancer (index) {
   const question = [6]
   question[0] = 'Отмечали ли вы кровь в моче?'
   question[1] = 'Была ли ранее у вас острая задержка мочи?'
@@ -167,6 +160,19 @@ export function getLungCancer (index) {
   return (question[index])
 }
 
+// рак легкого
+export function getLungCancer (index) {
+  const question = [6]
+  question[0] = 'Испытываете ли вы слабость, одышку, боли в грудной клетке?'
+  question[1] = 'Бывает ли у вас кровохарканье?'
+  question[2] = 'Отмечали ли вы у себя длительный кашель?'
+  question[3] = 'Если вы курите, замечали ли вы у себя изменения в кашле?'
+  question[4] = 'Вы работаете на вредном предприятии (контакт с асбестом, цементом и др.)?'
+  question[5] = 'Вы курите?'
+  return (question[index])
+}
+
+// меланома
 export function getMelanoma (index) {
   const question = [9]
   question[0] = 'Отмечали ли появление зуда, покалывания в области родинки?'
@@ -181,6 +187,7 @@ export function getMelanoma (index) {
   return (question[index])
 }
 
+// рак кожи
 export function getSkinCancer (index) {
   const question = [8]
   question[0] = 'Отмечали ли появление зуда, покалывания в области родинки?'
@@ -194,6 +201,7 @@ export function getSkinCancer (index) {
   return (question[index])
 }
 
+// рак глотки
 export function getThroatCancer (index) {
   const question = [9]
   question[0] = 'Чувствуете ли вы онемение языка?'
@@ -208,6 +216,7 @@ export function getThroatCancer (index) {
   return (question[index])
 }
 
+// рак гортани
 export function getLaryngealCancer (index) {
   const question = [12]
   question[0] = 'Отмечаете ли вы осиплость голоса более 2 недель подряд?'
@@ -225,6 +234,7 @@ export function getLaryngealCancer (index) {
   return (question[index])
 }
 
+// рак щитовидной железы
 export function getThyroidCancer (index) {
   const question = [7]
   question[0] = 'Вы испытываете чувство давления в области шеи, охриплость, нарушение глотания?'
@@ -237,6 +247,7 @@ export function getThyroidCancer (index) {
   return (question[index])
 }
 
+// рак кишечника
 export function getBowelCancer (index) {
   const question = [4]
   question[0] = 'Вы отмечали кровь в кале?'
@@ -246,66 +257,77 @@ export function getBowelCancer (index) {
   return (question[index])
 }
 
+// рак молочной железы
 export function getMammaryCancerPoint (index) {
   let points = [6]
   points = [6, 3, 6, 3, 3, 3]
   return (points[index])
 }
 
+// рак желудка
 export function getStomachCancerPoint (index) {
   let points = [6]
   points = [2, 2, 3, 3, 3, 3]
   return (points[index])
 }
 
+// рак пищевода
 export function getEsophagealCarcinomaPoint (index) {
-  let points = [6]
-  points = [3, 10, 3, 5, 3, 5]
-  return (points[index])
-}
-
-export function getBladderCancerPoint (index) {
   let points = [4]
   points = [5, 5, 5, 3]
   return (points[index])
 }
 
-export function getLungCancerPoint (index) {
+// рак мочевого пузыря
+export function getBladderCancerPoint (index) {
   let points = [6]
   points = [5, 3, 2, 2, 2, 3]
   return (points[index])
 }
 
+// рак легкого
+export function getLungCancerPoint (index) {
+  let points = [6]
+  points = [3, 10, 3, 5, 3, 5]
+  return (points[index])
+}
+
+// меланома
 export function getMelanomaPoint (index) {
   let points = [9]
   points = [2, 5, 5, 2, 2, 2, 2, 2, 2]
   return (points[index])
 }
 
+// рак кожи
 export function getSkinCancerPoint (index) {
   let points = [8]
   points = [2, 5, 7, 7, 3, 4, 3, 3]
   return (points[index])
 }
 
+// рак глотки
 export function getThroatCancerPoint (index) {
   let points = [9]
   points = [7, 7, 7, 8, 9, 6, 6, 4, 3]
   return (points[index])
 }
 
+// рак гортани
 export function getLaryngealCancerPoint (index) {
   let points = [12]
   points = [4, 3, 3, 3, 4, 7, 7, 4, 7, 5, 5, 5]
   return (points[index])
 }
 
+// рак щитовидной железы
 export function getThyroidCancerPoint (index) {
   let points = [7]
   points = [3, 5, 5, 3, 3, 3, 3]
   return (points[index])
 }
 
+// рак кишечника
 export function getBowelCancerPoint (index) {
   let points = [4]
   points = [3, 3, 3, 2]
