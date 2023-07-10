@@ -35,7 +35,7 @@ export function setColorGlucometry (val) {
     // console.log('colorNorm + dataNorm')
   }
   if (val < 6.8 && val >= 3.3) {
-    console.log('colorGood + dataGood')
+    // console.log('colorGood + dataGood')
     // colorBut = colorGood
   }
   if (val < 11 && val >= 6.8) {
@@ -420,7 +420,13 @@ export function setNormImt (val) {
   if (val > 25 && val <= 30) {
     return 'У Вас имеется избыточная масса тела'
   }
-  if (val > 30) {
-    return 'У Вас имеется ожирение'
+  if (val < 34.9) {
+    return 'У Вас имеется ожирение первой степени'
+  }
+  if (val < 39.9) {
+    return 'У Вас имеется ожирение второй степени'
+  }
+  if (val >= 40) {
+    return 'У Вас имеется ожирение третьей степени'
   }
 }

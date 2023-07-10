@@ -167,11 +167,11 @@ export default {
         // this.flagFullExam = this.getFlagFullExamination
         // flagCons = true (если мы попали в комплексное обследование)
         // flagCons = false (если это отдельное измерение)
-        console.log('getFlagConsultation = ', this.getFlagConsultation)
-        console.log('getFlagFullExamination = ', this.flagFullExam)
-        console.log('this.getMeasurementNum = ', this.getMeasurementNum)
+        // console.log('getFlagConsultation = ', this.getFlagConsultation)
+        // console.log('getFlagFullExamination = ', this.flagFullExam)
+        // console.log('this.getMeasurementNum = ', this.getMeasurementNum)
         this.loggingCurrentStateName()
-        console.log('getCurMeasurementNumber = ', this.getCurMeasurementNumber)
+        // console.log('getCurMeasurementNumber = ', this.getCurMeasurementNumber)
         if (this.getCurMeasurementNumber === 2) {
           // console.log('nvjks = ', this.getReaultGlucometry)
           this.result = this.getMeasurementGlucometry
@@ -192,7 +192,7 @@ export default {
           this.typeScreen = 2
         }
         if (this.getCurMeasurementNumber === 4) {
-          console.log(this.getReaultSaturatsiya)
+          // console.log(this.getReaultSaturatsiya)
           this.result = this.getMeasurementSaturatsiya
           this.text_res = '%'
           this.imgPath = this.getReaultSaturatsiya
@@ -207,7 +207,7 @@ export default {
           this.imgPathPulse = this.getReaultPulse
           this.comment = this.getInfo
           this.comment_add = this.getInfoAdd
-          console.log(this.imgPathPr)
+          // console.log(this.imgPathPr)
           this.typeScreen = 1
         }
         if (this.getCurMeasurementNumber === 61) {
@@ -226,7 +226,7 @@ export default {
       else return false
     },
     itemImageResult () {
-      console.log(this.imgPath)
+      // console.log(this.imgPath)
       return require(`../../../assets/img/measurement/result/${this.imgPath}`)
     },
     itemImagePr () {

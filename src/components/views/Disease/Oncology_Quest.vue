@@ -124,7 +124,7 @@ export default {
           temp = 0
         }
         this.count = this.count + temp
-        console.log(this.count)
+        // console.log(this.count)
         this.result = getResultOncology(this.count)
         let image = getImgOncology(this.count)
         let text = getTextOncology(this.count)

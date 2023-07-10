@@ -57,7 +57,7 @@
             </p>
           </div>
           <div>
-            <button class="btn_result btn-dark-grad" v-on:click="getResultPrint">Получить <br> результаты</button>
+            <!--<button class="btn_result btn-dark-grad" v-on:click="getResultPrint">Получить <br> результаты</button>-->
             <button class="btn_result btn-dark-grad" v-on:click="getRecomend">Получить <br> рекомендации</button>
             <button class="btn_result btn-yes-no" v-on:click="continueWork">Продолжить обследование</button>
           </div>
@@ -175,7 +175,8 @@ export default {
       'getSpecialistName',
       'getSpecialistDescription',
       'getSpecialistPath',
-      'getSpecialistTextResult'
+      'getSpecialistTextResult',
+      'getRecomendType'
     ]),
     ...mapGetters('engine', [
       'getPreStateName'
@@ -271,7 +272,7 @@ export default {
     },
     measureProcess: function () {
       // проверяем есть ли измерения
-      console.log(this.quest_array)
+      // console.log(this.quest_array)
     },
     checkQuestion: function (str) {
       if (str[0] === '|') {
@@ -474,7 +475,7 @@ export default {
         }
         // console.log('mass_quest = ', this.mass_quest)
         this.title_result = 'Спасибо за прохождение консультации ' + this.getSpecialistDescription + '!'
-        if (this.getMeasurementImt > 25) {
+        if (this.getMeasurementImt > 25 && this.isMeasuremRes === true) {
           this.answer_yes++
           this.quest_array[4] = true
           this.is_imt = true
@@ -485,7 +486,7 @@ export default {
           this.imt_imt = this.getMeasurementImt
           this.gluco = this.getMeasurementGlucometry
         }
-        if (this.getMeasurementGlucometry >= 6.8) {
+        if (this.getMeasurementGlucometry >= 6.8 && this.isMeasuremRes === true) {
           this.answer_yes++
           this.quest_array[6] = true
           this.is_gluco = true
@@ -493,14 +494,14 @@ export default {
         // console.log('getMeasurementImt = ', this.getMeasurementImt)
         if (this.answer_yes > 0) {
           // все плохо
-          console.log('ПЛОХО')
+          // console.log('ПЛОХО')
           this.img_result = 'Result_bad.png'
           this.text_result = 'Вы ответили положительно на ряд вопросов'
           this.isBad = true
           this.comment_result = 'Эти симптомы могут привести к необратимым последствиям\n Обратитесь к специалисту'
         } else {
           // все хорошо
-          console.log('ХОРОШО')
+          // console.log('ХОРОШО')
           this.img_result = 'Result_good.png'
           this.text_result = 'У вас отсутствуют характерные симптомы для срочного обращения к ' + this.getSpecialistTextResult
           this.comment_result = 'Регулярная диспансеризация позволит вам вовремя выявить изменения вашего здоровья!'
@@ -545,14 +546,16 @@ export default {
     getRecomend: function () {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       if (this.getSpecialistNumber === 6) {
-        this.$store.dispatch('ui/setRecomendType0', { meta: { eventId }, data: 0 })
-        this.$store.dispatch('ui/setRecomendType1', { meta: { eventId }, data: 0 })
-        this.$store.dispatch('ui/setRecomendType2', { meta: { eventId }, data: 1 })
+        this.$store.dispatch('ui/setRecomendType', {
+          meta: { eventId },
+          data: 2
+        })
+        // this.$store.dispatch('ui/setRecomendType', { meta: { eventId }, data: 2 })
       } else {
-        this.$store.dispatch('ui/setRecomendType0', { meta: { eventId }, data: 1 })
-        this.$store.dispatch('ui/setRecomendType1', { meta: { eventId }, data: 0 })
-        this.$store.dispatch('ui/setRecomendType2', { meta: { eventId }, data: 0 })
+        this.$store.dispatch('ui/setRecomendType', { meta: { eventId }, data: 0 })
       }
+      this.$store.dispatch('ui/setRecomendDiabetes', { meta: { eventId }, data: null })
+      // console.log(this.getRecomendType)
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'RECOMEND_VIEW'

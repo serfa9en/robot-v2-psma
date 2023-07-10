@@ -60,9 +60,8 @@ export default {
     },
     flagExit: null,
     recomend: {
-      type0: null,
-      type1: null,
-      type2: null
+      type: null,
+      diabetes: null
     }
   },
   actions: {
@@ -110,9 +109,10 @@ export default {
     setStepExamination: ({ commit }, payload) => commit('SET_STEP_EXAMINATION', payload),
     setFlagExit: ({ commit }, payload) => commit('SET_FLAG_EXIT', payload),
     setFlagDiseaseDiabetes: ({ commit }, payload) => commit('SET_FLAG_DISEASE_DIABETES', payload),
-    setRecomendType0: ({ commit }, payload) => commit('SET_RECOMEND_TYPE0', payload),
-    setRecomendType1: ({ commit }, payload) => commit('SET_RECOMEND_TYPE1', payload),
-    setRecomendType2: ({ commit }, payload) => commit('SET_RECOMEND_TYPE2', payload)
+    setRecomendType: ({ commit }, payload) => commit('SET_RECOMEND_TYPE', payload),
+    setRecomendDiabetes: ({ commit }, payload) => commit('SET_RECOMEND_DIABETES', payload)
+    // setRecomendType2: ({ commit }, payload) => commit('SET_RECOMEND_TYPE2', payload),
+    // setRecomendType4: ({ commit }, payload) => commit('SET_RECOMEND_TYPE4', payload)
   },
   mutations: {
     ...mutationsUserMeasurement,
@@ -160,9 +160,10 @@ export default {
     SET_FLAG_EXIT: (state, payload) => { state.flagExit = payload.data },
     SET_FLAG_DISEASE_DIABETES: (state, payload) => { state.user.flagDisease.diabetes = payload.data },
 
-    SET_RECOMEND_TYPE0: (state, payload) => { state.recomend.type0 = payload.data },
-    SET_RECOMEND_TYPE1: (state, payload) => { state.recomend.type1 = payload.data },
-    SET_RECOMEND_TYPE2: (state, payload) => { state.recomend.type2 = payload.data }
+    SET_RECOMEND_TYPE: (state, payload) => { state.recomend.type = payload.data },
+    SET_RECOMEND_DIABETES: (state, payload) => { state.recomend.diabetes = payload.data }
+    // SET_RECOMEND_TYPE2: (state, payload) => { state.recomend.type2 = payload.data },
+    // SET_RECOMEND_TYPE4: (state, payload) => { state.recomend.type4 = payload.data }
   },
   getters: {
     ...gettersUserMeasurement,
@@ -209,8 +210,9 @@ export default {
     getFlagExit: state => state.flagExit,
     getFlagDiseaseDiabetes: state => state.user.flagDisease.diabetes,
 
-    getRecomendType0: state => state.recomend.type0,
-    getRecomendType1: state => state.recomend.type1,
-    getRecomendType2: state => state.recomend.type2
+    getRecomendType: state => state.recomend.type,
+    getRecomendDiabetes: state => state.recomend.diabetes
+    // getRecomendType2: state => state.recomend.type2,
+    // getRecomendType4: state => state.recomend.type4
   }
 }

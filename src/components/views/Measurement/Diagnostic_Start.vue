@@ -123,7 +123,7 @@
 
           <button disabled
             v-if="tile.type === EXAMINATION_TYPE.SPIROG"
-            class="btn-dark-main">
+            class="spirog">
 
             <div class="block">
               <div class="line icon-box">
@@ -368,6 +368,11 @@ export default {
           flex-flow: wrap row;
           justify-content: center;
           align-content: center;
+  }
+  .spirog {
+    background: #fff;
+    border: none;
+    color: #fff;
   }
   .text {
           font-weight: 700;

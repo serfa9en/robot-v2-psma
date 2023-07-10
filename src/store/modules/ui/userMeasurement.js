@@ -49,6 +49,7 @@ export const stateUserMeasurement = {
 
     disease_count: {
       diabetes: null,
+      diabetes_true: null,
       reflux: null,
       depression: null,
       prostatitis: null,
@@ -214,6 +215,7 @@ export const actionsUserMeasurement = {
   setOncologyNumber: ({ commit }, payload) => commit('SET_ONCOLOGY_NUMBER', payload),
 
   setResultDiseaseCountDiabetes: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_DIABETES', payload),
+  setResultDiseaseCountDiabetesTrue: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_DIABETES_TRUE', payload),
   setResultDiseaseCountReflux: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_REFLUX', payload),
   setResultDiseaseCountDepression: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_DEPRESSION', payload),
   setResultDiseaseCountProstatitis: ({ commit }, payload) => commit('SET_RESULT_DISEASE_COUNT_PROSTATITIS', payload),
@@ -314,6 +316,7 @@ export const mutationsUserMeasurement = {
   },
 
   SET_RESULT_DISEASE_COUNT_DIABETES: (state, payload) => { state.result.disease_count.diabetes = payload.data },
+  SET_RESULT_DISEASE_COUNT_DIABETES_TRUE: (state, payload) => { state.result.disease_count.diabetes_true = payload.data },
   SET_RESULT_DISEASE_COUNT_REFLUX: (state, payload) => { state.result.disease_count.reflux = payload.data },
   SET_RESULT_DISEASE_COUNT_DEPRESSION: (state, payload) => { state.result.disease_count.depression = payload.data },
   SET_RESULT_DISEASE_COUNT_PROSTATITIS: (state, payload) => { state.result.disease_count.prostatitis = payload.data },
@@ -410,6 +413,7 @@ export const gettersUserMeasurement = {
   getPathOncology: state => state.current_oncology.path_img,
 
   getResultDiseaseCountDiabetes: state => state.result.disease_count.diabetes,
+  getResultDiseaseCountDiabetesTrue: state => state.result.disease_count.diabetes_true,
   getResultDiseaseCountReflux: state => state.result.disease_count.reflux,
   getResultDiseaseCountDepression: state => state.result.disease_count.depression,
   getResultDiseaseCountProstatitis: state => state.result.disease_count.prostatitis,

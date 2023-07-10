@@ -381,7 +381,7 @@ export default function (logger) {
              */
             // console.log('Переход к замеру темп')
             if (payload.data === EXAMINATION_TYPE.THERMO && store.getters['ui/getMeasurementStep'] === 1) { // Переход к замеру температуры
-              console.log('Переход к замеру темп')
+              // console.log('Переход к замеру темп')
               new Promise((resolve, reject) => {
                 actions = []
                 isEquipment = setTimeout(() => { reject() }, 10000)
@@ -726,7 +726,7 @@ export default function (logger) {
                       data: { 'step': phrase, 'terminate': true }
                     })
                   }, 500)
-                  console.log(pm)
+                  // console.log(pm)
                 }
                 if (s < 90) {
                   f++
@@ -1061,7 +1061,7 @@ export default function (logger) {
 
           // Замер температуры
           if (measurementProcess['med_6_3'] !== null && ['MEASUREMENT_6_3', 'MEASUREMENT_6_3_ERROR'].includes(payload.data) === false) {
-            console.log('med_6_3')
+            // console.log('med_6_3')
             clearInterval(measurementProcess['med_6_3'])
             measurementProcess['med_6_3'] = null
           }
@@ -1081,7 +1081,7 @@ export default function (logger) {
             }
             measurementProcess['med_6_3'] = setInterval(() => {
               let pd = store.getters['ui/getMeasuredDataFromTopic']
-              console.log(pd)
+              // console.log(pd)
               if (typeof pd !== 'undefined' && pd !== null && pd.type === 6) {
                 // пользователь в измерительном интервале, но слишком близко к роботу - ближе 3,6 см
                 if (allowableDistanceAttempt % 36 === 0 && allowableDistanceAttempt > 0) {
@@ -1234,7 +1234,7 @@ export default function (logger) {
                     // console.warn('tempResultRes', tempResultRes)
                     // console.warn('tempResult', tempResult)
                     let tt = Number(((pd.message.temperature + offSet + (((pd.message.distance - 50) / 10 * distCorrect))) / 1000).toFixed(1))
-                    console.log('tt = ', tt)
+                    // console.log('tt = ', tt)
                     /**
                      * ЭМУЛЯТОР: хардкод результатов измерения
                      */

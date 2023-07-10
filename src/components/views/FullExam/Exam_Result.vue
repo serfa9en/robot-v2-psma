@@ -182,7 +182,7 @@ export default {
       // 2 - сатурация
       // 3 - глюкоза
       // 4 - имт
-      console.log('val = ', val)
+      // console.log('val = ', val)
       let logger = PromobotLogger.getInstance()
       let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       let actions = []

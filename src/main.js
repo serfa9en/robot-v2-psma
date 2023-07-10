@@ -33,7 +33,7 @@ const settings = Object.assign(defaultSettings, (typeof global.settings !== 'und
 const environment = (typeof QWebChannel !== 'undefined') ? 'production' : 'development'
 const urlParams = new URLSearchParams(window.location.search)
 settings.emulator.room = urlParams.get('room')
-console.log(urlParams.get('room'))
+// console.log(urlParams.get('room'))
 const robotInstance = (environment === 'development')
   ? Promobot.getEmulateInstance(settings.emulator)
   : Promobot.getInstance()
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     let eventId = null
 
     api.environmentService.get().then(env => {
-      console.log(env)
+      // console.log(env)
       store = new Vuex.Store(storeSettings(logger, api))
       // logger
       logger.setRobotUuid(env.uuid_owner) // id робота

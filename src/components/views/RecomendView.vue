@@ -1,15 +1,17 @@
 <template>
     <div  v-show="showComponent" class="settings">
       <!--<h1 class="text">Рекомендации</h1>-->
+    <div v-if="type === 0 || this.type === 2 || this.type === 3">
       <div class="scroll">
-      <div v-if="this.type0">
-          <div class="container container_title" v-on:click="getInfo" id="healthInfo">
+        <div v-if="this.type === 0">
+          <div class="container container_title">
             <div class="block_img">
               <img src="../../assets/img/recomend/0.png">
             </div>
             <div class="block_text">
               <p class="text title">Придерживайтесь здорового образа жизни </p>
             </div>
+            <button class="btn-next btn-yes-no" v-on:click="getInfo">Подробнее</button>
           </div>
           <div>
             <div class="container">
@@ -41,8 +43,8 @@
               </div>
             </div>
           </div>
-      </div>
-      <div v-if="this.type1">
+        </div>
+      <div v-if="this.diabet === 1">
         <hr>
         <div class="container container_title">
             <div class="block_img">
@@ -62,7 +64,7 @@
           </div>
         </div>
       </div>
-      <div v-if="this.type2">
+      <div v-if="this.type === 2">
         <p class="text ophtalmologist">Соблюдать гигиену зрения:</p>
         <div class="container">
             <div class="block_add-img">
@@ -77,13 +79,38 @@
             </div>
           </div>
       </div>
-      <div v-if="this.type3">
-        <p class="text ophtalmologist">Придерживайтесь здорового образа жизни:</p>
+      <div v-if="this.type === 3">
+        <p class="text ophtalmologist">Рекомендации:</p>
         <div class="container">
-            <div class="block_add-img_dop">
+            <div class="block_add-img_dop_depr">
               <img src="../../assets/img/recomend/0.png">
             </div>
             <div class="block_add-list">
+              <ul>
+                    <li class="text li" v-for="item in depression" :key="item.message">
+                      {{ item.message }}
+                    </li>
+                  </ul>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-dark-grad" v-on:click="print">Печать</button>
+      <button class="btn btn-yes-no" v-on:click="backView">Назад</button>
+    </div>
+    </div>
+  <!--КНОПКА ПОДРОБНЕЕ-->
+  <div v-if="this.type === 4">
+      <div class="scroll">
+        <div class="container">
+        <div class="block_add-img_dop">
+              <img src="../../assets/img/recomend/0.png">
+            </div>
+        <p class="text dop">Придерживайтесь здорового образа жизни:</p>
+        </div>
+        <div class="container">
+            <div class="block_add-list_dop">
               <ul>
                 <li class="text li">
                   Придерживаться принципам здорового питания
@@ -108,31 +135,30 @@
                 <li class="text li">
                   Отказаться от курения и приема алкоголя
                 </li>
+                <li v-if="this.reflux === true" class="text li">
+                  Необходимо придерживаться дробного питания малыми порциями 5-6 раз в сутки
+                </li>
               </ul>
             </div>
           </div>
       </div>
+    <button class="btn btn-yes-no" v-on:click="backDis">Назад</button>
     </div>
-      <button class="btn btn-dark-grad" v-on:click="backView">Назад</button>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
-import { getListRecomendFeetCare, getListRecomendOphtalmologist, getListRecomendHealth } from '../../store/dataStorage/recomendations'
+import { getListRecomendFeetCare, getListRecomendOphtalmologist, getListRecomendHealth, getDepression } from '../../store/dataStorage/recomendations'
 
 export default {
   name: 'recomend_view',
   data () {
     return {
-      type0: null,
-      type1: null,
-      type2: null,
-      type3: null,
-      type0_rem: null,
-      type1_rem: null,
-      type2_rem: null,
+      type: null,
+      diabet: null,
+      reflux: null,
       items: [
         {}
       ],
@@ -140,6 +166,9 @@ export default {
         {}
       ],
       health: [
+        {}
+      ],
+      depression: [
         {}
       ],
       pre_state: null
@@ -150,21 +179,19 @@ export default {
       'getStep'
     ]),
     ...mapGetters('ui', [
-      'getRecomendType0',
-      'getRecomendType1',
-      'getRecomendType2'
+      'getRecomendType',
+      'getRecomendDiabetes',
+      'getCurrentDiseaseNumber'
     ]),
     ...mapGetters('engine', [
       'getPreStateName'
     ]),
     showComponent () {
       if (this.getStep === 'recomend_view') {
-        this.type0 = this.getRecomendType0
-        this.type1 = this.getRecomendType1
-        this.type2 = this.getRecomendType2
-        this.pre_state = this.getPreStateName
+        this.reflux = false
         this.setItems()
         this.setLegs()
+        this.setDepressionItems()
         this.loggingCurrentStateName()
       }
       return this.getStep === 'recomend_view'
@@ -172,7 +199,23 @@ export default {
   },
   methods: {
     loggingCurrentStateName: function () {
-      console.log(this.getPreStateName)
+      if (this.getCurrentDiseaseNumber === 1) {
+        this.reflux = true
+      }
+      if (this.getPreStateName === 'DISEASE_RESULT') {
+        this.pre_state = 'DISEASE_RESULT'
+      } else {
+        if (this.getPreStateName === 'SPECIALIST_QUEST') {
+          this.pre_state = 'SPECIALIST_QUEST'
+        } else {
+          if (this.getPreStateName === 'DIABETES') {
+            this.pre_state = 'DIABETES'
+          }
+        }
+      }
+      this.type = this.getRecomendType
+      this.diabet = this.getRecomendDiabetes
+      // console.log(this.getPreStateName)
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('engine/setPreStateName', {
         meta: { eventId },
@@ -195,15 +238,19 @@ export default {
         })
       }
     },
+    setDepressionItems: function () {
+      this.depression = [{}]
+      for (let i = 0; i < 5; i++) {
+        this.depression.push({
+          message: getDepression(i)
+        })
+      }
+    },
     getInfo: function () {
-      this.type0_rem = this.type0
-      this.type0 = false
-      this.type1_rem = this.type1
-      this.type1 = false
-      this.type2_rem = this.type2
-      this.type2 = false
-      this.type3 = true
-      console.log('nfvgjgnvsk')
+      this.type = 4
+      this.diabet = 0
+      // console.log('nfvgjgnvsk')
+      // console.log(this.type)
       this.setHealth()
     },
     setHealth: function () {
@@ -213,37 +260,29 @@ export default {
           message: getListRecomendHealth(i)
         })
       }
-      console.log(this.health)
+      // console.log(this.health)
     },
     backView: function () {
-      if (this.type3 === true) {
-        this.type0 = this.type0_rem
-        this.type1 = this.type1_rem
-        this.type2 = this.type2_rem
-        this.type3 = false
-      } else {
-        let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
-        if (this.pre_state === 'DISEASE_RESULT') {
-          this.$store.dispatch('engine/handlerClickMoveToState', {
-            meta: { eventId },
-            data: 'DISEASE_RESULT'
-          })
-        } else {
-          if (this.pre_state === 'SPECIALIST_QUEST') {
-            this.$store.dispatch('engine/handlerClickMoveToState', {
-              meta: { eventId },
-              data: 'SPECIALIST_QUEST'
-            })
-          } else {
-            if (this.pre_state === 'DIABETES') {
-              this.$store.dispatch('engine/handlerClickMoveToState', {
-                meta: { eventId },
-                data: 'DIABETES'
-              })
-            }
-          }
-        }
-      }
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: this.pre_state
+      })
+    },
+    backDis: function () {
+      this.type = this.getRecomendType
+      this.diabet = this.getRecomendDiabetes
+    },
+    print: function () {
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('app/set_create_talon', {
+        meta: { eventId },
+        data: true
+      })
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'MAIN_VIEW'
+      })
     }
   }
 }
@@ -262,7 +301,7 @@ export default {
   text-align: center;
 
   .container {
-      width: 900px;
+      width: 1000px;
       height: auto;
       display: flex;
       text-align: center;
@@ -291,11 +330,19 @@ export default {
         cursor: pointer;
     }
     .btn {
-      width: 300px;
+      width: 250px;
       height: 70px;
+      margin: 22px;
       font-size: 26px;
       font-weight: 700;
-      margin-top: 0px;
+    }
+    .btn-next {
+      width: 170px;
+      height: 50px;
+      margin: auto;
+      margin-right: 15px;
+      font-size: 22px;
+      font-weight: 300;
     }
   }
 
@@ -315,7 +362,7 @@ export default {
 
   .box {
     width: 300px;
-    height: 160px;
+    height: 140px;
     font-size: 20px;
     display: flex;
     flex-direction: column;
@@ -341,7 +388,7 @@ export default {
   scrollbar-width: thin;          /* "auto" или "thin" */
   overflow: scroll; /* Добавляем полосы прокрутки */
   padding: 0 30px 0px 30px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-top: -40px;
   // border: 2px solid #B1A7A6;
   border-radius: 10px;
@@ -367,6 +414,13 @@ export default {
     text-align: left;
   }
 
+  .dop {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: left;
+    margin-top: 50px;
+  }
+
   .block {
       width: 100%;
       height: auto;
@@ -384,14 +438,21 @@ export default {
         align-items: center;
 
         &_dop {
-          width: 200px;
-        height: 150px;
-        padding-left: 50px;
-        padding-top: 80px;
+          width: 120px;
+        height: auto;
+        padding-right: 50px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        &_depr {
+          width: 230px;
+        height: 200px;
+        padding-right: 50px;
+        padding-top: 50px;
+        display: flex;
+        }
         }
       }
 
@@ -399,6 +460,12 @@ export default {
         width: 100%;
         text-align: left;
         margin-left: 50px;
+
+        &_dop {
+          width: 100%;
+        text-align: left;
+        margin: 0;
+        }
       }
 
       &_legs {

@@ -32,16 +32,16 @@ export default {
     next: function () {
       console.warn('AGE!')
       let age = document.getElementById('userAge').value
-      console.log(age)
+      // console.log(age)
 
       // проверка, что поле не пустое
       if (age === '') {
-        console.log('ПУСТО')
+        // console.log('ПУСТО')
       } else {
         // проверка, что целое число
         age = Number(age)
         if (Number.isInteger(age)) {
-          console.log('INTEGER')
+          // console.log('INTEGER')
           let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
           // запоминаем возраст
           this.$store.dispatch('ui/setUserAge', {

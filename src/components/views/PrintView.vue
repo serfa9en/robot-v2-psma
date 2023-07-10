@@ -7,7 +7,7 @@
             </div>
             <div class="button_block">
                 <button class="btn btn-dark-grad" v-on:click="print">Печать</button>
-                <button class="btn btn-dark-grad" v-on:click="send" disabled>Отправить на почту</button>
+                <!--<button class="btn btn-dark-grad" v-on:click="send" disabled>Отправить на почту</button>-->
                 <button class="btn btn-yes-no" v-on:click="exit">Выход</button>
             </div>
         </div>
@@ -58,7 +58,7 @@ export default {
       })
     },
     send: function () {
-      console.log('send')
+      // console.log('send')
 
       /*
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)

@@ -116,8 +116,8 @@ export default {
     },
     showComponent () {
       if (this.$store.getters['app/getStep'] === 'measurement') {
-        console.log('HELP HELP HELP')
-        console.log(this.getMeasurementNum)
+        // console.log('HELP HELP HELP')
+        // console.log(this.getMeasurementNum)
         this.btnAction = []
         // САТУРАЦИЯ
         if (this.getMeasurementNum === 4) {

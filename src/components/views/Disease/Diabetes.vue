@@ -123,14 +123,14 @@
       <transition name="fade">
         <div v-if="step === 8" class="content">
             <div class="question text">
-                <p class="quest_set">Как часто Вы едите овощи, фрукты или ягоды?</p>
+                <p class="quest_set">Вы едите овощи, фрукты или ягоды <b>каждый день</b>?</p>
             </div>
             <div class="img-box">
                 <img class="img-quest" src="../../../assets/img/disease/Diabetes/main.png">
             </div>
             <div class="yes-no">
-                <button class="btn btn-yes-no" v-on:click="next(0)">Каждый день</button>
-                <button class="btn btn-yes-no" v-on:click="next(1)">Не каждый день</button>
+                <button class="btn btn-yes-no" v-on:click="next(0)">Да</button>
+                <button class="btn btn-yes-no" v-on:click="next(1)">Нет</button>
             </div>
         </div>
       </transition>
@@ -228,7 +228,7 @@
               </ul>
           </div>
           <div>
-            <button class="btn_result btn-yes-no" v-on:click="print">Получить<br> результаты</button>
+            <!--<button class="btn_result btn-yes-no" v-on:click="print">Получить<br> результаты</button>-->
             <button class="btn_result btn-dark-grad" v-on:click="getRecomend">Получить <br> рекомендации</button>
             <button class="btn_result btn-yes-no" v-on:click="continueWork">Продолжить обследование</button>
           </div>
@@ -281,15 +281,15 @@ export default {
   methods: {
     calculateIMT: function () {
       if (this.getMeasurementImt < 25) {
-        console.log('менее 25')
+        // console.log('менее 25')
         this.count = this.count + 0
       } else {
         if (this.getMeasurementImt < 30) {
-          console.log('25 - 30')
+          // console.log('25 - 30')
           this.count = this.count + 1
         } else {
           if (this.getMeasurementImt >= 30) {
-            console.log('более 30')
+            // console.log('более 30')
             this.count = this.count + 3
           }
         }
@@ -314,10 +314,23 @@ export default {
       this.step = 2
     },
     quest_0: function (val) {
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       if (val === 0) {
         this.step++
+        this.$store.dispatch('ui/setResultDiseaseCountDiabetesTrue', {
+          meta: { eventId },
+          data: null
+        })
       } else {
         this.step = 14
+        this.$store.dispatch('ui/setResultDiseaseCountDiabetesTrue', {
+          meta: { eventId },
+          data: true
+        })
+        this.$store.dispatch('ui/setResultDiseaseCountDiabetes', {
+          meta: { eventId },
+          data: null
+        })
       }
     },
     quest_1: function (val) {
@@ -374,7 +387,7 @@ export default {
       this.count = this.count + val
       this.step++
       if (this.step === 12) {
-        console.log('getUserAge = ', this.getUserAge)
+        // console.log('getUserAge = ', this.getUserAge)
         if (this.getUserAge < 45) {
           this.count = this.count + 0
         } else {
@@ -449,9 +462,8 @@ export default {
     },
     getRecomend: function () {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
-      this.$store.dispatch('ui/setRecomendType0', { meta: { eventId }, data: 1 })
-      this.$store.dispatch('ui/setRecomendType1', { meta: { eventId }, data: 1 })
-      this.$store.dispatch('ui/setRecomendType2', { meta: { eventId }, data: 0 })
+      this.$store.dispatch('ui/setRecomendType', { meta: { eventId }, data: 0 })
+      this.$store.dispatch('ui/setRecomendDiabetes', { meta: { eventId }, data: 1 })
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'RECOMEND_VIEW'

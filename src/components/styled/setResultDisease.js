@@ -34,13 +34,13 @@ export function getDiabetesResultD (val) {
   if (val < 7) {
     proc = 'Около 1%'
   }
-  if (val >= 7 && val < 11) {
+  if (val >= 7 && val <= 11) {
     proc = 'Около 4%'
   }
-  if (val >= 11 && val < 14) {
+  if (val >= 12 && val <= 14) {
     proc = 'Около 17%'
   }
-  if (val >= 14 && val <= 20) {
+  if (val >= 15 && val <= 20) {
     proc = 'Около 33%'
   }
   if (val > 20) {

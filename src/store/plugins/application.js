@@ -350,7 +350,7 @@ export function applicationPlugin (logger) {
                   meta: payload.meta,
                   data: setColorTemperature(tt)
                 })
-                console.log('color = ', store.getters['ui/getButtonTemperatureColor'])
+                // console.log('color = ', store.getters['ui/getButtonTemperatureColor'])
                 currentLocalStorageData[EXAMINATION_TYPE.THERMO] = [preparedLocalStorageData]
                 localStorage.setItem('med_' + String(getter['faces/getUserGeneral'].id), JSON.stringify(currentLocalStorageData))
               }

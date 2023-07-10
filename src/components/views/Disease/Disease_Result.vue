@@ -17,11 +17,12 @@
                 </div>
             </div>
         </div>
-        <div class="text colorBox">
+        <div
+        class="text colorBox"
+        :style="[{ 'border': '3px solid' + `${ getCurrentDiseaseColor }` }]">
           {{ this.text }}
         </div>
         <div>
-          <button class="btn-yes-no" v-on:click="getResultPrint">Получить <br> результаты</button>
           <button class="btn-dark-grad" v-on:click="getRecomend">Получить <br> рекомендации</button>
           <button class="btn-yes-no" v-on:click="continueWork">Продолжить <br> обследование</button>
         </div>
@@ -147,9 +148,12 @@ export default {
     },
     getRecomend: function () {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
-      this.$store.dispatch('ui/setRecomendType0', { meta: { eventId }, data: 1 })
-      this.$store.dispatch('ui/setRecomendType1', { meta: { eventId }, data: 0 })
-      this.$store.dispatch('ui/setRecomendType2', { meta: { eventId }, data: 0 })
+      if (this.getCurrentDiseaseNumber === 2) {
+        this.$store.dispatch('ui/setRecomendType', { meta: { eventId }, data: 3 })
+      } else {
+        this.$store.dispatch('ui/setRecomendType', { meta: { eventId }, data: 0 })
+      }
+      this.$store.dispatch('ui/setRecomendDiabetes', { meta: { eventId }, data: null })
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'RECOMEND_VIEW'
@@ -185,7 +189,7 @@ export default {
   }
 
   .text {
-    margin: 25px;
+    // margin: 25px;
 
     &_result {
       font-size: 60px;
@@ -193,7 +197,7 @@ export default {
     }
 
     &_comment {
-      // margin-top: 50px;
+      // margin-top: -50px;
       font-weight: 700;
       // display: flex;
     }

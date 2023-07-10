@@ -637,7 +637,7 @@ export function robotPlugin (logger, robot) {
               data: true
             })
           }).catch(reason => {
-            console.log(reason)
+            // console.log(reason)
             let childEventId = logger.logEvent(EventInitiatorTypes.ROBOT, EventTypes.CAMERA_RESPONSE, reason, mutation.payload.meta.eventId)
             store.dispatch('robot/sendCameraStartResponse', {
               meta: { eventId: childEventId },
@@ -655,7 +655,7 @@ export function robotPlugin (logger, robot) {
               data: filename
             })
           }).catch(reason => {
-            console.log(reason)
+            // console.log(reason)
             let childEventId = logger.logEvent(EventInitiatorTypes.ROBOT, EventTypes.CAMERA_RESPONSE, reason, mutation.payload.meta.eventId)
             store.dispatch('robot/sendCameraStartResponse', {
               meta: { eventId: childEventId },

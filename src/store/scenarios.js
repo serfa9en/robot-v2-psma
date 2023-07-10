@@ -151,19 +151,14 @@ export default {
       timeout: 0
     },
     {
-      name: 'ui/setRecomendType0',
+      name: 'ui/setRecomendType',
       options: null,
-      timeout: 0
+      timeout: null
     },
     {
-      name: 'ui/setRecomendType1',
+      name: 'ui/setRecomendDiabetes',
       options: null,
-      timeout: 0
-    },
-    {
-      name: 'ui/setRecomendType2',
-      options: null,
-      timeout: 0
+      timeout: null
     }
   ],
   // пройти отдельное обследование
@@ -399,6 +394,24 @@ export default {
     { name: 'ui/setButtonSaturatsiyaColor', options: '#691B26', timeout: 0 },
     { name: 'ui/setButtonSpirographiaColor', options: '#691B26', timeout: 0 },
     { name: 'ui/setButtonWeightHeightColor', options: '#691B26', timeout: 0 },
+    { name: 'ui/setResultDiseaseCountDiabetes', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountDiabetesTrue', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountReflux', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountDepression', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountProstatitis', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountOncologyMammaryCancer', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountOncologyStomachCancer', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountOncologyEsophagealCarcinoma', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountOncologyBladderCancer', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountOncologyLungCancer', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountOncologyMelanoma', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountOncologySkinCancer', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountOncologyThroatCancer', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountOncologyLaryngealCancer', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountOncologyThyroidCancer', options: null, timeout: 0 },
+    { name: 'ui/setResultDiseaseCountOncologyBowelCancer', options: null, timeout: 0 },
+    // { name: 'ui/setRecomendType', options: null, timeout: 0 },
+    // { name: 'ui/setRecomendDiabetes', options: null, timeout: 0 },
     { name: 'ui/setFlagExit', options: null, timeout: 0 }
   ],
   /* температура */
