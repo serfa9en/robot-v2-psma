@@ -475,7 +475,6 @@ export default function (logger) {
             /**
              *  Ростометр + весы: проверка работоспособности и переход к измерению
              */
-            /*
             if (payload.data === EXAMINATION_TYPE.WEIGHT_HEIGHT && store.getters['ui/getMeasurementStep'] === 1) { // Переход к замеру роста и веса
               new Promise((resolve, reject) => {
                 actions = []
@@ -512,7 +511,6 @@ export default function (logger) {
                 })
               })
             }
-            */
           }
           break
         /**
@@ -523,26 +521,60 @@ export default function (logger) {
           if (['MEASUREMENT_3_3', 'MEASUREMENT_3_1'].includes(store.getters['engine/getCurrentStateName'])) {
             if (typeof payload.data !== 'undefined' && payload.data !== null && payload.data.type === 3 && payload.data.message.calibrated) { // Рост и вес
               // console.log('setMeasuredDataFromTopic =', payload.data)
+              let height = Number(payload.data.message.height.toFixed(0))
+              let width = Number(payload.data.message.weight.toFixed(1))
+              let hh = height / 100
+              let imt = width / (hh * hh)
+              imt = imt.toFixed(0)
+              
               dispatch('ui/setMeasuredData', {
                 meta: pm,
                 data: [
                   {
-                    'name': 'ui/setUserWeight',
-                    'data': Number(payload.data.message.weight.toFixed(1)),
-                    'image': store.getters['app/getIconsSVG'].weight,
+                    'name': 'ui/setMeasurementWeight',
+                    'data': width,
+                    'image': null,
                     'text': 'Вес, кг'
                   },
                   {
-                    'name': 'ui/setUserGrowth',
-                    'data': Number(payload.data.message.height.toFixed(0)),
-                    'image': store.getters['app/getIconsSVG'].height,
+                    'name': 'ui/setMeasurementHeight',
+                    'data': height,
+                    'image': null,
                     'text': 'Рост, см'
+                  },
+                  {
+                    'name': 'ui/setMeasurementImt',
+                    'data': imt,
+                    'image': null,
+                    'text': ''
                   }
                 ]
               })
+
+              dispatch('ui/setButtonWeightHeightColor', {
+                meta: pm,
+                data: setColorImt(imt)
+              })
+              dispatch('ui/setReaultImt', {
+                meta: pm,
+                data: setImgImt(imt)
+              })
+              dispatch('ui/setNorm', {
+                meta: pm,
+                data: setNormImt(imt)
+              })
+              dispatch('ui/setInfo', {
+                meta: pm,
+                data: setInfoImt(imt)
+              })
+              dispatch('ui/setInfoAdd', {
+                meta: pm,
+                data: setInfoAddImt(imt)
+              })
+
               dispatch('engine/handlerMoveToState', {
                 meta: pm,
-                data: 'MEASUREMENT_3_4'
+                data: 'RESULT'
               })
               dispatch('ui/setMeasuredDataFromTopic', {
                 meta: pm,
@@ -1373,9 +1405,9 @@ export default function (logger) {
                   setTimeout(() => {
                     topic_pressure_cancel.publish(msg_c1)
                   }, 200)
-                  console.warn('Systolic:', s)
-                  console.warn('Diastolic', d)
-                  console.warn('Heart rate', p)
+                  // console.warn('Systolic:', s)
+                  // console.warn('Diastolic', d)
+                  // console.warn('Heart rate', p)
                   dispatch('ui/setMeasuredData', {
                     meta: pm,
                     data: [
@@ -1530,15 +1562,15 @@ export default function (logger) {
                 meta: pm,
                 data: [
                   {
-                    'name': 'ui/setUserWeight',
+                    'name': 'ui/setMeasurementWeight',
                     'data': null,
-                    'image': store.getters['app/getIconsSVG'].weight,
+                    'image': null,
                     'text': 'Вес, кг'
                   },
                   {
-                    'name': 'ui/setUserGrowth',
+                    'name': 'ui/setMeasurementHeight',
                     'data': null,
-                    'image': store.getters['app/getIconsSVG'].height,
+                    'image': null,
                     'text': 'Рост, см'
                   }
                 ]

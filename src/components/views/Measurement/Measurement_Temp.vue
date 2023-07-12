@@ -279,6 +279,63 @@ export default {
             this.rightLoad = true
           }
         }
+
+        // РОСТ / ВЕС
+        if (this.getMeasurementNum === 3) {
+          if (this.getMeasurementStep === 1) {
+            this.state = 'MEASUREMENT_3_1'
+            this.typeScreen = 0
+            this.h3 = 'Рост/вес'
+            this.p = 'Встанте на весовую платформу обеими ногами и старайтесь не двигаться'
+            this.hint = null
+            this.btn = 'Начать измерение'
+            this.btn_1 = null
+            this.btnColor = this.getLoadAppSettings.btn.colorText
+            this.btnBgr = this.getLoadAppSettings.btn.color
+            this.btnAction.push({
+              'name': 'engine/handlerClickMoveToState',
+              'options': 'MEASUREMENT_3_3',
+              'timeout': 0
+            })
+            this.rightHtml = '<video class="video" id="video" height="480" src="video/height_weight.webm" loop autoplay mute></video>'
+            this.rightLoad = null
+          }
+          if (this.getMeasurementStep === 2) {
+            this.typeScreen = null
+            // eslint-disable-next-line vue/no-async-in-computed-properties
+            setTimeout(() => {
+              this.typeScreen = 0
+            }, 10)
+            this.h3 = null
+            this.p = 'Встанте на весовую платформу'
+            this.hint = null
+            this.btn = 'Остановить'
+            this.btn_1 = null
+            this.btnColor = this.getLoadAppSettings.btn.colorText
+            this.btnBgr = this.getLoadAppSettings.btn.color
+            this.btnAction.push({
+              'name': 'engine/handlerClickMoveToState',
+              'options': 'MEASUREMENT_3_1',
+              'timeout': 0
+            })
+            this.rightHtml = '<img src="dialog-images/weightMeasure.jpg" />'
+            this.rightLoad = null
+          }
+          if (this.getMeasurementStep === 3) {
+            this.typeScreen = null
+            // eslint-disable-next-line vue/no-async-in-computed-properties
+            setTimeout(() => {
+              this.typeScreen = 0
+            }, 10)
+            this.h3 = null
+            this.p = 'Идёт процесс измерения...<br />Cтарайтесь не двигаться и не сходить с платформы'
+            this.hint = null
+            this.btn = null
+            this.btn_1 = null
+            this.rightHtml = null
+            this.rightLoad = true
+          }
+        }
         this.loggingCurrentStateName()
       }
       return this.$store.getters['app/getStep'] === 'measurement'

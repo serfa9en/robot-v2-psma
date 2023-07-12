@@ -43,7 +43,7 @@ export const EXAMINATION_TYPE = {
 // СИГНАЛЫ ИЗ ТОПИКОВ
 export const TOPIC_DATA = {
   // Росто - весомер
-  // WEIGHT_HEIGHT_RESULT: 'WEIGHT_HEIGHT_RESULT', // 3
+  WEIGHT_HEIGHT_RESULT: 'WEIGHT_HEIGHT_RESULT', // 3
 
   // Термометр пальцем в лоб
   THERMO_FINGER_RESULT: 'THERMO_FINGER_RESULT', // 6

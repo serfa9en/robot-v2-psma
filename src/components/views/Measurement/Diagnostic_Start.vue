@@ -31,7 +31,7 @@
 
               <button
                 v-if="tile.type === EXAMINATION_TYPE.WEIGHT_HEIGHT"
-                v-on:click="toImt()"
+                v-on:click="doExamination(EXAMINATION_TYPE.WEIGHT_HEIGHT)"
                 class="btn-dark-main"
                 :style="[{ 'background-color': `${ getButtonWeightHeightColor }` }]">
 
