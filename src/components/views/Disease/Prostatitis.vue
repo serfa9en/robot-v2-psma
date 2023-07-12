@@ -127,7 +127,7 @@
 import { mapGetters } from 'vuex'
 import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
 import { getQuestionProstatitis } from '../../../store/dataStorage/disease'
-import { getProstatitisResult, getProstatitisImg, getProstatitisText, getProstatitisColor } from '../../styled/setResultDisease'
+import { getProstatitisResult, getProstatitisImg, getProstatitisText, getProstatitisColor, getProstatitisBorderColor } from '../../styled/setResultDisease'
 
 export default {
   name: 'prostatitis',
@@ -269,6 +269,10 @@ export default {
         this.$store.dispatch('ui/setCurrentDiseaseColor', {
           meta: { eventId },
           data: color
+        })
+        this.$store.dispatch('ui/setCurrentDiseaseBorderColor', {
+          meta: { eventId },
+          data: getProstatitisBorderColor(this.count)
         })
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },

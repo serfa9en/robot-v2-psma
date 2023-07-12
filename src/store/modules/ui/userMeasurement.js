@@ -133,7 +133,8 @@ export const stateUserMeasurement = {
     comment: null,
     commentD: null,
     text: null,
-    color: null
+    color: null,
+    border_color: null
   },
 
   current_disease: {
@@ -143,7 +144,8 @@ export const stateUserMeasurement = {
     comment: null,
     commentD: null,
     text: null,
-    color: null
+    color: null,
+    border_color: null
   }
 }
 
@@ -238,7 +240,8 @@ export const actionsUserMeasurement = {
   setCurrentDiseaseComment: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_COMMENT', payload),
   setCurrentDiseaseCommentD: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_COMMENT_D', payload),
   setCurrentDiseaseText: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_TEXT', payload),
-  setCurrentDiseaseColor: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_COLOR', payload)
+  setCurrentDiseaseColor: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_COLOR', payload),
+  setCurrentDiseaseBorderColor: ({ commit }, payload) => commit('SET_CURRENT_DISEASE_BORDER_COLOR', payload)
 }
 
 export const mutationsUserMeasurement = {
@@ -338,7 +341,8 @@ export const mutationsUserMeasurement = {
   SET_CURRENT_DISEASE_COMMENT: (state, payload) => { state.current_disease.comment = payload.data },
   SET_CURRENT_DISEASE_COMMENT_D: (state, payload) => { state.current_disease.commentD = payload.data },
   SET_CURRENT_DISEASE_TEXT: (state, payload) => { state.current_disease.text = payload.data },
-  SET_CURRENT_DISEASE_COLOR: (state, payload) => { state.current_disease.color = payload.data }
+  SET_CURRENT_DISEASE_COLOR: (state, payload) => { state.current_disease.color = payload.data },
+  SET_CURRENT_DISEASE_BORDER_COLOR: (state, payload) => { state.current_disease.border_color = payload.data }
 }
 
 export const gettersUserMeasurement = {
@@ -435,5 +439,6 @@ export const gettersUserMeasurement = {
   getCurrentDiseaseComment: state => state.current_disease.comment,
   getCurrentDiseaseCommentD: state => state.current_disease.commentD,
   getCurrentDiseaseText: state => state.current_disease.text,
-  getCurrentDiseaseColor: state => state.current_disease.color
+  getCurrentDiseaseColor: state => state.current_disease.color,
+  getCurrentDiseaseBorderColor: state => state.current_disease.border_color
 }

@@ -8,7 +8,7 @@
             </div>
             <div>
                 <div class="logo">
-                    <img src="../../../public/dialog-images/logo/logo_right.png" alt="logo">
+                    <img class="logo-img" src="../../../public/dialog-images/logo/logo_right.png" alt="logo">
                 </div>
             </div>
         </div>
@@ -98,8 +98,14 @@ export default {
         cursor: pointer;
     }
     .logo {
+        // border: 2px solid palevioletred;
         display: inline-block;
         vertical-align: middle;
+    }
+
+    .logo-img {
+      // width: 80px;
+      height: auto;
     }
 }
 </style>

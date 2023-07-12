@@ -379,3 +379,86 @@ export function getColorOncology (val) {
   }
   return result
 }
+
+/* --------------------ЦВЕТ BORDER РЕЗУЛЬТАТА---------------------- */
+export function getDiabetesBorderColor (val) {
+  let colorBut = ''
+  if (val < 7) {
+    colorBut = '3px double #84ad00'
+  }
+  if (val >= 7 && val < 11) {
+    colorBut = '3px double #ffb225'
+  }
+  if (val >= 11 && val < 14) {
+    colorBut = '3px double #ff8e25'
+  }
+  if (val >= 14 && val <= 20) {
+    colorBut = '3px double #e63946'
+  }
+  if (val > 20) {
+    colorBut = '3px double #c7323d'
+  }
+  return colorBut
+}
+
+export function getRefluxBorderColor (val) {
+  let colorBut = ''
+  if (val <= 5) {
+    colorBut = '3px double #84ad00'
+  }
+  if (val > 5 && val <= 8) {
+    colorBut = '3px double #ff8e25'
+  }
+  if (val > 8) {
+    colorBut = '3px double #c7323d'
+  }
+  return colorBut
+}
+
+export function getDepressionBorderColor (val) {
+  let proc = ''
+  if (val <= 4) {
+    proc = '3px double #84ad00'
+  }
+  if (val > 4 && val <= 9) {
+    proc = '3px double #ffb225'
+  }
+  if (val > 9 && val <= 14) {
+    proc = '3px double #ff8e25'
+  }
+  if (val > 14 && val <= 19) {
+    proc = '3px double #e63946'
+  }
+  if (val > 19 && val <= 27) {
+    proc = '3px double #c7323d'
+  }
+  return proc
+}
+
+export function getProstatitisBorderColor (val) {
+  let proc = ''
+  if (val <= 7) {
+    proc = '3px double #84ad00'
+  }
+  if (val > 7 && val <= 19) {
+    proc = '3px double #ff8e25'
+  }
+  if (val > 19) {
+    proc = '3px double #c7323d'
+  }
+  return proc
+}
+
+export function getBorderColorOncology (val) {
+  let result
+  if (val >= 0 && val <= 5) {
+    result = '3px double #84ad00'
+  }
+  if (val >= 6 && val <= 9) {
+    result = '3px double #ff8e25'
+  }
+  if (val >= 10) {
+    result = '3px double #c7323d'
+  }
+  return result
+}

@@ -240,7 +240,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
-import { getDiabetesResult, getDiabetesImg, getDiabetesText, getDiabetesColor, getDiabetesResultD } from '../../styled/setResultDisease'
+import { getDiabetesBorderColor, getDiabetesResult, getDiabetesImg, getDiabetesText, getDiabetesColor, getDiabetesResultD } from '../../styled/setResultDisease'
 
 export default {
   name: 'diabetes',
@@ -442,6 +442,10 @@ export default {
         this.$store.dispatch('ui/setCurrentDiseaseColor', {
           meta: { eventId },
           data: color
+        })
+        this.$store.dispatch('ui/setCurrentDiseaseBorderColor', {
+          meta: { eventId },
+          data: getDiabetesBorderColor(this.count)
         })
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },

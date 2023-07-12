@@ -39,7 +39,7 @@
 import { mapGetters } from 'vuex'
 import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
 import { getNameStr, getQuestion, getLengthPoints, getPoints, getContextOncology } from '../../../store/dataStorage/oncology'
-import { getResultOncology, getImgOncology, getTextOncology, getColorOncology } from '../../styled/setResultDisease'
+import { getResultOncology, getImgOncology, getTextOncology, getColorOncology, getBorderColorOncology } from '../../styled/setResultDisease'
 
 export default {
   name: 'oncology_quest',
@@ -163,6 +163,10 @@ export default {
         this.$store.dispatch('ui/setCurrentDiseaseColor', {
           meta: { eventId },
           data: color
+        })
+        this.$store.dispatch('ui/setCurrentDiseaseBorderColor', {
+          meta: { eventId },
+          data: getBorderColorOncology(this.count)
         })
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },

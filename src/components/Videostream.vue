@@ -2,7 +2,6 @@
   <div class="general-selector">
     <div class="general-selector__refresh" @click="refreshVideostream">
       <div class="general-selector__refresh__icon">
-        <img class="refresh" src="../../public/dialog-images/refresh.png">
       </div>
       <div class="general-selector__refresh__text" :style="getLoadAppSettings && { ...getLoadAppSettings.refreshText }">Обновить</div>
     </div>

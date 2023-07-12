@@ -19,7 +19,7 @@
         </div>
         <div
         class="text colorBox"
-        :style="[{ 'border': '3px solid' + `${ getCurrentDiseaseColor }` }]">
+        :style="[{ 'border': `${ getCurrentDiseaseBorderColor }` }]">
           {{ this.text }}
         </div>
         <div>
@@ -58,6 +58,7 @@ export default {
       'getCurrentDiseaseComment',
       'getCurrentDiseaseCommentD',
       'getCurrentDiseaseColor',
+      'getCurrentDiseaseBorderColor',
       'getResultDiseaseCountDiabetes',
       'getResultDiseaseCountReflux',
       'getResultDiseaseCountDepression',
@@ -221,6 +222,7 @@ export default {
     padding: 15px;
     margin: 10px;
     margin-top: 40px;
+    // border: 2px solid rebeccapurple;
   }
 
   button {

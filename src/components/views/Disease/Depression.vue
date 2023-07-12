@@ -65,7 +65,7 @@
 import { mapGetters } from 'vuex'
 import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
 import { getQuestionDepression } from '../../../store/dataStorage/disease'
-import { getDepressionResult, getDepressionImg, getDepressionText, getDepressionColor } from '../../styled/setResultDisease'
+import { getDepressionResult, getDepressionImg, getDepressionText, getDepressionColor, getDepressionBorderColor } from '../../styled/setResultDisease'
 
 export default {
   name: 'depression',
@@ -192,6 +192,10 @@ export default {
         this.$store.dispatch('ui/setCurrentDiseaseColor', {
           meta: { eventId },
           data: color
+        })
+        this.$store.dispatch('ui/setCurrentDiseaseBorderColor', {
+          meta: { eventId },
+          data: getDepressionBorderColor(this.count)
         })
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },
