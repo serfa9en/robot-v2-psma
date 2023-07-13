@@ -246,6 +246,11 @@ export default {
     },
     repeatWork: function () {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'MEASUREMENT_' + this.getCurMeasurementNumber + '_1'
+      })
+      /*
       if (this.getCurMeasurementNumber === 3) {
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },
@@ -257,6 +262,7 @@ export default {
           data: 'MEASUREMENT_' + this.getCurMeasurementNumber + '_1'
         })
       }
+      */
     },
     continueWork: function () {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
@@ -268,11 +274,18 @@ export default {
         })
       } else {
         if (this.flagExam === true) {
-          // комплексное обследование
-          this.$store.dispatch('engine/handlerClickMoveToState', {
-            meta: { eventId },
-            data: 'EXAMINATION'
-          })
+          if (this.getCurMeasurementNumber === 3) {
+            this.$store.dispatch('engine/handlerClickMoveToState', {
+              meta: { eventId },
+              data: 'EXAM_RESULT'
+            })
+          } else {
+            // комплексное обследование
+            this.$store.dispatch('engine/handlerClickMoveToState', {
+              meta: { eventId },
+              data: 'EXAMINATION'
+            })
+          }
         } else {
           if (this.flagDiabetes === true) {
             // Диабет (риск развития)

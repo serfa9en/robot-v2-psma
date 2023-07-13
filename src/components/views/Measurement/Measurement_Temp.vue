@@ -77,6 +77,8 @@ export default {
       'getLoadAppSettings'
     ]),
     ...mapGetters('ui', [
+      'getImtStep',
+      'getMeasurementHeight',
       'getSubtitlesEnabled',
       'getMeasurementNum',
       'getMeasurementStep',

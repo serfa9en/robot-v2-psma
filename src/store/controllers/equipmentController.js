@@ -7,23 +7,28 @@ import {
   setColorGlucometry,
   // setColorTemperature,
   setColorPressure,
+  setColorImt,
   setImgGlucometry,
   setImgSaturatsiya,
   setImgPressure,
   setImgPulse,
+  setImgImt,
   // setImgTemperature,
   setInfoGlucometry,
   setInfoSaturatsiya,
   setInfoPressure,
+  setInfoImt,
   // setInfoTemperature,
   setInfoAddGlucometry,
   setInfoAddSaturatsiya,
   setInfoAddPressure,
+  setInfoAddImt,
   // setInfoAddTemperature,
   setNormSaturatsiya,
   setNormGlucometry,
   // setNormTemperature,
-  setNormPressure
+  setNormPressure,
+  setNormImt
 } from '../../components/styled/setColorButtons'
 
 let measurementProcess = { 'med_2': null, 'med_3': null, 'med_4': null, 'med_5': null, 'med_6': null, 'med_6_1': null, 'med_6_2': null, 'med_6_3': null }
@@ -523,10 +528,13 @@ export default function (logger) {
               // console.log('setMeasuredDataFromTopic =', payload.data)
               let height = Number(payload.data.message.height.toFixed(0))
               let width = Number(payload.data.message.weight.toFixed(1))
-              let hh = height / 100
-              let imt = width / (hh * hh)
+              // let hh = height / 100
+              let imt = Number(payload.data.message.weight.toFixed(0)) / Math.pow(Number(payload.data.message.height.toFixed(0)) / 100, 2)
               imt = imt.toFixed(0)
-              
+              console.log(height)
+              console.log(width)
+              console.log(imt)
+
               dispatch('ui/setMeasuredData', {
                 meta: pm,
                 data: [
@@ -549,6 +557,19 @@ export default function (logger) {
                     'text': ''
                   }
                 ]
+              })
+
+              dispatch('ui/setMeasurementWeight', {
+                meta: pm,
+                data: width
+              })
+              dispatch('ui/setMeasurementHeight', {
+                meta: pm,
+                data: height
+              })
+              dispatch('ui/setMeasurementImt', {
+                meta: pm,
+                data: imt
               })
 
               dispatch('ui/setButtonWeightHeightColor', {

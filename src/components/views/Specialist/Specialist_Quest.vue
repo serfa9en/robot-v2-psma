@@ -302,14 +302,28 @@ export default {
         if (this.step_question === 5) {
           // this.is_imt = true
           // ИМТ
+          let actions = []
+          actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': true, 'timeout': 0 })
+          actions.push({ 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 })
+          actions.push({ 'name': 'ui/setMeasurementNum', 'options': EXAMINATION_TYPE.GLUCOMETER, 'timeout': 0 })
           this.$store.dispatch('ui/setFlagConsultation', {
             meta: { eventId },
             data: true
           })
+          this.$store.dispatch('ui/setCurMeasurementNumber', {
+            meta: { eventId },
+            data: EXAMINATION_TYPE.WEIGHT_HEIGHT
+          })
+          this.$store.dispatch('engine/handlerClickMoveToState', {
+            meta: { eventId },
+            data: 'MEASUREMENT_3_1'
+          })
+          /*
           this.$store.dispatch('engine/handlerClickMoveToState', {
             meta: { eventId },
             data: 'WIDTH_HEIGHT'
           })
+          */
         } else {
           // сахар
           // this.is_gluco = true

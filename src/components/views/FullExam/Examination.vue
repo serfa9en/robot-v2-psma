@@ -85,34 +85,29 @@ export default {
       if (val === 2) return EXAMINATION_TYPE.TONOMETER // давление
       // if (val === 4) return 61 // температура
       if (val === 3) return EXAMINATION_TYPE.WEIGHT_HEIGHT // рост/вес
+      if (val === 4) {
+        let logger = PromobotLogger.getInstance()
+        let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+        this.$store.dispatch('engine/handlerClickMoveToState', {
+          meta: { eventId },
+          data: 'EXAM_RESULT'
+        })
+      }
     },
     toNext: function () {
       let logger = PromobotLogger.getInstance()
       let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       let actions = []
-      if (this.examination === EXAMINATION_TYPE.WEIGHT_HEIGHT) {
-        // actions.push({ 'name': 'ui/setFlagExamination', 'options': true, 'timeout': 0 })
-        this.$store.dispatch('ui/setFlagExamination', {
-          meta: { eventId },
-          data: true
-        })
-        this.$store.dispatch('engine/handlerClickMoveToState', {
-          meta: { eventId },
-          data: 'WIDTH_HEIGHT'
-        })
-      } else {
-        // console.log(this.examination)
-        actions.push({ 'name': 'ui/setCurMeasurementNumber', 'options': this.examination, 'timeout': 0 })
-        actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': true, 'timeout': 0 })
-        actions.push({ 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 })
-        actions.push({ 'name': 'ui/setMeasurementNum', 'options': this.examination, 'timeout': 0 }) // измерение
-        actions.push({ 'name': 'ui/setFlagExamination', 'options': true, 'timeout': 0 })
-        actions.forEach(item => {
-          setTimeout(() => {
-            this.$store.dispatch(item.name, { meta: { eventId }, data: item.options })
-          }, item.timeout)
-        })
-      }
+      actions.push({ 'name': 'ui/setCurMeasurementNumber', 'options': this.examination, 'timeout': 0 })
+      actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': true, 'timeout': 0 })
+      actions.push({ 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 })
+      actions.push({ 'name': 'ui/setMeasurementNum', 'options': this.examination, 'timeout': 0 }) // измерение
+      actions.push({ 'name': 'ui/setFlagExamination', 'options': true, 'timeout': 0 })
+      actions.forEach(item => {
+        setTimeout(() => {
+          this.$store.dispatch(item.name, { meta: { eventId }, data: item.options })
+        }, item.timeout)
+      })
     }
   }
 }
