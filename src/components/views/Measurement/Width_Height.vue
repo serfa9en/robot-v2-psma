@@ -227,6 +227,7 @@ input {
   box-sizing: border-box;
   margin-top: 25px;
   margin-left: -2px;
+  padding-top: 10px;
   background: #EAE8E8;
   color: #3E0E14;
   font-size: 32px;
