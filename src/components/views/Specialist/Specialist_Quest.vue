@@ -331,42 +331,26 @@ export default {
         } else {
           // сахар
           // this.is_gluco = true
-          let actions = []
-          actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': true, 'timeout': 0 })
-          actions.push({ 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 })
-          actions.push({ 'name': 'ui/setMeasurementNum', 'options': EXAMINATION_TYPE.GLUCOMETER, 'timeout': 0 })
           this.$store.dispatch('ui/setFlagConsultation', {
             meta: { eventId },
             data: true
           })
-          this.$store.dispatch('ui/setCurMeasurementNumber', {
-            meta: { eventId },
-            data: EXAMINATION_TYPE.GLUCOMETER
-          })
           this.$store.dispatch('engine/handlerClickMoveToState', {
             meta: { eventId },
-            data: 'MEASUREMENT_2_1'
+            data: 'QUESTION_GLUKO'
           })
         }
       } else {
         // эндокринолог
         // сахар
         // this.is_gluco = true
-        let actions = []
-        actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': true, 'timeout': 0 })
-        actions.push({ 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 })
-        actions.push({ 'name': 'ui/setMeasurementNum', 'options': EXAMINATION_TYPE.GLUCOMETER, 'timeout': 0 })
         this.$store.dispatch('ui/setFlagConsultation', {
           meta: { eventId },
           data: true
         })
-        this.$store.dispatch('ui/setCurMeasurementNumber', {
-          meta: { eventId },
-          data: EXAMINATION_TYPE.GLUCOMETER
-        })
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },
-          data: 'MEASUREMENT_2_1'
+          data: 'QUESTION_GLUKO'
         })
       }
     },

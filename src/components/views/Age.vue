@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     next: function () {
-      console.warn('AGE!')
+      // console.warn('AGE!')
       let age = document.getElementById('userAge').value
       // console.log(age)
 

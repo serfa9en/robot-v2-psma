@@ -6,8 +6,8 @@
                 <img src="../../../public/dialog-images/result/Result_bad.png">
             </div>
             <div class="button_block">
-                <button class="btn btn-dark-grad" v-on:click="print">Печать</button>
-                <!--<button class="btn btn-dark-grad" v-on:click="send" disabled>Отправить на почту</button>-->
+                <button class="btn btn-yes-no" v-on:click="print">Печать</button>
+                <button class="btn btn-dark-grad" v-on:click="send">Отправить на почту</button>
                 <button class="btn btn-yes-no" v-on:click="exit">Выход</button>
             </div>
         </div>
@@ -58,30 +58,26 @@ export default {
       })
     },
     send: function () {
-      // console.log('send')
-
-      /*
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
-      this.$store.dispatch('robot/sendMailSendMail', {
+      /*
+      this.$store.dispatch('app/set_create_mail', {
         meta: { eventId },
-        data: 'serfagen@gmail.com'
+        data: true
       })
       */
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'MAIL_VIEW'
+      })
     },
     print: function () {
-      // console.log('print')
-      // вызываем глобальную функцию формирования талона
-      // printDf()
-      // pp.printDf()
-      // create.createTalon()
-      // console.log('bdhjsbvgks?? = ', this.getMeasurementImt)
-      // let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('app/set_create_talon', {
         meta: { eventId },
         data: true
       })
       // console.log('this.getFlagExit = ', this.getFlagExit)
+      /*
       if (this.getFlagExit === true) {
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },
@@ -93,6 +89,11 @@ export default {
           data: 'MAIN_VIEW'
         })
       }
+      */
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'MAIN_VIEW'
+      })
     }
   }
 }

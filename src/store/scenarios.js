@@ -159,7 +159,15 @@ export default {
       name: 'ui/setRecomendDiabetes',
       options: null,
       timeout: null
-    }
+    },
+    {
+      name: 'ui/setIsDiabetes',
+      options: null,
+      timeout: 0
+    },
+    { name: 'ui/setFlagConsultation', options: null, timeout: 0 },
+    { name: 'ui/setFlagExamination', options: null, timeout: 0 },
+    { name: 'ui/setFlagFullExamination', options: null, timeout: 0 }
   ],
   // пройти отдельное обследование
   diagnostic_start: [
@@ -410,6 +418,7 @@ export default {
     { name: 'ui/setResultDiseaseCountOncologyLaryngealCancer', options: null, timeout: 0 },
     { name: 'ui/setResultDiseaseCountOncologyThyroidCancer', options: null, timeout: 0 },
     { name: 'ui/setResultDiseaseCountOncologyBowelCancer', options: null, timeout: 0 },
+    { name: 'ui/setIsDiabetes', options: null, timeout: 0 },
     // { name: 'ui/setRecomendType', options: null, timeout: 0 },
     // { name: 'ui/setRecomendDiabetes', options: null, timeout: 0 },
     { name: 'ui/setFlagExit', options: null, timeout: 0 }
@@ -582,6 +591,52 @@ export default {
     {
       name: 'ui/setSpinnerEnabled',
       options: false,
+      timeout: 0
+    }
+  ],
+  mail_view: [
+    {
+      name: 'app/setStep',
+      options: 'mail_view',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: false,
+      timeout: 0
+    },
+    {
+      name: 'ui/setSpinnerEnabled',
+      options: false,
+      timeout: 0
+    }
+  ],
+  question_gluko: [
+    {
+      name: 'app/setStep',
+      options: 'question_gluko',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: true,
+      timeout: 0
+    },
+    {
+      name: 'ui/setSpinnerEnabled',
+      options: false,
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftText',
+      options: 'Выход',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderBtnLeftAction',
+      options: {
+        'engine/handlerClickMoveToState': 'EXIT'
+      },
       timeout: 0
     }
   ],

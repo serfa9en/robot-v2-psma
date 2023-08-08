@@ -603,20 +603,20 @@ export default {
     }
 
     .btn {
-        width: 250px;
+        width: 270px;
         height: 70px;
         margin: 22px;
         font-size: 26px;
         font-weight: 700;
 
         &_next {
-            width: 250px;
+            width: 270px;
             font-size: 26px;
             font-weight: 700;
         }
 
         &_result {
-          width: 250px;
+          width: 300px;
           height: 70px;
         margin: 22px;
         font-size: 26px;

@@ -23,28 +23,40 @@ export function setColorSaturatsiya (val) {
   return colorBut
 }
 
-export function setColorGlucometry (val) {
+export function setColorGlucometry (val, diabetes) {
   let colorBut = '#691B26'
   val = val.toFixed(1)
-  if (val < 3) {
-    colorBut = colorBad
-    // console.log('colorBad + dataBad')
-  }
-  if (val < 3.3 && val > 3) {
-    colorBut = colorNorm
-    // console.log('colorNorm + dataNorm')
-  }
-  if (val < 6.8 && val >= 3.3) {
-    // console.log('colorGood + dataGood')
-    // colorBut = colorGood
-  }
-  if (val < 11 && val >= 6.8) {
-    colorBut = colorNorm
-    // console.log('colorNorm + dataNorm')
-  }
-  if (val > 11) {
-    colorBut = colorBad
-    // console.log('colorBad + dataBad')
+  if (diabetes === false) {
+    // диабета нет
+    if (val < 3.3) {
+      colorBut = colorNorm
+    }
+    if (val < 6.8 && val >= 3.3) {
+      colorBut = colorGood
+    }
+    if (val < 11 && val >= 6.8) {
+      colorBut = colorNorm
+    }
+    if (val > 11) {
+      colorBut = colorBad
+    }
+  } else {
+    // диабет есть
+    if (val < 3) {
+      colorBut = colorBad
+    }
+    if (val <= 7 && val >= 3) {
+      colorBut = colorGood
+    }
+    if (val < 9.6 && val > 7) {
+      colorBut = colorNorm
+    }
+    if (val < 14 && val >= 9.6) {
+      colorBut = colorBad
+    }
+    if (val >= 14) {
+      colorBut = colorBad
+    }
   }
   return colorBut
 }
@@ -119,21 +131,38 @@ export function setImgSaturatsiya (val) {
   }
 }
 
-export function setImgGlucometry (val) {
-  if (val < 3) {
-    return 'Gluco_bad.png'
-  }
-  if (val < 3.3 && val > 3) {
-    return 'Gluco_norm.png'
-  }
-  if (val < 6.8 && val >= 3.3) {
-    return 'Gluco_good.png'
-  }
-  if (val < 11 && val >= 6.8) {
-    return 'Gluco_norm.png'
-  }
-  if (val > 11) {
-    return 'Gluco_bad.png'
+export function setImgGlucometry (val, diabetes) {
+  if (diabetes === false) {
+    // диабета нет
+    if (val < 3.3) {
+      return 'Gluco_norm.png'
+    }
+    if (val < 6.8 && val >= 3.3) {
+      return 'Gluco_good.png'
+    }
+    if (val < 11 && val >= 6.8) {
+      return 'Gluco_norm.png'
+    }
+    if (val > 11) {
+      return 'Gluco_bad.png'
+    }
+  } else {
+    // диабет есть
+    if (val < 3) {
+      return 'Gluco_bad.png'
+    }
+    if (val <= 7 && val >= 3) {
+      return 'Gluco_good.png'
+    }
+    if (val < 9.6 && val > 7) {
+      return 'Gluco_norm.png'
+    }
+    if (val < 14 && val >= 9.6) {
+      return 'Gluco_bad.png'
+    }
+    if (val >= 14) {
+      return 'Gluco_bad.png'
+    }
   }
 }
 
@@ -214,19 +243,38 @@ export function setInfoSaturatsiya (val) {
   }
 }
 
-export function setInfoGlucometry (val) {
-  // Диабета нет
-  if (val < 3.3) {
-    return 'Вам необходимо выпить сладкий напиток, съесть сладкое'
-  }
-  if (val < 6.8 && val >= 3.3) {
-    return 'Придерживайтесь принципам здорового образа жизни и питания'
-  }
-  if (val < 11 && val >= 6.8) {
-    return 'Чаще всего данный уровень глюкозы является следствием недавнего плотного приёма пищи, стрессовой ситуации, физической нагрузки и других провоцирующих факторов'
-  }
-  if (val >= 11) {
-    return 'Если повышение глюкозы выявлено впервые, есть вероятность, что у Вас диабет'
+export function setInfoGlucometry (val, diabetes) {
+  if (diabetes === false) {
+    // диабета нет
+    if (val < 3.3) {
+      return 'Вам необходимо выпить сладкий напиток, съесть сладкое. Проконтролируйте уровень глюкозы повторно через 10 минут'
+    }
+    if (val < 6.8 && val >= 3.3) {
+      return 'Периодическое исследование уровня глюкозы позволяет вовремя выявить нарушения углеводного обмена, риск развития сахарного диабета и сердечно-сосудистых заболеваний'
+    }
+    if (val < 11 && val >= 6.8) {
+      return 'Чаще всего данный уровень глюкозы является следствием недавнего плотного приёма пищи, стрессовой ситуации, физической нагрузки и других провоцирующих факторов'
+    }
+    if (val > 11) {
+      return 'Если повышение глюкозы выявлено впервые, есть вероятность, что у Вас диабет'
+    }
+  } else {
+    // диабет есть
+    if (val < 3) {
+      return 'Вам необходимо выпить сладкий напиток, съесть сладкое. Проконтролируйте уровень глюкозы повторно через 10 минут'
+    }
+    if (val <= 7 && val >= 3) {
+      return 'Периодическое исследование уровня глюкозы позволяет вовремя выявить погрешности в лечении, а также предотвратить развитие осложнений сахарного диабета'
+    }
+    if (val < 9.6 && val > 7) {
+      return 'Данный уровень глюкозы может является следствием недавнего плотного приёма пищи, стрессовой ситуации, погрешности в лечении и других факторов'
+    }
+    if (val < 14 && val >= 9.6) {
+      return 'Не забывайте принимать сахароснижающие лекарства. Рекомендуем обратиться за помощью к врачу для коррекции вашего лечения'
+    }
+    if (val >= 14) {
+      return 'Имеется риск развития осложнений сахарного диабета. Рекомендуем Вам незамедлительно обратится к врачу'
+    }
   }
 }
 
@@ -284,13 +332,32 @@ export function setInfoAddSaturatsiya (val) {
   }
 }
 
-export function setInfoAddGlucometry (val) {
-  // Диабета нет
-  if (val < 3.3) {
-    return 'При сохранении низких значений вызовите скорую по номеру 112 или 103'
-  }
-  if (val < 11 && val >= 6.8) {
-    return 'Если вы недавно поели, проконтролируйте уровень глюкозы через 2 часа. При сохранении высоких значений необходима консультация врача'
+export function setInfoAddGlucometry (val, diabetes) {
+  if (diabetes === false) {
+    // диабета нет
+    if (val < 3.3) {
+      return 'При сохранении низких значений вызовите скорую по номеру 112 или 103'
+    }
+    if (val < 6.8 && val >= 3.3) {
+      return 'Придерживайтесь принципам здорового образа жизни и питания'
+    }
+    if (val < 11 && val >= 6.8) {
+      return 'Если вы недавно поели, проконтролируйте уровень глюкозы через 2 часа. При сохранении высоких значений необходима консультация врача'
+    }
+    if (val > 11) {
+      return 'Рекомендуем незамедлительно обратиться за помощью к врачу, чтобы пройти обследование'
+    }
+  } else {
+    // диабет есть
+    if (val < 3) {
+      return 'При сохранении низких значений вызовите скорую по номеру 112 или 103'
+    }
+    if (val <= 7 && val >= 3) {
+      return 'Придерживайтесь принципам здорового образа жизни и питания, соблюдайте все рекомендации Вашего лечащего врача'
+    }
+    if (val < 9.6 && val > 7) {
+      return 'Не забывайте принимать сахароснижающие лекарства. При ухудшении состояния обратитесь к врачу'
+    }
   }
 }
 
@@ -356,7 +423,40 @@ export function setNormSaturatsiya (val) {
   }
 }
 
-export function setNormGlucometry (val) {
+export function setNormGlucometry (val, diabetes) {
+  if (diabetes === false) {
+    // диабета нет
+    if (val < 3.3) {
+      return 'У Вас низкий уровень глюкозы в крови'
+    }
+    if (val < 6.8 && val >= 3.3) {
+      return 'Уровень глюкозы соответствует норме'
+    }
+    if (val < 11 && val >= 6.8) {
+      return 'У Вас повышенный уровень глюкозы в крови'
+    }
+    if (val > 11) {
+      return 'Ваш уровень глюкозы значительно повышен'
+    }
+  } else {
+    // диабет есть
+    if (val < 3) {
+      return 'У Вас низкий уровень глюкозы в крови'
+    }
+    if (val <= 7 && val >= 3) {
+      return 'Ваш диабет хорошо контролируется'
+    }
+    if (val < 9.6 && val > 7) {
+      return 'у Вас повышен уровень глюкозы крови'
+    }
+    if (val < 14 && val >= 9.6) {
+      return 'Ваш уровень глюкозы значительно повышен'
+    }
+    if (val >= 14) {
+      return 'Ваш уровень глюкозы значительно повышен'
+    }
+  }
+
   if (val < 3) {
     return 'У Вас низкий уровень глюкозы в крови'
   }

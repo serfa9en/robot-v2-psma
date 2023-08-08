@@ -19,14 +19,22 @@ export default {
         transition: 'SEND_MAIL'
       })
 
+      /*
       const mailData = {
         email: payload.data,
         subject: 'Promobot LLC',
-        body: `Promobot LLC - service robots manufacturing 
-promobotusa.com 
-info@promobotusa.com 
-Tel: +7(342)257-80-85 
-Whatsapp: +79194401919`
+        body: `Promobot LLC - service robots manufacturing
+promobotusa.com
+info@promobotusa.com
+Tel: +7(342)257-80-85
+Whatsapp: +79194401919
+      }
+      */
+
+      const mailData = {
+        email: payload.data.email,
+        subject: 'Promobot LLC',
+        body: payload.data.body
       }
 
       dispatch('robot/sendMailSendMail', {

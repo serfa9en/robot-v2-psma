@@ -368,6 +368,15 @@ export default [
     ]
   },
   {
+    name: 'MAIL_VIEW',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'mail_view'
+      }
+    ]
+  },
+  {
     name: 'EXAMINATION',
     entering: [
       {
@@ -389,6 +398,14 @@ export default [
       {
         name: 'engine/handlerCallScenario',
         options: 'oncology_main'
+      }]
+  },
+  {
+    name: 'QUESTION_GLUKO',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'question_gluko'
       }]
   },
 

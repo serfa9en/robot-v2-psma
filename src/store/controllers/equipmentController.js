@@ -81,7 +81,7 @@ export default function (logger) {
       socket_s.onopen = function () {
         // При подключении остановить все предыдущие тесты если был обрыв соединения
         socket_s.send('stopTest')
-        console.warn('Сокет-соединение со спирографом установлено')
+        // console.warn('Сокет-соединение со спирографом установлено')
         clearInterval(socketInterval)
         isSocket = true
         socket_s.send('status')
@@ -89,21 +89,21 @@ export default function (logger) {
       socket_s.onclose = function (event) {
         clearInterval(socketInterval)
         if (event.wasClean) {
-          console.warn('Соединение  со спирографом  закрыто чисто')
+          // console.warn('Соединение  со спирографом  закрыто чисто')
         } else if (isSocket) {
-          console.warn('Обрыв соединения со спирографом') // например, 'убит' процесс сервера
+          // console.warn('Обрыв соединения со спирографом') // например, 'убит' процесс сервера
           socketInterval = setInterval(() => { connect() }, 2000)
         } else {
-          console.warn('Отсутствует соединение со спирографом')
+          // console.warn('Отсутствует соединение со спирографом')
         }
-        console.warn('Код: ' + event.code + ' причина: ' + event.reason)
+        // console.warn('Код: ' + event.code + ' причина: ' + event.reason)
         isSocket = false
       }
       socket_s.onmessage = function (event) {
         // console.warn('ПОЛУЧАЕМ ДАННЫЕ СПИРОГРАФА', JSON.stringify(JSON.parse(event.data)))
         let d = JSON.parse(event.data)
         if (typeof d?.status === 'number') {
-          console.warn('ПОЛУЧАЕМ СТАТУС ПОДКЛЮЧЕНИЯ СПИРОГРАФА', { status: d.status, description: d.description })
+          // console.warn('ПОЛУЧАЕМ СТАТУС ПОДКЛЮЧЕНИЯ СПИРОГРАФА', { status: d.status, description: d.description })
           if (d.status === 1) {
             isSpirometer = true
           }
@@ -318,6 +318,7 @@ export default function (logger) {
             /**
              *  Глюкометрия: проверка работоспособности и переход к измерению
             */
+            // console.log(store.getters['ui/getMeasurementStep'])
             if (payload.data === EXAMINATION_TYPE.GLUCOMETER && store.getters['ui/getMeasurementStep'] === 1) {
               let errorPhrase = ''
               let connectionIsOk = false
@@ -723,7 +724,7 @@ export default function (logger) {
             let f_max = 10
             saturatsiyaInterval = setInterval(() => {
               let pd = store.getters['ui/getMeasuredDataFromTopic']
-              console.warn('pd', JSON.stringify(pd))
+              // console.warn('pd', JSON.stringify(pd))
               if (typeof pd !== 'undefined' && pd !== null && pd.type === '4_2') {
                 j = (pd?.message?.data?.state === ['NO_FINGER'] ? j + 1 : 0)
                 let s = Number(Number(pd.message.data.SpO2).toFixed(0))
@@ -1023,6 +1024,8 @@ export default function (logger) {
                     })
                     // console.log(store.getters['ui/getMeasurementGlucometry'])
                     // console.log(Number((pd.message.data).toFixed(1)))
+                    let diabetes = store.getters['ui/getIsDiabetes']
+                    console.log('DD = ' + diabetes)
                     dispatch('engine/handlerMoveToState', {
                       meta: pm,
                       data: 'RESULT'
@@ -1034,23 +1037,23 @@ export default function (logger) {
                     })
                     dispatch('ui/setNorm', {
                       meta: pm,
-                      data: setNormGlucometry(s)
+                      data: setNormGlucometry(s, diabetes)
                     })
                     dispatch('ui/setButtonGlucometryColor', {
                       meta: pm,
-                      data: setColorGlucometry(s)
+                      data: setColorGlucometry(s, diabetes)
                     })
                     dispatch('ui/setReaultGlucometry', {
                       meta: pm,
-                      data: setImgGlucometry(s)
+                      data: setImgGlucometry(s, diabetes)
                     })
                     dispatch('ui/setInfo', {
                       meta: pm,
-                      data: setInfoGlucometry(s)
+                      data: setInfoGlucometry(s, diabetes)
                     })
                     dispatch('ui/setInfoAdd', {
                       meta: pm,
-                      data: setInfoAddGlucometry(s)
+                      data: setInfoAddGlucometry(s, diabetes)
                     })
                     let phrase = (s <= 3.3) ? 'RES_GLUK_0' : (s <= 5.5) ? 'RES_GLUK_1' : (s <= 10) ? 'RES_GLUK_2' : 'RES_GLUK_3'
                     setTimeout(() => {
@@ -1203,7 +1206,7 @@ export default function (logger) {
           }
           // if (measurementProcess['med_6_1'] !== null && ['MEASUREMENT_6_2', 'MEASUREMENT_6_3', 'MEASUREMENT_6_3_ERROR'].includes(payload.data) === false) {
           if (measurementProcess['med_6_1'] !== null && ['MEASUREMENT_6_2'].includes(payload.data) === false) {
-            console.warn('exit 6_2, 6_3')
+            // console.warn('exit 6_2, 6_3')
             clearInterval(measurementProcess['med_6_1'])
             measurementProcess['med_6_1'] = null
             // isHandScript = null

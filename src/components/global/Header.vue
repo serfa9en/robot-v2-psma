@@ -104,7 +104,7 @@ export default {
     }
 
     .logo-img {
-      width: 80px;
+      width: auto;
       height: auto;
     }
 }

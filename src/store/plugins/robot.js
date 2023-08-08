@@ -615,15 +615,17 @@ export function robotPlugin (logger, robot) {
 
           // TODO
           // реализовать удаление пустых полей
-          let { email, subject, body, filename } = mutation.payload.data
-          let payload = { email, subject, body, filename }
+          let { email, subject, body } = mutation.payload.data
+          let payload = { email, subject, body }
 
+          console.log(email + '   ' + subject)
+          console.log(body)
           payload = Object.keys(payload).reduce((acc, val) => {
             if (payload[val] === undefined) return acc
             return Object.assign(acc, { [val]: payload[val] })
           }, {})
 
-          robot.mailService.sendMail(email, subject, body, filename)
+          robot.mailService.sendMail(email, subject, body)
           break
       }
       // CAMERA

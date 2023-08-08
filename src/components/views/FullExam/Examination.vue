@@ -107,17 +107,28 @@ export default {
           data: 'WIDTH_HEIGHT'
         })
       } else {
-        let actions = []
-        actions.push({ 'name': 'ui/setCurMeasurementNumber', 'options': this.examination, 'timeout': 0 })
-        actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': true, 'timeout': 0 })
-        actions.push({ 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 })
-        actions.push({ 'name': 'ui/setMeasurementNum', 'options': this.examination, 'timeout': 0 }) // измерение
-        actions.push({ 'name': 'ui/setFlagExamination', 'options': true, 'timeout': 0 })
-        actions.forEach(item => {
-          setTimeout(() => {
-            this.$store.dispatch(item.name, { meta: { eventId }, data: item.options })
-          }, item.timeout)
-        })
+        if (this.examination === EXAMINATION_TYPE.GLUCOMETER) {
+          this.$store.dispatch('ui/setFlagExamination', {
+            meta: { eventId },
+            data: true
+          })
+          this.$store.dispatch('engine/handlerClickMoveToState', {
+            meta: { eventId },
+            data: 'QUESTION_GLUKO'
+          })
+        } else {
+          let actions = []
+          actions.push({ 'name': 'ui/setCurMeasurementNumber', 'options': this.examination, 'timeout': 0 })
+          actions.push({ 'name': 'ui/setSpinnerEnabled', 'options': true, 'timeout': 0 })
+          actions.push({ 'name': 'ui/setMeasurementStep', 'options': 1, 'timeout': 0 })
+          actions.push({ 'name': 'ui/setMeasurementNum', 'options': this.examination, 'timeout': 0 }) // измерение
+          actions.push({ 'name': 'ui/setFlagExamination', 'options': true, 'timeout': 0 })
+          actions.forEach(item => {
+            setTimeout(() => {
+              this.$store.dispatch(item.name, { meta: { eventId }, data: item.options })
+            }, item.timeout)
+          })
+        }
       }
     }
   }

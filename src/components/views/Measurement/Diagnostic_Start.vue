@@ -102,7 +102,7 @@
 
           <button
             v-if="tile.type === EXAMINATION_TYPE.GLUCOMETER"
-            @click="doExamination(EXAMINATION_TYPE.GLUCOMETER)"
+            v-on:click="toGluko"
             class="btn-dark-main"
             :style="[{ 'background-color': `${ getButtonGlucometryColor }` }]">
 
@@ -293,6 +293,22 @@ export default {
         data: 'WIDTH_HEIGHT'
         // data: 'MEASUREMENT'
         // data: 'RESULT'
+      })
+    },
+    toGluko: function () {
+      let logger = PromobotLogger.getInstance()
+      let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('ui/setFlagConsultation', {
+        meta: { eventId },
+        data: false
+      })
+      this.$store.dispatch('ui/setFlagFullExamination', {
+        meta: { eventId },
+        data: false
+      })
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'QUESTION_GLUKO'
       })
     },
     doExamination: function (examination) {

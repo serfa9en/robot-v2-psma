@@ -6,13 +6,13 @@ export default function (logger) {
   return store => {
     store.subscribe((mutation) => {
       let payload = mutation.payload
-      if (mutation.type === 'app/SET_CREATE_TALON') {
+      if (mutation.type === 'app/SET_CREATE_MAIL') {
         // console.log('CONTROLLER - CREATE_TALON')
         if (payload.data === true) {
           // формирование талона
 
-          let templatePath = 'talon-template.html'
-          fetch(templatePath).then(response => {
+          let templateMail = 'mail-template.html'
+          fetch(templateMail).then(response => {
             return response.text()
           }).then(talon => {
             let htmlResult = ''
@@ -31,33 +31,33 @@ export default function (logger) {
             || store.getters['ui/getMeasurementSaturatsiya'] !== null
             || store.getters['ui/getMeasurementPressure'] !== null
             || store.getters['ui/getMeasurementPulse'] !== null) {
-              resultName += '<h3>Результаты измерений</h3>'
+              resultName += 'Результаты измерений\n'
             }
             if (store.getters['ui/getMeasurementImt'] !== null) {
-              htmlResult += '<ul><li>Рост: ' + store.getters['ui/getMeasurementHeight'] + ' см</li>'
-              htmlResult += '<li>Вес: ' + store.getters['ui/getMeasurementWeight'] + ' кг</li>'
-              htmlResult += '<li>ИМТ: ' + store.getters['ui/getMeasurementImt'] + '</li></ul>'
-              htmlResult += '<p>' + request.getComment(1, store.getters['ui/getMeasurementImt']) + '</p>'
+              htmlResult += 'Рост: ' + store.getters['ui/getMeasurementHeight'] + ' см\n'
+              htmlResult += 'Вес: ' + store.getters['ui/getMeasurementWeight'] + ' кг\n'
+              htmlResult += 'ИМТ: ' + store.getters['ui/getMeasurementImt'] + '\n'
+              htmlResult += ' - ' + request.getComment(1, store.getters['ui/getMeasurementImt']) + '\n'
             }
             if (store.getters['ui/getMeasurementTemperature'] !== null) {
-              htmlResult += '<ul><li>Температура: ' + store.getters['ui/getMeasurementTemperature'] + ' &deg;С</li></ul>'
-              htmlResult += '<p>' + request.getComment(0, store.getters['ui/getMeasurementTemperature']) + '</p>'
+              htmlResult += 'Температура: ' + store.getters['ui/getMeasurementTemperature'] + ' &deg;С\n'
+              htmlResult += ' - ' + request.getComment(0, store.getters['ui/getMeasurementTemperature']) + '\n'
             }
             if (store.getters['ui/getMeasurementGlucometry'] !== null) {
-              htmlResult += '<ul><li>Глюкоза: ' + store.getters['ui/getMeasurementGlucometry'] + ' ммоль/л</li></ul>'
-              htmlResult += '<p>' + request.getComment(2, store.getters['ui/getMeasurementGlucometry']) + '</p>'
+              htmlResult += 'Глюкоза: ' + store.getters['ui/getMeasurementGlucometry'] + ' ммоль/л\n'
+              htmlResult += ' - ' + request.getComment(2, store.getters['ui/getMeasurementGlucometry']) + '\n'
             }
             if (store.getters['ui/getMeasurementSaturatsiya'] !== null) {
-              htmlResult += '<ul><li>Сатурация: ' + store.getters['ui/getMeasurementSaturatsiya'] + '%</li></ul>'
-              htmlResult += '<p>' + request.getComment(3, store.getters['ui/getMeasurementSaturatsiya']) + '</p>'
+              htmlResult += 'Сатурация: ' + store.getters['ui/getMeasurementSaturatsiya'] + '%\n'
+              htmlResult += ' - ' + request.getComment(3, store.getters['ui/getMeasurementSaturatsiya']) + '\n'
             }
             if (store.getters['ui/getMeasurementPressure'] !== null && store.getters['ui/getMeasurementPressureLow'] !== null) {
-              htmlResult += '<ul><li>Давление: ' + store.getters['ui/getMeasurementPressure'] + ' / ' + store.getters['ui/getMeasurementPressureLow'] + ' мм.рт.ст.</li></ul>'
-              htmlResult += '<p>' + request.getCommentPressure(store.getters['ui/getMeasurementPressure'], store.getters['ui/getMeasurementPressureLow']) + '</p>'
+              htmlResult += 'Давление: ' + store.getters['ui/getMeasurementPressure'] + ' / ' + store.getters['ui/getMeasurementPressureLow'] + ' мм.рт.ст.\n'
+              htmlResult += ' - ' + request.getCommentPressure(store.getters['ui/getMeasurementPressure'], store.getters['ui/getMeasurementPressureLow']) + '\n'
             }
             if (store.getters['ui/getMeasurementPulse'] !== null) {
-              htmlResult += '<ul><li>Пульс: ' + store.getters['ui/getMeasurementPulse'] + ' уд./мин.</li></ul>'
-              htmlResult += '<p>' + request.getComment(4, store.getters['ui/getMeasurementPulse']) + '</p>'
+              htmlResult += 'Пульс: ' + store.getters['ui/getMeasurementPulse'] + ' уд./мин.\n'
+              htmlResult += ' - ' + request.getComment(4, store.getters['ui/getMeasurementPulse']) + '\n'
             }
             // console.log(htmlResult)
 
@@ -71,15 +71,15 @@ export default function (logger) {
             || store.getters['ui/getResultSpecialistOphtalmologist'] !== null
             || store.getters['ui/getResultSpecialistOtorinolaringologist'] !== null
             || store.getters['ui/getResultSpecialistEndocrinologist'] !== null) {
-              specialistName += '<h3>Консультация специалиста</h3>'
+              specialistName += 'Консультация специалиста\n'
             }
             let num = 0
             if (store.getters['ui/getResultSpecialistCardiologist'] !== null) {
               num++
-              htmlSpec += '<p>' + num + '.' + specialist.getName(0) + '<br />'
+              htmlSpec += '' + num + '.' + specialist.getName(0) + '\n'
               if (store.getters['ui/getResultSpecialistCardiologist'] === true) {
                 // хорошо
-                htmlSpec += request.getSpecialistGood(0) + '</p>'
+                htmlSpec += request.getSpecialistGood(0) + '\n'
               } else {
                 // плохо
                 htmlSpec += createArrayQuest(0)
@@ -87,10 +87,10 @@ export default function (logger) {
             }
             if (store.getters['ui/getResultSpecialistNeurologist'] !== null) {
               num++
-              htmlSpec += '<p>' + num + '.' + specialist.getName(1) + '<br />'
+              htmlSpec += '' + num + '.' + specialist.getName(1) + '\n'
               if (store.getters['ui/getResultSpecialistNeurologist'] === true) {
                 // хорошо
-                htmlSpec += request.getSpecialistGood(1) + '</p>'
+                htmlSpec += request.getSpecialistGood(1) + '\n'
               } else {
                 // плохо
                 htmlSpec += createArrayQuest(1)
@@ -98,10 +98,10 @@ export default function (logger) {
             }
             if (store.getters['ui/getResultSpecialistGastroenterologist'] !== null) {
               num++
-              htmlSpec += '<p>' + num + '.' + specialist.getName(2) + '<br />'
+              htmlSpec += '' + num + '.' + specialist.getName(2) + '\n'
               if (store.getters['ui/getResultSpecialistGastroenterologist'] === true) {
                 // хорошо
-                htmlSpec += request.getSpecialistGood(2) + '</p>'
+                htmlSpec += request.getSpecialistGood(2) + '\n'
               } else {
                 // плохо
                 htmlSpec += createArrayQuest(2)
@@ -109,10 +109,10 @@ export default function (logger) {
             }
             if (store.getters['ui/getResultSpecialistGynecologist'] !== null) {
               num++
-              htmlSpec += '<p>' + num + '.' + specialist.getName(3) + '<br />'
+              htmlSpec += '' + num + '.' + specialist.getName(3) + '\n'
               if (store.getters['ui/getResultSpecialistGynecologist'] === true) {
                 // хорошо
-                htmlSpec += request.getSpecialistGood(3) + '</p>'
+                htmlSpec += request.getSpecialistGood(3) + '\n'
               } else {
                 // плохо
                 htmlSpec += createArrayQuest(3)
@@ -120,10 +120,10 @@ export default function (logger) {
             }
             if (store.getters['ui/getResultSpecialistUrologist'] !== null) {
               num++
-              htmlSpec += '<p>' + num + '.' + specialist.getName(4) + '<br />'
+              htmlSpec += '' + num + '.' + specialist.getName(4) + '\n'
               if (store.getters['ui/getResultSpecialistUrologist'] === true) {
                 // хорошо
-                htmlSpec += request.getSpecialistGood(4) + '</p>'
+                htmlSpec += request.getSpecialistGood(4) + '\n'
               } else {
                 // плохо
                 htmlSpec += createArrayQuest(4)
@@ -131,10 +131,10 @@ export default function (logger) {
             }
             if (store.getters['ui/getResultSpecialistColoproctologist'] !== null) {
               num++
-              htmlSpec += '<p>' + num + '.' + specialist.getName(5) + '<br />'
+              htmlSpec += '' + num + '.' + specialist.getName(5) + '\n'
               if (store.getters['ui/getResultSpecialistColoproctologist'] === true) {
                 // хорошо
-                htmlSpec += request.getSpecialistGood(5) + '</p>'
+                htmlSpec += request.getSpecialistGood(5) + '\n'
               } else {
                 // плохо
                 htmlSpec += createArrayQuest(5)
@@ -142,27 +142,27 @@ export default function (logger) {
             }
             if (store.getters['ui/getResultSpecialistOphtalmologist'] !== null) {
               num++
-              htmlSpec += '<p>' + num + '.' + specialist.getName(6) + '<br />'
+              htmlSpec += '' + num + '.' + specialist.getName(6) + '\n'
               if (store.getters['ui/getResultSpecialistOphtalmologist'] === true) {
                 // хорошо
-                htmlSpec += request.getSpecialistGood(6) + '</p>'
+                htmlSpec += request.getSpecialistGood(6) + '\n'
               } else {
                 // плохо
                 htmlSpec += createArrayQuest(6)
               }
               htmlSpec += 'Рекомендовано cоблюдать гигиену зрения:'
-              htmlSpec += '<ul><li>' + 'Обеспечивайте хорошее освещение вашего рабочего места' + '</li>'
-              htmlSpec += '<li>' + 'Делайте перерывы каждые 20 минут работы за компьютером' + '</li>'
-              htmlSpec += '<li>' + 'Старайтесь держать осанку' + '</li>'
-              htmlSpec += '<li>' + 'Защищайте глаза от воздействия ультрафиолетового излучения' + '</li>'
-              htmlSpec += '<li>' + 'Включите в ваш рацион питания жирные сорта рыб, овощи и фрукты, печень, орехи' + '</li></ul>'
+              htmlSpec += ' - ' + 'Обеспечивайте хорошее освещение вашего рабочего места' + '\n>'
+              htmlSpec += ' - ' + 'Делайте перерывы каждые 20 минут работы за компьютером' + '\n'
+              htmlSpec += ' - ' + 'Старайтесь держать осанку' + '\n'
+              htmlSpec += ' - ' + 'Защищайте глаза от воздействия ультрафиолетового излучения' + '\n'
+              htmlSpec += ' - ' + 'Включите в ваш рацион питания жирные сорта рыб, овощи и фрукты, печень, орехи' + '\n'
             }
             if (store.getters['ui/getResultSpecialistOtorinolaringologist'] !== null) {
               num++
-              htmlSpec += '<p>' + num + '.' + specialist.getName(7) + '<br />'
+              htmlSpec += '' + num + '.' + specialist.getName(7) + '\n'
               if (store.getters['ui/getResultSpecialistOtorinolaringologist'] === true) {
                 // хорошо
-                htmlSpec += request.getSpecialistGood(7) + '</p>'
+                htmlSpec += request.getSpecialistGood(7) + '\n'
               } else {
                 // плохо
                 htmlSpec += createArrayQuest(7)
@@ -170,10 +170,10 @@ export default function (logger) {
             }
             if (store.getters['ui/getResultSpecialistEndocrinologist'] !== null) {
               num++
-              htmlSpec += '<p>' + num + '.' + specialist.getName(8) + '<br />'
+              htmlSpec += '' + num + '.' + specialist.getName(8) + '\n'
               if (store.getters['ui/getResultSpecialistEndocrinologist'] === true) {
                 // хорошо
-                htmlSpec += request.getSpecialistGood(8) + '</p>'
+                htmlSpec += request.getSpecialistGood(8) + '\n'
               } else {
                 // плохо
                 htmlSpec += createArrayQuest(8)
@@ -200,7 +200,7 @@ export default function (logger) {
             if (store.getters['ui/getResultDiseaseCountOncologyThyroidCancer'] !== null) countDisease++
             if (store.getters['ui/getResultDiseaseCountOncologyBowelCancer'] !== null) countDisease++
 
-            if (countDisease > 0) diseaseName += '<h3>Риск развития заболеваний</h3>'
+            if (countDisease > 0) diseaseName += 'Риск развития заболеваний\n'
 
             htmlDisease += (store.getters['ui/getResultDiseaseCountDiabetesTrue'] !== null ? request.getDisease(0, null) : '')
             htmlDisease += (store.getters['ui/getResultDiseaseCountDiabetes'] !== null
@@ -262,81 +262,63 @@ export default function (logger) {
               + '<p>' + request.getDisease(6, store.getters['ui/getResultDiseaseCountOncologyBowelCancer']) + '</p>' : '')
             // htmlDisease += '<br />'
 
-            adviceName += '<h3>Общие рекомендации</h3>'
-            htmlAdvices += '<p>1. Придерживайтесь принципам правильного питания:<br />'
-            htmlAdvices += '<ul><li>Включить в рацион: фрукты, овощи, бобовые и цельные злаки, ненасыщенные жиры (содержащиеся в рыбе, авокадо и орехах, подсолнечном, соевом и оливковом масле)</li>'
-            htmlAdvices += '<li>Избегать потребления: транс-жиров (замороженные пиццы, пироги, печенье, вафли и т.д.)</li>'
-            htmlAdvices += '<li>Ограничить потребление (свободного сахара) до 12 чайных ложек без верха, соли до менее 5 грамм. Соль должна быть йодированной</li></ul></p>'
-            htmlAdvices += '<p>2. Поддерживайте нормальную массу тела. Индекс массы тела  от 18.5 до 25<br />'
-            htmlAdvices += '3. Выполняйте регулярные физические упражнения. 30 минут ходьбы в день + не менее 75 минут физической активности высокой интенсивности (плавание, бег) в неделю<br />'
-            htmlAdvices += '4. Избегайте стрессовых ситуаций<br />'
-            htmlAdvices += '5. Сохраняйте оптимизм. Учитесь радоваться жизни. Соблюдайте режим сна и отдыха<br />'
-            htmlAdvices += '6. Откажитесь от курения и приема алкоголя</p>'
-            htmlAdvices += '<br />'
+            adviceName += 'Общие рекомендации\n'
+            htmlAdvices += '1. Придерживайтесь принципам правильного питания:\n'
+            htmlAdvices += '  - Включить в рацион: фрукты, овощи, бобовые и цельные злаки, ненасыщенные жиры (содержащиеся в рыбе, авокадо и орехах, подсолнечном, соевом и оливковом масле)\n'
+            htmlAdvices += '  - Избегать потребления: транс-жиров (замороженные пиццы, пироги, печенье, вафли и т.д.)\n'
+            htmlAdvices += '  - Ограничить потребление (свободного сахара) до 12 чайных ложек без верха, соли до менее 5 грамм. Соль должна быть йодированной\n'
+            htmlAdvices += '2. Поддерживайте нормальную массу тела. Индекс массы тела  от 18.5 до 25\n'
+            htmlAdvices += '3. Выполняйте регулярные физические упражнения. 30 минут ходьбы в день + не менее 75 минут физической активности высокой интенсивности (плавание, бег) в неделю\n'
+            htmlAdvices += '4. Избегайте стрессовых ситуаций\n'
+            htmlAdvices += '5. Сохраняйте оптимизм. Учитесь радоваться жизни. Соблюдайте режим сна и отдыха\n'
+            htmlAdvices += '6. Откажитесь от курения и приема алкоголя\n'
+            htmlAdvices += '\n'
 
             if (store.getters['ui/getResultDiseaseCountDiabetesTrue'] !== null) {
-              htmlAdvices += '<h3>Уход за ногами:</h3>'
-              htmlAdvices += '<p>1. Ежедневно самостоятельно или с участием членов семьи осматривайте стопы, состояние кожи, включая промежутки между пальцами<br />'
-              htmlAdvices += '2. Немедленно сообщите лечащему врачу о наличии потертостей, порезов, трещин, царапин, ран и других повреждений кожи<br />'
-              htmlAdvices += '3. Ежедневно мойте ноги теплой водой (температура не ниже 37.0 С), просушивайте стопы аккуратно, мягким полотенцем, не забывая о межпальцевых промежутках<br />'
-              htmlAdvices += '4. При наличии ороговевшей кожи обработайте эти участки пемзой или специальной пилкой для кожи (не металлической). Не пользуйтесь для этих целей лезвием или ножницами<br />'
-              htmlAdvices += '5. Не используйте химические препараты или пластыри для удаления мозолей и ороговевшей кожи<br />'
-              htmlAdvices += '6. При сухой коже стоп после мытья смажьте их кремом, содержащим мочевину, кроме межпальцевых промежутков<br />'
-              htmlAdvices += '7. Осторожно обрабатывайте ногти, не закругляя уголки, используя пилочку, а не острые и режущие инструменты<br />'
-              htmlAdvices += '8. Для согревания ног пользуйтесь теплыми носками, а не грелкой или горячей водой, которые могут вызвать ожог из-за снижения чувствительности<br />'
-              htmlAdvices += '9. Носите бесшовные (или со швами наружу) носки/колготы, меняйте их ежедневно<br />'
-              htmlAdvices += '10. Не ходите без обуви дома и на улице, не надевайте обувь на босую ногу<br />'
-              htmlAdvices += '11. Проконсультируйтесь со специалистом кабинета «Диабетическая стопа» или ортопедом, нужно ли Вам носить профилактическую или сложную ортопедическую обувь<br />'
-              htmlAdvices += '12. Ежедневно осматривайте обувь: нет ли в ней инородного предмета, не завернулась ли стелька, так как это может привести к потертости кожи стоп<br />'
-              htmlAdvices += '13. При повреждении кожи (трещина, царапина, порез) не используйте спиртосодержащие и красящие растворы. Используйте для обработки бесцветные водные антисептические растворы</p>'
-              htmlAdvices += '<br />'
+              htmlAdvices += 'Уход за ногами:\n'
+              htmlAdvices += '1. Ежедневно самостоятельно или с участием членов семьи осматривайте стопы, состояние кожи, включая промежутки между пальцами\n'
+              htmlAdvices += '2. Немедленно сообщите лечащему врачу о наличии потертостей, порезов, трещин, царапин, ран и других повреждений кожи\n'
+              htmlAdvices += '3. Ежедневно мойте ноги теплой водой (температура не ниже 37.0 С), просушивайте стопы аккуратно, мягким полотенцем, не забывая о межпальцевых промежутках\n'
+              htmlAdvices += '4. При наличии ороговевшей кожи обработайте эти участки пемзой или специальной пилкой для кожи (не металлической). Не пользуйтесь для этих целей лезвием или ножницами\n'
+              htmlAdvices += '5. Не используйте химические препараты или пластыри для удаления мозолей и ороговевшей кожи\n'
+              htmlAdvices += '6. При сухой коже стоп после мытья смажьте их кремом, содержащим мочевину, кроме межпальцевых промежутков\n'
+              htmlAdvices += '7. Осторожно обрабатывайте ногти, не закругляя уголки, используя пилочку, а не острые и режущие инструменты\n'
+              htmlAdvices += '8. Для согревания ног пользуйтесь теплыми носками, а не грелкой или горячей водой, которые могут вызвать ожог из-за снижения чувствительности\n'
+              htmlAdvices += '9. Носите бесшовные (или со швами наружу) носки/колготы, меняйте их ежедневно\n'
+              htmlAdvices += '10. Не ходите без обуви дома и на улице, не надевайте обувь на босую ногу\n'
+              htmlAdvices += '11. Проконсультируйтесь со специалистом кабинета «Диабетическая стопа» или ортопедом, нужно ли Вам носить профилактическую или сложную ортопедическую обувь\n'
+              htmlAdvices += '12. Ежедневно осматривайте обувь: нет ли в ней инородного предмета, не завернулась ли стелька, так как это может привести к потертости кожи стоп\n'
+              htmlAdvices += '13. При повреждении кожи (трещина, царапина, порез) не используйте спиртосодержащие и красящие растворы. Используйте для обработки бесцветные водные антисептические растворы\n'
+              htmlAdvices += '\n'
             }
 
-            htmlAdvices += '<p>Регулярная диспансеризация позволит вам вовремя выявить изменения вашего здоровья! <br />'
-            htmlAdvices += 'Для граждан от 18 до 39 лет - 1 раз в три года <br /> '
-            htmlAdvices += 'Для граждан старше 40 лет - ежегодно </p>'
+            htmlAdvices += '\nРегулярная диспансеризация позволит вам вовремя выявить изменения вашего здоровья!\n'
+            htmlAdvices += 'Для граждан от 18 до 39 лет - 1 раз в три года\n '
+            htmlAdvices += 'Для граждан старше 40 лет - ежегодно\n'
 
-            let data = {
-              resultTitle: resultName,
-              result: htmlResult,
-              specialistTitle: specialistName,
-              specialist: htmlSpec,
-              diseaseTitle: diseaseName,
-              disease: htmlDisease,
-              adviceTitle: adviceName,
-              advice: htmlAdvices
-            }
+            let textmail = resultName + htmlResult + specialistName + htmlSpec + diseaseName + htmlDisease + adviceName + htmlAdvices
             /*
-            let data = {
-              result: htmlResult,
-              resultComm: htmlComm,
-              specGood: htmlSpecGood,
-              specBad: htmlSpecBad,
-              advicesOphtalmol: htmlAdvicesOphtalmol,
-              disease: htmlDisease,
-              advices: htmlAdvices,
-              legsAdvices: htmlLegs,
-              advicesDop: htmlAdvicesDop
-            }
-            */
-            for (let k in data) {
-              if (data.hasOwnProperty(k)) {
-                if (typeof data[k] !== 'undefined') {
+            for (let k in textmail) {
+              if (textmail.hasOwnProperty(k)) {
+                if (typeof textmail[k] !== 'undefined') {
                   // talon = talon.replace(`{${k}}`, data[k].replace(/\/n/g, '<br>'))
-                  talon = talon.replace(`{${k}}`, data[k])
+                  talon = talon.replace(`{${k}}`, textmail[k])
                 } else {
                   // console.log('====data[k]', k)
                 }
               }
             }
-            // console.warn('TALON', talon)
+            */
+
+            // console.warn('MAIL', talon)
             // let logger = PromobotLogger.getInstance()
             let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
-            store.dispatch('robot/setPrinterData', {
+            store.dispatch('handlers/sendMailSendMail', {
               meta: { eventId },
               data: {
-                mimeType: 'text/html',
-                talon
+                email: store.getters['ui/getUserMail'],
+                // email: 'serfagen@gmail.com',
+                body: textmail
               }
             })
           })

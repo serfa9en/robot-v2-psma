@@ -119,6 +119,25 @@ export function applicationPlugin (logger) {
               })
             })
           }
+
+          if (payload.data.startsWith('SEND')) {
+            let talon = 'mail-template.html'
+            fetch(talon).then(response => {
+              return response.text()
+            }).then(template => {
+              // Доработать. когда появлятся изменяемые данные
+              // for (let k in data) {
+              //   if (data.hasOwnProperty(k)) {
+              //     this.talon = this.talon.replace(`{${k}}`, data[k]).replace(/\/n/g, '<br>')
+              //   }
+              // }
+              document.getElementById('send_block_wrap').innerHTML = template.split('<br>').join('')
+              dispatch('handlers/sendMailSendMail', {
+                meta: payload.meta,
+                data: template
+              })
+            })
+          }
           break
         case 'robot/SET_USER_ACTION':
           let actions = payload.data

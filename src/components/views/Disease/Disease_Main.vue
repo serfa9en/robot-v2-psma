@@ -1,6 +1,6 @@
 <template>
     <div v-show="showComponent" class="settings">
-        <p class="text">Расчитать риск развития заболевания</p>
+        <p class="text">Рассчитать риск развития заболевания</p>
         <div class="container">
             <div class="block">
                 <button class="btn-dark-main" v-on:click="toTemplateDisease(0)">

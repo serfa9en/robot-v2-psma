@@ -21,6 +21,7 @@
       <Examination/>
       <ExamResult/>
       <PrintView/>
+      <MailView/>
       <OncologyMain/>
       <Diabetes/>
       <Reflux/>
@@ -28,6 +29,7 @@
       <Prostatitis/>
       <DiseaseResult/>
       <RecomendView/>
+      <QuestionGluko/>
       <ExitView/>
     </Content>
     <Footer/>
@@ -58,6 +60,7 @@ import ImtMistakeSuccess from '@/components/views/Measurement/ImtMistakeSuccess'
 import Examination from '@/components/views/FullExam/Examination'
 import ExamResult from '@/components/views/FullExam/Exam_Result'
 import PrintView from '@/components/views/PrintView'
+import MailView from '@/components/views/MailView'
 import OncologyMain from '@/components/views/Disease/Oncology_Main'
 import Diabetes from '@/components/views/Disease/Diabetes'
 import Reflux from '@/components/views/Disease/Reflux'
@@ -65,6 +68,7 @@ import Depression from '@/components/views/Disease/Depression'
 import Prostatitis from '@/components/views/Disease/Prostatitis'
 import DiseaseResult from '@/components/views/Disease/Disease_Result'
 import RecomendView from '@/components/views/RecomendView'
+import QuestionGluko from '@/components/views/QuestionGluko'
 
 import ExitView from '@/components/views/Exit'
 
@@ -94,6 +98,7 @@ export default {
     ExamResult,
     ResultView,
     PrintView,
+    MailView,
     OncologyMain,
     OncologyQuest,
     Diabetes,
@@ -102,6 +107,7 @@ export default {
     Prostatitis,
     DiseaseResult,
     RecomendView,
+    QuestionGluko,
 
     ExitView
   },

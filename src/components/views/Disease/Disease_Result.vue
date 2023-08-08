@@ -226,7 +226,7 @@ export default {
   }
 
   button {
-    width: 260px;
+    width: 270px;
     height: 64px;
     font-size: 20px;
     font-weight: 700;

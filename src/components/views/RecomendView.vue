@@ -97,6 +97,7 @@
     </div>
     <div>
       <button class="btn btn-dark-grad" v-on:click="print">Печать</button>
+      <button class="btn btn-dark-grad" v-on:click="send">Отправить на почту</button>
       <button class="btn btn-yes-no" v-on:click="backView">Назад</button>
     </div>
     </div>
@@ -283,6 +284,13 @@ export default {
         meta: { eventId },
         data: 'MAIN_VIEW'
       })
+    },
+    send: function () {
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: 'MAIL_VIEW'
+      })
     }
   }
 }
@@ -330,11 +338,12 @@ export default {
         cursor: pointer;
     }
     .btn {
-      width: 250px;
+      width: 300px;
       height: 70px;
-      margin: 22px;
-      font-size: 26px;
+      font-size: 20px;
       font-weight: 700;
+      padding: 20px;
+      margin: 15px;
     }
     .btn-next {
       width: 170px;

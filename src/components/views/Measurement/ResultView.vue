@@ -245,12 +245,14 @@ export default {
       })
     },
     repeatWork: function () {
-      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      /*
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
         data: 'MEASUREMENT_' + this.getCurMeasurementNumber + '_1'
       })
-      /*
+      */
+
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       if (this.getCurMeasurementNumber === 3) {
         this.$store.dispatch('engine/handlerClickMoveToState', {
           meta: { eventId },
@@ -262,7 +264,6 @@ export default {
           data: 'MEASUREMENT_' + this.getCurMeasurementNumber + '_1'
         })
       }
-      */
     },
     continueWork: function () {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)

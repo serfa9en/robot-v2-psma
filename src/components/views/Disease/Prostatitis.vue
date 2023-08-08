@@ -407,14 +407,14 @@ export default {
     }
 
     .btn {
-        width: 230px;
+        width: 270px;
         height: 70px;
         margin: 0;
         font-size: 26px;
         font-weight: 700;
 
         &_next {
-            width: 300px;
+            width: 270px;
             font-size: 26px;
             font-weight: 700;
         }
