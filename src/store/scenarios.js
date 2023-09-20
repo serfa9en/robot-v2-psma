@@ -779,6 +779,20 @@ export default {
       timeout: 0
     }
   ],
+  /*
+  description: [
+    {
+      name: 'app/setStep',
+      options: 'description',
+      timeout: 0
+    },
+    {
+      name: 'ui/setHeaderEnabled',
+      options: false,
+      timeout: 0
+    }
+  ],
+  */
 
   wait: [
     { name: 'app/setMeetingTalk', options: false },

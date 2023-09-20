@@ -97,7 +97,7 @@
     </div>
     <div>
       <button class="btn btn-dark-grad" v-on:click="print">Печать</button>
-      <button class="btn btn-dark-grad" v-on:click="send">Отправить на почту</button>
+      <!--<button class="btn btn-dark-grad" v-on:click="send">Отправить на почту</button>-->
       <button class="btn btn-yes-no" v-on:click="backView">Назад</button>
     </div>
     </div>

@@ -3,6 +3,7 @@
 
     <WaitPromo/>
     <Spinner/>
+    <!--<Description/>-->
     <Header/>
     <Content>
       <Unsee/>
@@ -69,6 +70,7 @@ import Prostatitis from '@/components/views/Disease/Prostatitis'
 import DiseaseResult from '@/components/views/Disease/Disease_Result'
 import RecomendView from '@/components/views/RecomendView'
 import QuestionGluko from '@/components/views/QuestionGluko'
+// import Description from './components/views/Description'
 
 import ExitView from '@/components/views/Exit'
 
@@ -79,6 +81,7 @@ export default {
   components: {
     WaitPromo,
     Spinner,
+    // Description,
     Header,
     Content,
     Footer,

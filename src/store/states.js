@@ -465,6 +465,16 @@ export default [
         options: 'recomend_view'
       }]
   },
+  /*
+  {
+    name: 'DESCRIPTION',
+    entering: [
+      {
+        name: 'engine/handlerCallScenario',
+        options: 'description'
+      }]
+  },
+  */
 
   {
     name: 'INITIAL',

@@ -6,8 +6,8 @@
                 <img src="../../../public/dialog-images/result/Result_bad.png">
             </div>
             <div class="button_block">
-                <button class="btn btn-yes-no" v-on:click="print">Печать</button>
-                <button class="btn btn-dark-grad" v-on:click="send">Отправить на почту</button>
+                <button class="btn btn-dark-grad" v-on:click="print">Печать</button>
+                <!--<button class="btn btn-dark-grad" v-on:click="send">Отправить на почту</button>-->
                 <button class="btn btn-yes-no" v-on:click="exit">Выход</button>
             </div>
         </div>

@@ -52,6 +52,10 @@ export default {
     spinner: {
       enabled: null
     },
+    description: {
+      enabled: null,
+      num: null
+    },
     session: {
       user: {
         lost: null
@@ -102,6 +106,8 @@ export default {
 
     // spinner
     setSpinnerEnabled: ({ commit, getters }, payload) => commit('SET_SPINNER_ENABLED', payload),
+    setDescriptionEnabled: ({ commit, getters }, payload) => commit('SET_DESCRIPTION_ENABLED', payload),
+    setDescription: ({ commit, getters }, payload) => commit('SET_DESCRIPTION', payload),
     // SESSION
     setSessionUserLost: ({ commit }, payload) => commit('SET_SESSION_USER_LOST', payload),
     // ACQUAINTANCE
@@ -154,6 +160,8 @@ export default {
 
     // spinner
     SET_SPINNER_ENABLED: (state, payload) => { state.spinner.enabled = payload.data },
+    SET_DESCRIPTION_ENABLED: (state, payload) => { state.description.enabled = payload.data },
+    SET_DESCRIPTION: (state, payload) => { state.description.num = payload.data },
     // SESSION
     SET_SESSION_USER_LOST: (state, payload) => { state.session.user.lost = payload.data },
     // ACQUAINTANCE
@@ -206,6 +214,8 @@ export default {
 
     // spinner
     getSpinnerEnabled: state => state.spinner.enabled,
+    getDescriptionEnabled: state => state.description.enabled,
+    getDescription: state => state.description.num,
     // SESSION
     getSessionUserLost: state => state.session.user.lost,
     // ACQUAINTANCE

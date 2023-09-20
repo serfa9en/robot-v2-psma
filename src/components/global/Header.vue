@@ -4,7 +4,24 @@
             <div>
                 <!--<div class="headerPhoto" v-show="getHeaderBtnLeftPhoto === true" :style="[{ 'background-image': `url(${ getFaceRecognizeGeneralFrame })` }]"></div>
                 <p class="userName" v-if="getHeaderBtnLeftPhoto === true && getUserGet !== null && getUserGet.name">{{ getUserGet.name }}</p>-->
-                <button class="btn" v-text="getHeaderBtnLeftText" @click="bntAction"></button>
+
+                <!--Для кнопки выход-->
+                <!--<button class="btn" v-text="getHeaderBtnLeftText" @click="bntAction"></button>-->
+
+                <!--Для гамбургера-->
+                <input id="menu__toggle" type="checkbox" />
+                <label class="menu__btn" for="menu__toggle">
+                  <span></span>
+                </label>
+                <button class="btn" @click="bntAction"></button>
+                <ul class="menu__box">
+                  <li><a class="menu__item" href="#">К выбору онкологии</a></li>
+                  <li><a class="menu__item" href="#">К выбору болезни</a></li>
+                  <li><a class="menu__item" href="#">На главную</a></li>
+                  <li><a class="menu__item" href="#">Печать</a></li>
+                  <li><a class="menu__item" href="#">На почту</a></li>
+                  <li><a class="menu__item" href="#">Завершить</a></li>
+                </ul>
             </div>
             <div>
                 <div class="logo">
@@ -17,7 +34,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { PromobotLogger, EventInitiatorTypes, EventTypes } from 'promobot-logger'
+// import { PromobotLogger, EventInitiatorTypes, EventTypes } from 'promobot-logger'
+import { type0, type1, type2, type3 } from '../styled/exit_lists'
 
 export default {
   name: 'header-component',
@@ -34,6 +52,8 @@ export default {
     ])
   },
   methods: {
+    /*
+    // Для кнопки Выход
     bntAction: function () {
       let logger = PromobotLogger.getInstance()
       let eventId = logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
@@ -43,6 +63,31 @@ export default {
           data: this.getHeaderBtnLeftAction[key]
         })
       }
+    }
+    */
+
+    // Для гамбургера
+    bntAction: function () {
+      console.log('type_0:\n')
+      for (let i = 0; i < 4; i++) {
+        console.log(type0(i) + '\n')
+      }
+      console.log('\n')
+      console.log('type_1:\n')
+      for (let i = 0; i < 5; i++) {
+        console.log(type1(i) + '\n')
+      }
+      console.log('\n')
+      console.log('type_2:\n')
+      for (let i = 0; i < 6; i++) {
+        console.log(type2(i) + '\n')
+      }
+      console.log('\n')
+      console.log('type_3:\n')
+      for (let i = 0; i < 7; i++) {
+        console.log(type3(i) + '\n')
+      }
+      console.log('\n')
     }
   }
 }
@@ -82,6 +127,8 @@ export default {
         }
     }
 
+    /*
+    // Для кнопки "Выход"
     .btn {
         display: inline-block;
         background: #B1A7A6;
@@ -97,6 +144,94 @@ export default {
         color: #ffffff;
         cursor: pointer;
     }
+    */
+
+    /*
+    // Для гамбургера
+    .btn {
+      width: 64px;
+      height: 64px;
+        display: inline-block;
+        background: #691B26;
+        border: 2px solid #3E0E14;
+        box-sizing: border-box;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    */
+
+    // Для гамбургера
+    #menu__toggle {
+  opacity: 0;
+}
+#menu__toggle:checked + .menu__btn > span {
+  transform: rotate(45deg);
+}
+#menu__toggle:checked + .menu__btn > span::before {
+  top: 0;
+  transform: rotate(0deg);
+}
+#menu__toggle:checked + .menu__btn > span::after {
+  top: 0;
+  transform: rotate(90deg);
+}
+#menu__toggle:checked ~ .menu__box {
+  left: 0 !important;
+}
+.menu__btn {
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 1;
+}
+.menu__btn > span,
+.menu__btn > span::before,
+.menu__btn > span::after {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: #691B26;
+  transition-duration: .25s;
+}
+.menu__btn > span::before {
+  content: ' ';
+  top: -15px;
+}
+.menu__btn > span::after {
+  content: ' ';
+  top: 15px;
+}
+
+.menu__box {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 300px;
+  height: 100%;
+  margin: 0;
+  padding: 150px 0;
+  list-style: none;
+  background-color: #EAE8E8;
+  box-shadow: 2px 2px 6px rgba(62, 14, 20, .4);
+  transition-duration: .25s;
+}
+.menu__item {
+  display: block;
+  padding: 20px 50px;
+  color: #3E0E14;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  transition-duration: .25s;
+}
+.menu__item:hover {
+  background-color: #B1A7A6;
+}
     .logo {
         // border: 2px solid palevioletred;
         display: inline-block;

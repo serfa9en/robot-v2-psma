@@ -59,7 +59,7 @@
           <div>
             <!--<button class="btn_result btn-dark-grad" v-on:click="getResultPrint">Получить <br> результаты</button>-->
             <button class="btn_result btn-dark-grad" v-on:click="getRecomend">Получить <br> рекомендации</button>
-            <button class="btn_result btn-yes-no" v-on:click="continueWork">Продолжить обследование</button>
+            <button class="btn_result btn-yes-no" v-on:click="continueWork">Продолжить <br>обследование</button>
           </div>
         </div>
       </transition>
@@ -741,8 +741,8 @@ export default {
         &_result {
           width: 300px;
           height: 70px;
-          margin: 22px;
-          font-size: 26px;
+          margin: 20px;
+          font-size: 22px;
           font-weight: 700;
         }
 
