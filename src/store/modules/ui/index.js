@@ -68,6 +68,13 @@ export default {
     recomend: {
       type: null,
       diabetes: null
+    },
+    exitItems: {
+      oncology: null,
+      disease: null,
+      specialist: null,
+      measurement: null,
+      main: null
     }
   },
   actions: {
@@ -120,9 +127,15 @@ export default {
     setFlagExit: ({ commit }, payload) => commit('SET_FLAG_EXIT', payload),
     setFlagDiseaseDiabetes: ({ commit }, payload) => commit('SET_FLAG_DISEASE_DIABETES', payload),
     setRecomendType: ({ commit }, payload) => commit('SET_RECOMEND_TYPE', payload),
-    setRecomendDiabetes: ({ commit }, payload) => commit('SET_RECOMEND_DIABETES', payload)
+    setRecomendDiabetes: ({ commit }, payload) => commit('SET_RECOMEND_DIABETES', payload),
     // setRecomendType2: ({ commit }, payload) => commit('SET_RECOMEND_TYPE2', payload),
     // setRecomendType4: ({ commit }, payload) => commit('SET_RECOMEND_TYPE4', payload)
+
+    setExitItemsOncology: ({ commit }, payload) => commit('SET_EXITITEMS_ONCOLOGY', payload),
+    setExitItemsDisease: ({ commit }, payload) => commit('SET_EXITITEMS_DISEASE', payload),
+    setExitItemsSpecialist: ({ commit }, payload) => commit('SET_EXITITEMS_SPECIALIST', payload),
+    setExitItemsMeasurement: ({ commit }, payload) => commit('SET_EXITITEMS_MEASUREMENT', payload),
+    setExitItemsMain: ({ commit }, payload) => commit('SET_EXITITEMS_MAIN', payload)
   },
   mutations: {
     ...mutationsUserMeasurement,
@@ -175,9 +188,15 @@ export default {
     SET_FLAG_DISEASE_DIABETES: (state, payload) => { state.user.flagDisease.diabetes = payload.data },
 
     SET_RECOMEND_TYPE: (state, payload) => { state.recomend.type = payload.data },
-    SET_RECOMEND_DIABETES: (state, payload) => { state.recomend.diabetes = payload.data }
+    SET_RECOMEND_DIABETES: (state, payload) => { state.recomend.diabetes = payload.data },
     // SET_RECOMEND_TYPE2: (state, payload) => { state.recomend.type2 = payload.data },
     // SET_RECOMEND_TYPE4: (state, payload) => { state.recomend.type4 = payload.data }
+
+    SET_EXITITEMS_ONCOLOGY: (state, payload) => { state.exitItems.oncology = payload.data },
+    SET_EXITITEMS_DISEASE: (state, payload) => { state.exitItems.disease = payload.data },
+    SET_EXITITEMS_SPECIALIST: (state, payload) => { state.exitItems.specialist = payload.data },
+    SET_EXITITEMS_MEASUREMENT: (state, payload) => { state.exitItems.measurement = payload.data },
+    SET_EXITITEMS_MAIN: (state, payload) => { state.exitItems.main = payload.data }
   },
   getters: {
     ...gettersUserMeasurement,
@@ -229,8 +248,14 @@ export default {
     getFlagDiseaseDiabetes: state => state.user.flagDisease.diabetes,
 
     getRecomendType: state => state.recomend.type,
-    getRecomendDiabetes: state => state.recomend.diabetes
+    getRecomendDiabetes: state => state.recomend.diabetes,
     // getRecomendType2: state => state.recomend.type2,
     // getRecomendType4: state => state.recomend.type4
+
+    getExitItemsOncology: state => state.exitItems.oncology,
+    getExitItemsDisease: state => state.exitItems.disease,
+    getExitItemsSpecialist: state => state.exitItems.specialist,
+    getExitItemsMeasurement: state => state.exitItems.measurement,
+    getExitItemsMain: state => state.exitItems.main
   }
 }

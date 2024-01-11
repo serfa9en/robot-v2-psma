@@ -11,7 +11,7 @@
       -->
         <div>
             <button class="btn btn-yes-no" v-on:click="exit">Выход</button>
-            <button class="btn btn-yes-no" v-on:click="toMainView">На главную</button>
+            <!--<button class="btn btn-yes-no" v-on:click="toMainView">На главную</button>-->
             <!--<button v-if="this.getPreStateName === 'ONCOLOGY_MAIN'" class="btn btn-yes-no" v-on:click="toDisease">Назад</button>-->
             <button class="btn btn_next btn-dark-grad" v-on:click="next">Продолжить</button>
         </div>
@@ -52,7 +52,8 @@ export default {
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
       this.$store.dispatch('engine/handlerClickMoveToState', {
         meta: { eventId },
-        data: 'PRINT_VIEW'
+        // data: 'PRINT_VIEW'
+        data: 'MEET_FACE'
       })
     },
     toMainView: function () {

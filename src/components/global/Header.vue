@@ -13,14 +13,16 @@
                 <label class="menu__btn" for="menu__toggle">
                   <span></span>
                 </label>
-                <button class="btn" @click="bntAction"></button>
                 <ul class="menu__box">
-                  <li><a class="menu__item" href="#">К выбору онкологии</a></li>
-                  <li><a class="menu__item" href="#">К выбору болезни</a></li>
-                  <li><a class="menu__item" href="#">На главную</a></li>
-                  <li><a class="menu__item" href="#">Печать</a></li>
-                  <li><a class="menu__item" href="#">На почту</a></li>
-                  <li><a class="menu__item" href="#">Завершить</a></li>
+                  <li v-if="getExitItemsOncology"><a class="menu__item" href="#item" v-on:click="btnAction('ONCOLOGY_MAIN')">К выбору онкологии</a></li>
+                  <li v-if="getExitItemsDisease"><a class="menu__item" href="#item" v-on:click="btnAction('DISEASE_MAIN')">К выбору болезни</a></li>
+                  <li v-if="getExitItemsSpecialist"><a class="menu__item" href="#item" v-on:click="btnAction('SPECIALIST_START')">К выбору специалиста</a></li>
+                  <li v-if="getExitItemsMeasurement"><a class="menu__item" href="#item" v-on:click="btnAction('DIAGNOSTIC_START')">К выбору измерения</a></li>
+                  <li v-if="getExitItemsMain"><a class="menu__item" href="#item" v-on:click="btnAction('MAIN_VIEW')">На главную</a></li>
+                  <li><a class="menu__item" href="#item" v-on:click="btnAction('PRINT_VIEW')">Печать</a></li>
+                  <!--<li><a class="menu__item" href="#">На почту</a></li>-->
+                  <li><a class="menu__item" href="#item" v-on:click="toRemove">Очистить результаты</a></li>
+                  <li><a class="menu__item" href="#item" v-on:click="btnAction('EXIT')">Завершить</a></li>
                 </ul>
             </div>
             <div>
@@ -34,8 +36,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-// import { PromobotLogger, EventInitiatorTypes, EventTypes } from 'promobot-logger'
-import { type0, type1, type2, type3 } from '../styled/exit_lists'
+import { EventInitiatorTypes, EventTypes } from 'promobot-logger'
 
 export default {
   name: 'header-component',
@@ -48,7 +49,12 @@ export default {
       'getHeaderBtnLeftText',
       'getHeaderBtnLeftAction',
       'getHeaderBtnLeftEnabled',
-      'getHeaderBtnLeftPhoto'
+      'getHeaderBtnLeftPhoto',
+      'getExitItemsOncology',
+      'getExitItemsDisease',
+      'getExitItemsSpecialist',
+      'getExitItemsMeasurement',
+      'getExitItemsMain'
     ])
   },
   methods: {
@@ -67,27 +73,22 @@ export default {
     */
 
     // Для гамбургера
-    bntAction: function () {
-      console.log('type_0:\n')
-      for (let i = 0; i < 4; i++) {
-        console.log(type0(i) + '\n')
-      }
-      console.log('\n')
-      console.log('type_1:\n')
-      for (let i = 0; i < 5; i++) {
-        console.log(type1(i) + '\n')
-      }
-      console.log('\n')
-      console.log('type_2:\n')
-      for (let i = 0; i < 6; i++) {
-        console.log(type2(i) + '\n')
-      }
-      console.log('\n')
-      console.log('type_3:\n')
-      for (let i = 0; i < 7; i++) {
-        console.log(type3(i) + '\n')
-      }
-      console.log('\n')
+    btnAction: function (val) {
+      document.getElementById('menu__toggle').checked = false
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerClickMoveToState', {
+        meta: { eventId },
+        data: val
+      })
+    },
+    toRemove: function () {
+      // очистка результатов
+      document.getElementById('menu__toggle').checked = false
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/handlerCallScenario', {
+        meta: { eventId },
+        data: 'reset'
+      })
     }
   }
 }
@@ -146,20 +147,6 @@ export default {
     }
     */
 
-    /*
-    // Для гамбургера
-    .btn {
-      width: 64px;
-      height: 64px;
-        display: inline-block;
-        background: #691B26;
-        border: 2px solid #3E0E14;
-        box-sizing: border-box;
-        border-radius: 10px;
-        cursor: pointer;
-    }
-    */
-
     // Для гамбургера
     #menu__toggle {
   opacity: 0;
@@ -214,7 +201,7 @@ export default {
   width: 300px;
   height: 100%;
   margin: 0;
-  padding: 150px 0;
+  padding: 100px 0;
   list-style: none;
   background-color: #EAE8E8;
   box-shadow: 2px 2px 6px rgba(62, 14, 20, .4);

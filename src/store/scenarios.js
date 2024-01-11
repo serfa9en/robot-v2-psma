@@ -167,7 +167,12 @@ export default {
     },
     { name: 'ui/setFlagConsultation', options: null, timeout: 0 },
     { name: 'ui/setFlagExamination', options: null, timeout: 0 },
-    { name: 'ui/setFlagFullExamination', options: null, timeout: 0 }
+    { name: 'ui/setFlagFullExamination', options: null, timeout: 0 },
+    { name: 'ui/setExitItemsMain', options: false, timeout: 0 },
+    { name: 'ui/setExitItemsSpecialist', options: false, timeout: 0 },
+    { name: 'ui/setExitItemsMeasurement', options: false, timeout: 0 },
+    { name: 'ui/setExitItemsDisease', options: false, timeout: 0 },
+    { name: 'ui/setExitItemsOncology', options: false, timeout: 0 }
   ],
   // пройти отдельное обследование
   diagnostic_start: [
@@ -195,7 +200,9 @@ export default {
         'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsMain', options: true, timeout: 0 },
+    { name: 'ui/setExitItemsMeasurement', options: false, timeout: 0 }
     // { name: 'ui/setFlagConsultation', options: false, timeout: 0 }
   ],
   specialist: [
@@ -220,7 +227,9 @@ export default {
         'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsMain', options: true, timeout: 0 },
+    { name: 'ui/setExitItemsSpecialist', options: false, timeout: 0 }
   ],
   specialist_quest: [
     {
@@ -244,7 +253,8 @@ export default {
         'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsSpecialist', options: true, timeout: 0 }
   ],
   specialist_result: [
     {
@@ -275,7 +285,10 @@ export default {
         'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsMain', options: true, timeout: 0 },
+    { name: 'ui/setExitItemsDisease', options: false, timeout: 0 },
+    { name: 'ui/setExitItemsOncology', options: false, timeout: 0 }
   ],
   disease_quest: [
     {
@@ -299,7 +312,9 @@ export default {
         'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsDisease', options: true, timeout: 0 },
+    { name: 'ui/setExitItemsOncology', options: true, timeout: 0 }
   ],
   width_height: [
     {
@@ -323,7 +338,8 @@ export default {
         'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsMeasurement', options: true, timeout: 0 }
   ],
   exit_view: [
     {
@@ -338,7 +354,8 @@ export default {
     }
   ],
   measurement: [
-    { name: 'app/setStep', options: 'measurement', timeout: 50 }
+    { name: 'app/setStep', options: 'measurement', timeout: 50 },
+    { name: 'ui/setExitItemsMeasurement', options: true, timeout: 0 }
     // { name: 'engine/handlerCallScenario', options: 'exit', timeout: 100 }
   ],
   exit: [
@@ -550,7 +567,8 @@ export default {
         'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsMain', options: true, timeout: 0 }
   ],
 
   exam_result: [
@@ -638,7 +656,8 @@ export default {
         'engine/handlerClickMoveToState': 'EXIT'
       },
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsMeasurement', options: true, timeout: 0 }
   ],
   oncology_main: [
     {
@@ -655,7 +674,9 @@ export default {
       name: 'ui/setSpinnerEnabled',
       options: false,
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsDisease', options: true, timeout: 0 },
+    { name: 'ui/setExitItemsOncology', options: false, timeout: 0 }
   ],
 
   diabetes: [
@@ -673,7 +694,9 @@ export default {
       name: 'ui/setSpinnerEnabled',
       options: false,
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsDisease', options: true, timeout: 0 },
+    { name: 'ui/setExitItemsOncology', options: false, timeout: 0 }
   ],
   reflux: [
     {
@@ -690,7 +713,9 @@ export default {
       name: 'ui/setSpinnerEnabled',
       options: false,
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsDisease', options: true, timeout: 0 },
+    { name: 'ui/setExitItemsOncology', options: false, timeout: 0 }
   ],
   depression: [
     {
@@ -707,7 +732,9 @@ export default {
       name: 'ui/setSpinnerEnabled',
       options: false,
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsDisease', options: true, timeout: 0 },
+    { name: 'ui/setExitItemsOncology', options: false, timeout: 0 }
   ],
   prostatitis: [
     {
@@ -724,7 +751,9 @@ export default {
       name: 'ui/setSpinnerEnabled',
       options: false,
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsDisease', options: true, timeout: 0 },
+    { name: 'ui/setExitItemsOncology', options: false, timeout: 0 }
   ],
   oncology_quest: [
     {
@@ -741,7 +770,9 @@ export default {
       name: 'ui/setSpinnerEnabled',
       options: false,
       timeout: 0
-    }
+    },
+    { name: 'ui/setExitItemsDisease', options: true, timeout: 0 },
+    { name: 'ui/setExitItemsOncology', options: true, timeout: 0 }
   ],
   disease_result: [
     {

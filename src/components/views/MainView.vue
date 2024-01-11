@@ -70,6 +70,7 @@ export default {
     ]),
     showComponent () {
       if (this.getStep === 'main_view') {
+        this.loggingCurrentStateName()
         // console.log('this.getUserGeneral.id = ', this.getUserGeneral.id)
         /*
         let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
@@ -83,6 +84,13 @@ export default {
     }
   },
   methods: {
+    loggingCurrentStateName: function () {
+      let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)
+      this.$store.dispatch('engine/setPreStateName', {
+        meta: { eventId },
+        data: 'MAIN_VIEW'
+      })
+    },
     next: function () {
       // переход на след страницу
       let eventId = global.logger.logEvent(EventInitiatorTypes.USER, EventTypes.CLICK)

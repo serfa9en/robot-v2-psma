@@ -62,7 +62,7 @@ export function getLength (number) {
     case 5: return 5
     case 6: return 4
     case 7: return 6
-    case 8: return 6
+    case 8: return 7
   }
 }
 
