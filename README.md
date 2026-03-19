@@ -8,3 +8,5 @@ git commit -m "second commit"
 git branch -M master
 
 git push -u origin master
+
+* млат
